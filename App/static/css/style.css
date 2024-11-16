@@ -30,18 +30,25 @@
 	--color-two: #06030D;
 	--color-three: #2F2A3D;
 
-	--color-four: #EEEEEE;
+	--blanco-puro: #EEEEEE;
+	--blanco-fondo: #ddddddbb;
 	--color-five: #D51944;
-	--color-six: #6E6C74;
+	--color-rosa: #d51945d0;
+	--color-six: #828184;
 
 	--form-color: #004f45;
+	--negro-carbon: #1A1A1A;
+	--verde-oscuro: #0d3f04;
+	--verde-suave:#A3C586;
+	--verde-menta:#E2F1E6;
+	--gris-claro:#c0bcbc;
 }
 
 body,html{
 	font-family: 'roboto_condensed_light';
 	width: 100vw;
 	height: 100vh;
-	background-color: var(--color-one);
+	background-color: var(--blanco-fondo);
 	color: var(--color-four);
 	font-size: 16px;
 }
@@ -110,7 +117,7 @@ body,html{
 .form-control,
 .form-control:active,
 .form-control:focus{
-	color: #FFF;
+	color: #000000;
 }
 .form-control:focus,
 .form-control:active{
@@ -217,7 +224,7 @@ select.form-control option{
 	max-width: 320px;
 	height: auto;
 	border: 1px solid var(--form-color);
-	background-color: var(--color-one);
+	background-color: var(--negro-carbon);
 	border-radius: 4px;
 	padding: 15px;
 }
@@ -274,7 +281,7 @@ select.form-control option{
 .nav-lateral-content{
 	max-width: 300px;
 	height: 100%;
-	background-color: var(--color-two);
+	background-color: var(--gris-claro);
 }
 .nav-lateral-bar{
 	height: 3px;
@@ -330,16 +337,16 @@ select.form-control option{
 }
 .nav-lateral-menu ul li a.active{
 	color: #fff;
-	background-color: var(--color-five);
+	background-color: var(--color-rosa);
 }
 .nav-lateral-menu ul li a:hover{
-	color: #fff;
+	color: #000000;
 	background-image: linear-gradient(to right, transparent, rgba(250, 30, 78, .1) 50%, transparent);
 }
 .nav-lateral-menu ul li ul{
 	display: none;
 	border: 1px solid var(--color-five);
-	background-color: var(--color-one);
+	background-color: var(--blanco-puro);
 }
 .show-nav-lateral-submenu{
 	display: block !important;
