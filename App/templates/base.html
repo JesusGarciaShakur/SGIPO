@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>Prestigio Óptico {% block title %}{% endblock %}</title>
 	<!-- Normalize V8.0.1 -->
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
@@ -21,6 +23,7 @@
 	<!-- General Styles -->
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
 	<!-- Main container -->
 	<main class="full-box main-container">
@@ -30,7 +33,8 @@
 			<div class="full-box nav-lateral-content">
 				<figure class="full-box nav-lateral-avatar">
 					<i class="far fa-times-circle show-nav-lateral"></i>
-					<img src="{{ url_for('static', filename='assets/avatar/Avatar.png') }}" class="img-fluid" alt="Avatar">
+					<img src="{{ url_for('static', filename='assets/avatar/Avatar.png') }}" class="img-fluid"
+						alt="Avatar">
 					<figcaption class="roboto-medium text-center">
 						David Flores Ramírez <br><small class="roboto-condensed-light">Administrador</small>
 					</figcaption>
@@ -43,71 +47,100 @@
 						</li>
 
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-user-tie fa-fw"></i> &nbsp; Administradores <i class="fas fa-chevron-down"></i></a>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-user-tie fa-fw"></i> &nbsp;
+								Administradores <i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; Nuevo Administrador</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; Lista de Administradores</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; Generar reportes</a></li>
+								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp;
+										Nuevo Administrador</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i>
+										&nbsp; Lista de Administradores</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i>
+										&nbsp; Generar reportes</a></li>
 							</ul>
 						</li>
 
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-box-open fa-fw"></i> &nbsp; Productos <i class="fas fa-chevron-down"></i></a>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-box-open fa-fw"></i> &nbsp; Productos
+								<i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.product') }}"><i class="fas fa-box fa-fw"></i> &nbsp; Nuevo producto</a></li>
-								<li><a href="{{ url_for('admin.product_list') }}"><i class="fas fa-boxes fa-fw"></i> &nbsp; Lista de productos</a></li>
-								<li><a href="{{ url_for('admin.product') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; Nueva Marca</a></li>
-								<li><a href="{{ url_for('admin.product_list') }}"><i class="fas fa-copyright fa-fw"></i> &nbsp; Lista de Marcas</a></li>
+								<li><a href="{{ url_for('admin.product') }}"><i class="fas fa-box fa-fw"></i> &nbsp;
+										Nuevo producto</a></li>
+								<li><a href="{{ url_for('admin.product_list') }}"><i class="fas fa-boxes fa-fw"></i>
+										&nbsp; Lista de productos</a></li>
+								<li><a href="{{ url_for('admin.product') }}"><i class="fas fa-plus-square fa-fw"></i>
+										&nbsp; Nueva Marca</a></li>
+								<li><a href="{{ url_for('admin.product_list') }}"><i class="fas fa-copyright fa-fw"></i>
+										&nbsp; Lista de Marcas</a></li>
 							</ul>
 						</li>
 
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-truck-moving fa-fw"></i> &nbsp; Proveedores <i class="fas fa-chevron-down"></i></a>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-truck-moving fa-fw"></i> &nbsp;
+								Proveedores <i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; Nuevo Proveedor</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-truck-moving fa-fw"></i> &nbsp; Lista de Proveedores</a></li>
+								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-plus-square fa-fw"></i>
+										&nbsp; Nuevo Proveedor</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i
+											class="fas fa-truck-moving fa-fw"></i> &nbsp; Lista de Proveedores</a></li>
 							</ul>
 						</li>
 
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-child fa-fw"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-child fa-fw"></i> &nbsp; Clientes <i
+									class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; Nuevo cliente</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; Lista de Clientes</a></li>
+								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp;
+										Nuevo cliente</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i>
+										&nbsp; Lista de Clientes</a></li>
 							</ul>
 						</li>
 
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; Ventas <i class="fas fa-chevron-down"></i></a>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; Ventas
+								<i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-cart-plus fa-fw"></i> &nbsp; Nueva venta</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; Lista de Ventas</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-thumbs-down fa-fw"></i> &nbsp; Devoluciones</a></li>
+								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-cart-plus fa-fw"></i> &nbsp;
+										Nueva venta</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i
+											class="fas fa-shopping-cart fa-fw"></i> &nbsp; Lista de Ventas</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-thumbs-down fa-fw"></i>
+										&nbsp; Devoluciones</a></li>
 							</ul>
 						</li>
 
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-concierge-bell fa-fw"></i> &nbsp; Servicios <i class="fas fa-chevron-down"></i></a>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-concierge-bell fa-fw"></i> &nbsp;
+								Servicios <i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; Nuevo Servicio</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-stream fa-fw"></i> &nbsp; Lista de Servicios</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; Registrar nuevo servicio</a></li>
+								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-plus-square fa-fw"></i>
+										&nbsp; Nuevo Servicio</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-stream fa-fw"></i>
+										&nbsp; Lista de Servicios</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-plus-square fa-fw"></i>
+										&nbsp; Registrar nuevo servicio</a></li>
 							</ul>
 						</li>
 
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-archive fa-fw"></i> &nbsp; Inventario <i class="fas fa-chevron-down"></i></a>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-archive fa-fw"></i> &nbsp; Inventario
+								<i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-stream fa-fw"></i> &nbsp; Lista de Inventario</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; Generar Reporte</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-stream fa-fw"></i>
+										&nbsp; Lista de Inventario</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-plus-square fa-fw"></i>
+										&nbsp; Generar Reporte</a></li>
 							</ul>
 						</li>
 
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-book-open fa-fw"></i> &nbsp; Ordenes de Compra <i class="fas fa-chevron-down"></i></a>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-book-open fa-fw"></i> &nbsp; Ordenes de
+								Compra <i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-stream fa-fw"></i> &nbsp; Lista de Ordenes</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; Generar Factura</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-stream fa-fw"></i>
+										&nbsp; Lista de Ordenes</a></li>
+								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-plus-square fa-fw"></i>
+										&nbsp; Generar Factura</a></li>
 							</ul>
 						</li>
 
@@ -115,9 +148,39 @@
 				</nav>
 			</div>
 		</section>
-
-		{% block content %}
-        {% endblock %}
+		<section class="full-box page-content">
+			<nav class="full-box navbar-info">
+				<a href="#" class="float-left show-nav-lateral"><i class="fas fa-exchange-alt"></i></a>
+				<a href="#" data-toggle="modal" data-target="#ModalHelp"><i class="far fa-question-circle"></i></a>
+				<a href="#"><i class="fas fa-user-cog"></i></a>
+				<a href="#" class="btn-exit-system"><i class="fas fa-power-off"></i></a>
+			</nav>
+		{% block content %}{% endblock %}
+		</section>
+		<!-- Help Modal -->
+		<div class="modal fade" id="ModalHelp" tabindex="-1" role="dialog" aria-labelledby="ModalHelpTitle"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title roboto-medium text-center" id="exampleModalLongTitle">Modal title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit sunt perferendis magni
+						expedita
+						possimus quidem, ex, culpa totam, sapiente, laboriosam iste fugit accusamus odio! Impedit beatae
+						eveniet asperiores distinctio sunt?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-black roboto-condensed-regular"
+							data-dismiss="modal">Cerrar</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
 	<!-- jQuery V3.4.1 -->
 	<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
@@ -129,10 +192,11 @@
 	<script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 	<!-- Bootstrap Material Design V4.0 -->
 	<script src="{{ url_for('static', filename='js/bootstrap-material-design.min.js') }}"></script>
-	<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+	<script>$(document).ready(function () { $('body').bootstrapMaterialDesign(); });</script>
 	<script>
 		const loginUrl = "{{ url_for('home.login') }}";
 	</script>
 	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
+
 </html>
