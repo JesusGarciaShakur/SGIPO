@@ -38,18 +38,31 @@
 			<p class="text-center">
 				Inicia sesión con tu cuenta
 			</p>
-			<form action="">
+			<form method="post">
+				{{ form.csrf_token }}
 				<div class="form-group">
-					<label for="UserName" class="bmd-label-floating"><i class="fas fa-user-secret"></i> &nbsp;
-						Nombre de usuario</label>
-					<input type="text" class="form-control" id="UserName">
+					<label for="UserName" class="bmd-label-floating">
+						<i class="fas fa-user-secret"></i> &nbsp; Nombre de usuario
+					</label>
+					{{ form.userName_user(class="form-control", id="UserName", placeholder="") }}
+					{% if form.userName_user.errors %}
+						{% for error in form.userName_user.errors %}
+							<p class="error-message">{{ error }}</p>
+						{% endfor %}
+					{% endif %}
 				</div>
 				<div class="form-group">
-					<label for="UserPassword" class="bmd-label-floating"><i class="fas fa-key"></i> &nbsp;
-						Contraseña</label>
-					<input type="password" class="form-control" id="UserPassword">
+					<label for="UserPassword" class="bmd-label-floating">
+						<i class="fas fa-key"></i> &nbsp; Contraseña
+					</label>
+					{{ form.password_user(class="form-control", id="UserPassword", placeholder="") }}
+					{% if form.password_user.errors %}
+						{% for error in form.password_user.errors %}
+							<p class="error-message">{{ error }}</p>
+						{% endfor %}
+					{% endif %}
 				</div>
-				<a href="{{ url_for('admin.home') }}" class="btn-login text-center">ACCEDER</a>
+				<button type="submit" class="btn-login text-center">INGRESAR</button>
 			</form>
 		</div>
 	</div>

@@ -29,26 +29,29 @@ $(document).ready(function () {
 			PageConten.addClass('active');
 		}
 	});
+	// Obtener elementos
+	const exitButton = document.querySelector('.btn-exit-system');
+	const modal = document.getElementById('exitModal');
+	const cancelButton = document.getElementById('cancelExit');
+	const confirmButton = document.getElementById('confirmExit');
 
-	/*  Exit system buttom */
-	$('.btn-exit-system').on('click', function (e) {
+	// Mostrar el modal cuando se hace click en el botón de salir
+	exitButton.addEventListener('click', (e) => {
 		e.preventDefault();
-		Swal.fire({
-			title: 'Estas seguro que quieres cerrar sesión?',
-			text: "Estás a punto de cerrar la sesión y salir del sistema.",
-			type: 'question',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Si, salir!',
-			cancelButtonText: 'No, cancelar'
-		}).then((result) => {
-			if (result.value) {
-				window.location.href = loginUrl;
-			}
-		});
+		modal.classList.add('show');
+	});
+
+	// Cerrar el modal cuando se cancela
+	cancelButton.addEventListener('click', () => {
+		modal.classList.remove('show');
+	});
+
+	// Confirmar la salida (puedes poner la URL de logout aquí)
+	confirmButton.addEventListener('click', () => {
+		window.location.href = '/logout'; // Cambia esto con la URL de logout real
 	});
 });
+
 (function ($) {
 	$(window).on("load", function () {
 		$(".page-content, .nav-lateral-content").mCustomScrollbar({

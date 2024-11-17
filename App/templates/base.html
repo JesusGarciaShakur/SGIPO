@@ -50,7 +50,8 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-user-tie fa-fw"></i> &nbsp;
 								Administradores <i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp;
+								<li><a href="{{ url_for('admin.admin_register') }}"><i
+											class="fas fa-user-plus fa-fw"></i> &nbsp;
 										Nuevo Administrador</a></li>
 								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i>
 										&nbsp; Lista de Administradores</a></li>
@@ -78,7 +79,8 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-truck-moving fa-fw"></i> &nbsp;
 								Proveedores <i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-plus-square fa-fw"></i>
+								<li><a href="{{ url_for('admin.admin_register') }}"><i
+											class="fas fa-plus-square fa-fw"></i>
 										&nbsp; Nuevo Proveedor</a></li>
 								<li><a href="{{ url_for('admin.admin_list') }}"><i
 											class="fas fa-truck-moving fa-fw"></i> &nbsp; Lista de Proveedores</a></li>
@@ -89,7 +91,8 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-child fa-fw"></i> &nbsp; Clientes <i
 									class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp;
+								<li><a href="{{ url_for('admin.admin_register') }}"><i
+											class="fas fa-user-plus fa-fw"></i> &nbsp;
 										Nuevo cliente</a></li>
 								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i>
 										&nbsp; Lista de Clientes</a></li>
@@ -100,7 +103,8 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; Ventas
 								<i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-cart-plus fa-fw"></i> &nbsp;
+								<li><a href="{{ url_for('admin.admin_register') }}"><i
+											class="fas fa-cart-plus fa-fw"></i> &nbsp;
 										Nueva venta</a></li>
 								<li><a href="{{ url_for('admin.admin_list') }}"><i
 											class="fas fa-shopping-cart fa-fw"></i> &nbsp; Lista de Ventas</a></li>
@@ -113,7 +117,8 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-concierge-bell fa-fw"></i> &nbsp;
 								Servicios <i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin') }}"><i class="fas fa-plus-square fa-fw"></i>
+								<li><a href="{{ url_for('admin.admin_register') }}"><i
+											class="fas fa-plus-square fa-fw"></i>
 										&nbsp; Nuevo Servicio</a></li>
 								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-stream fa-fw"></i>
 										&nbsp; Lista de Servicios</a></li>
@@ -155,8 +160,17 @@
 				<a href="#"><i class="fas fa-user-cog"></i></a>
 				<a href="#" class="btn-exit-system"><i class="fas fa-power-off"></i></a>
 			</nav>
-		{% block content %}{% endblock %}
+			{% block content %}{% endblock %}
 		</section>
+		<!-- Modal de salir-->
+		<div class="modal" id="exitModal">
+			<div class="modal-content">
+				<h3>¿Estás seguro que quieres cerrar sesión?</h3>
+				<p>Estás a punto de cerrar la sesión y salir del sistema.</p>
+				<button class="btn btn-confirm" id="confirmExit">Sí, salir!</button>
+				<button class="btn btn-cancel" id="cancelExit">No, cancelar</button>
+			</div>
+		</div>
 		<!-- Help Modal -->
 		<div class="modal fade" id="ModalHelp" tabindex="-1" role="dialog" aria-labelledby="ModalHelpTitle"
 			aria-hidden="true">
