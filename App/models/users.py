@@ -27,11 +27,11 @@ class User:
     def update(self):
         with mydb.cursor() as cursor:
             self.password_user = generate_password_hash(self.password_user)
-            sql = "INSERT users_sgipo SET userName_user=%s, password_user=%s, id_rol=%s, name_user=%s, lastName_user=%s, numberPhone_user=%s, image_user WHERE id_user=%s)"
+            sql = "UPDATE users_sgipo SET userName_user=%s, password_user=%s, id_rol=%s, name_user=%s, lastName_user=%s, numberPhone_user=%s, image_user=%s WHERE id_user=%s"
             values = (self.userName_user, self.password_user, self.id_rol, self.name_user, self.lastName_user, self.numberPhone_user, self.image_user, self.id_user)
             #revisar errores
-            #print(f"SQL: {sql}")
-            #print(f"Values: {values}")
+            print(f"SQL: {sql}")
+            print(f"Values: {values}")
             cursor.execute(sql, values)
             mydb.commit()
         return self.id_user 
@@ -78,6 +78,89 @@ class User:
                             image_user=user["image_user"])
                 return user
             return None
+
+    @staticmethod
+    def get_all():
+        users = []
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = "SELECT * FROM vista_usuarios"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            for row in result:
+                user = User(
+                    id_user=row["id de usuario"],
+                    id_rol=row["tipo de usuario"],
+                    userName_user=row["nombre de usuario"],
+                    name_user=row["nombre"],
+                    lastName_user=row["apellido"],
+                    numberPhone_user=row["numero de telefono"],
+                    image_user=row["imagen de usuario"]
+                )
+                users.append(user)
+        return users
+
+    @staticmethod
+    def get_paginated_users(page, per_page):
+        offset = (page - 1) * per_page
+        users = []
+        
+        with mydb.cursor(dictionary=True) as cursor:
+            cursor.execute("SELECT COUNT(*) FROM vista_usuarios")
+            total = cursor.fetchone()['COUNT(*)']
+
+            cursor.execute("SELECT * FROM vista_usuarios ORDER BY 'id_user' DESC LIMIT %s OFFSET %s", (per_page, offset))
+            result = cursor.fetchall()
+            for row in result:
+                user = User(
+                    id_user=row["id de usuario"],
+                    id_rol=row["tipo de usuario"],
+                    userName_user=row["nombre de usuario"],
+                    name_user=row["nombre"],
+                    lastName_user=row["apellido"],
+                    numberPhone_user=row["numero de telefono"],
+                    image_user=row["imagen de usuario"]
+                )
+                users.append(user)
+        return users, total
+
+    @staticmethod
+    def search(query, page, per_page):
+        offset = (page - 1) * per_page
+        users = []
+        search_query = f"%{query}%"
+
+        with mydb.cursor(dictionary=True) as cursor:
+            cursor.execute("""
+                SELECT COUNT(*) FROM vista_usuarios
+                WHERE `id de usuario` LIKE %s OR `tipo de usuario` LIKE %s OR `nombre de usuario` LIKE %s
+                OR `nombre` LIKE %s OR `apellido` LIKE %s
+                OR `numero de telefono` LIKE %s
+            """, (search_query, search_query, search_query, search_query, search_query, search_query))
+            total = cursor.fetchone()['COUNT(*)']
+
+            cursor.execute("""
+                SELECT * FROM vista_usuarios
+                WHERE `id de usuario` LIKE %s OR `tipo de usuario` LIKE %s OR `nombre de usuario` LIKE %s
+                OR `nombre` LIKE %s OR `apellido` LIKE %s
+                OR `numero de telefono` LIKE %s
+                ORDER BY `id de usuario` DESC LIMIT %s OFFSET %s
+            """, (search_query, search_query, search_query, search_query, search_query, search_query, per_page, offset))
+
+            result = cursor.fetchall()
+
+            for row in result:
+                user = User(
+                    id_user=row["id de usuario"],
+                    id_rol=row["tipo de usuario"],
+                    userName_user=row["nombre de usuario"],
+                    name_user=row["nombre"],
+                    lastName_user=row["apellido"],
+                    numberPhone_user=row["numero de telefono"],
+                    image_user=row["imagen de usuario"]
+                )
+                users.append(user)
+        return users, total
+
 
 #id_user, userName_user, password_user, id_rol, name_user, lastName_user, numberPhone_user, image_user
     @staticmethod

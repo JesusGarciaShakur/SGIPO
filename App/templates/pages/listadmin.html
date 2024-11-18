@@ -4,122 +4,113 @@
 
 
 {% block content %}
+
 <!-- Page header -->
 <div class="full-box page-header">
-	<h3 class="text-left">
-		<i class="fas fa-users fa-fw"></i> &nbsp; LIST ADMIN
-	</h3>
-	<p class="text-justify">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex.
-		Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
-	</p>
+    <h3 class="text-left">
+        <i class="fas fa-users fa-fw"></i> &nbsp; Lista de Administradores
+    </h3>
+    <p class="text-justify">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex.
+        Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
+    </p>
 </div>
 
 <div class="container-fluid">
-	<ul class="full-box list-unstyled page-nav-tabs">
-		<li>
-			<a href="{{ url_for('admin.admin_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NEW ADMIN</a>
-		</li>
-		<li>
-			<a class="active" href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LIST
-				ADMIN</a>
-		</li>
-	</ul>
+    <ul class="full-box list-unstyled page-nav-tabs">
+        <li>
+            <a href="{{ url_for('admin.admin_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NEW ADMIN</a>
+        </li>
+        <li>
+            <a class="active" href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
+                ADMIN</a>
+        </li>
+    </ul>
 </div>
 
 <!-- Content -->
 <div class="container-fluid">
-	<div class="table-responsive">
-		<table class="table table-dark table-sm">
-			<thead>
-				<tr class="text-center roboto-medium">
-					<th>#</th>
-					<th>NAME</th>
-					<th>LAST NAME</th>
-					<th>UPDATE</th>
-					<th>DELETE</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="text-center">
-					<td>1</td>
-					<td>Admin name</td>
-					<td>Admin last name</td>
-					<td>
-						<button type="button" class="btn btn-success">
-							<i class="fas fa-sync-alt"></i>
-
-						</button>
-					</td>
-					<td>
-						<button type="button" class="btn btn-warning">
-							<i class="far fa-trash-alt"></i>
-						</button>
-					</td>
-				</tr>
-				<tr class="text-center">
-					<td>2</td>
-					<td>Admin name</td>
-					<td>Admin last name</td>
-					<td>
-						<button type="button" class="btn btn-success">
-							<i class="fas fa-sync-alt"></i>
-
-						</button>
-					</td>
-					<td>
-						<button type="button" class="btn btn-warning">
-							<i class="far fa-trash-alt"></i>
-						</button>
-					</td>
-				</tr>
-				<tr class="text-center">
-					<td>3</td>
-					<td>Admin name</td>
-					<td>Admin last name</td>
-					<td>
-						<button type="button" class="btn btn-success">
-							<i class="fas fa-sync-alt"></i>
-
-						</button>
-					</td>
-					<td>
-						<button type="button" class="btn btn-warning">
-							<i class="far fa-trash-alt"></i>
-						</button>
-					</td>
-				</tr>
-				<tr class="text-center">
-					<td>4</td>
-					<td>Admin name</td>
-					<td>Admin last name</td>
-					<td>
-						<button type="button" class="btn btn-success">
-							<i class="fas fa-sync-alt"></i>
-
-						</button>
-					</td>
-					<td>
-						<button type="button" class="btn btn-warning">
-							<i class="far fa-trash-alt"></i>
-						</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<nav aria-label="Page navigation example">
-		<ul class="pagination justify-content-center">
-			<li class="page-item disabled">
-				<a class="page-link" href="#" tabindex="-1">Previous</a>
-			</li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item">
-				<a class="page-link" href="#">Next</a>
-			</li>
-		</ul>
-	</nav>
+    <form method="get" action="{{ url_for('admin.admin_list') }}" class="form-inline justify-content-center">
+        <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, username, teléfono, etc."
+            style="width: 300px;" value="{{ request.args.get('search', '') }}">
+        <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-dark table-sm custom-table">
+            <thead>
+                <tr class="text-center roboto-medium">
+                    <th>Tipo de Usuario</th>
+                    <th>Nombre de Usuario</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Número de teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id_rol }}</td>
+                    <td>{{ user.userName_user }}</td>
+                    <td>{{ user.name_user }}</td>
+                    <td>{{ user.lastName_user }}</td>
+                    <td>{{ user.numberPhone_user }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <!-- Botón Editar -->
+                            <a href="{{ url_for('admin.admin_update_users', id_user=user.id_user) }}"
+                                class="btn btn-primary btn-sm" style="border-radius: 5px;">
+                                <i class="far fa-edit"></i> Editar
+                            </a>
+                            <!-- Botón Eliminar con modal -->
+                            <button type="button" class="btn btn-danger btn-sm btn-delete-user" style="border-radius: 5px;">
+                                <i class="fa fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                        <!-- Modal de Confirmación -->
+                        <div class="modal" id="deleteModal{{ user.id_user }}">
+                            <div class="modal-content">
+                                <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
+                                <p>Esta acción no se puede deshacer.</p>
+                                <form action="{{ url_for('admin.admin_delete_users', id_user=user.id_user) }}" method="post">
+                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
+                                    <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('admin.admin_list', page=page-1, search=request.args.get('search', '')) }}"
+                    tabindex="{% if page == 1 %}-1{% endif %}" aria-label="Anterior">
+                    Anterior
+                </a>
+            </li>
+            {% for p in range(1, total_pages + 1) %}
+            <li class="page-item {% if p == page %}active{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('admin.admin_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
+            </li>
+            {% endfor %}
+            <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('admin.admin_list', page=page+1, search=request.args.get('search', '')) }}"
+                    tabindex="{% if page == total_pages %}-1{% endif %}" aria-label="Siguiente">
+                    Siguiente
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
 </div>
 {% endblock %}

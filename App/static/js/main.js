@@ -50,6 +50,26 @@ $(document).ready(function () {
 	confirmButton.addEventListener('click', () => {
 		window.location.href = '/logout'; // Cambia esto con la URL de logout real
 	});
+
+	// Obtener elementos
+	const deleteButtons = document.querySelectorAll('.btn-delete-user');
+	const modals = document.querySelectorAll('.modal');
+	const cancelButtons = document.querySelectorAll('.btn-cancel-delete');
+
+	// Mostrar el modal al hacer clic en el botón de eliminar
+	deleteButtons.forEach((button, index) => {
+		button.addEventListener('click', (e) => {
+			e.preventDefault();
+			modals[index].classList.add('show');
+		});
+	});
+
+	// Cerrar el modal al hacer clic en cancelar
+	cancelButtons.forEach((button, index) => {
+		button.addEventListener('click', () => {
+			modals[index].classList.remove('show');
+		});
+	});
 });
 
 (function ($) {
