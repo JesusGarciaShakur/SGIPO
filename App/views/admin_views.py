@@ -1,14 +1,15 @@
 from flask import Blueprint, jsonify, make_response, render_template, redirect, request, session, abort, url_for
 from utils.file_handler import save_image
 from forms.user_forms import RegisterUserForm, UpdateUserForm
-from models.users import User, Type
+from models.users import User, Type, count_users
 
 admin_views = Blueprint('admin', __name__)
 
 @admin_views.route('/home')
 def home():
     if session.get('user') and session.get('user')['type'] == 1:
-        return render_template('pages/home.html')
+        total_users = count_users()
+        return render_template('pages/home.html', total_users=total_users)
     else:
         abort(403)
 

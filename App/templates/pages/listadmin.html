@@ -11,19 +11,19 @@
         <i class="fas fa-users fa-fw"></i> &nbsp; Lista de Administradores
     </h3>
     <p class="text-justify">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex.
-        Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
+        A continuación se muestran todos los usuarios con acceso al sistema. Estos usuarios tienen permisos completos 
+        para realizar acciones como crear, editar, eliminar y buscar dentro de los diferentes módulos del sistema.
     </p>
 </div>
 
 <div class="container-fluid">
     <ul class="full-box list-unstyled page-nav-tabs">
         <li>
-            <a href="{{ url_for('admin.admin_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NEW ADMIN</a>
+            <a href="{{ url_for('admin.admin_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NUEVO ADMIN</a>
         </li>
         <li>
             <a class="active" href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
-                ADMIN</a>
+                ADMINS</a>
         </li>
     </ul>
 </div>

@@ -42,24 +42,28 @@
 				{{ form.csrf_token }}
 				<div class="form-group">
 					<label for="UserName" class="bmd-label-floating">
-						<i class="fas fa-user-secret"></i> &nbsp; Nombre de usuario
+						<i class="fas fa-user"></i> &nbsp; Nombre de usuario
 					</label>
 					{{ form.userName_user(class="form-control", id="UserName", placeholder="") }}
 					{% if form.userName_user.errors %}
-						{% for error in form.userName_user.errors %}
-							<p class="error-message">{{ error }}</p>
-						{% endfor %}
+					{% for error in form.userName_user.errors %}
+					<p class="error-message">{{ error }}</p>
+					{% endfor %}
 					{% endif %}
 				</div>
 				<div class="form-group">
-					<label for="UserPassword" class="bmd-label-floating">
+					<label for="Password" class="bmd-label-floating">
 						<i class="fas fa-key"></i> &nbsp; Contraseña
 					</label>
-					{{ form.password_user(class="form-control", id="UserPassword", placeholder="") }}
+					{{ form.password_user(id="password", type="password", class="form-control pr-5", required="required") }}
+					<button type="button" class="btn btn-link p-0 position-absolute" id="togglePassword1"
+						style="right: 10px; top: 50%; transform: translateY(1%);">
+						<i class="fa fa-eye" id="eye-icon1"></i>
+					</button>
 					{% if form.password_user.errors %}
-						{% for error in form.password_user.errors %}
-							<p class="error-message">{{ error }}</p>
-						{% endfor %}
+					{% for error in form.password_user.errors %}
+					<p class="error-message">{{ error }}</p>
+					{% endfor %}
 					{% endif %}
 				</div>
 				<button type="submit" class="btn-login text-center">INGRESAR</button>
@@ -77,7 +81,8 @@
 	<!-- Bootstrap Material Design V4.0 -->
 	<script src="{{ url_for('static', filename='js/bootstrap-material-design.min.js') }}"></script>
 	<script>$(document).ready(function () { $('body').bootstrapMaterialDesign(); });</script>
-	<script src="{{ url_for('static', filename='js/main.j') }}"></script>
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/eye_password.js') }}"></script>
 </body>
 
 </html>

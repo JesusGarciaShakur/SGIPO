@@ -9,19 +9,22 @@
 		<i class="fas fa-user-plus fa-fw"></i> &nbsp; Registrar nuevo Administrador
 	</h3>
 	<p class="text-justify">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa
-		blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
+		A continuación, se presenta un formulario para registrar a un nuevo usuario.
+		Este usuario tendrá acceso al sistema con permisos para realizar acciones como
+		crear, editar, eliminar y buscar en los diferentes módulos disponibles.
 	</p>
 </div>
 
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a class="active" href="{{ url_for('admin.admin_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NEW
+			<a class="active" href="{{ url_for('admin.admin_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp;
+				NUEVO
 				ADMIN</a>
 		</li>
 		<li>
-			<a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LIST ADMIN</a>
+			<a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
+				ADMINS</a>
 		</li>
 	</ul>
 </div>
@@ -39,102 +42,115 @@
 							<label for="AdminDNI" class="bmd-label-floating">Nombre de usuario</label>
 							{{ form.userName_user(class="form-control", required="required") }}
 							{% if form.userName_user.errors %}
-								{% for error in form.userName_user.errors %}
-									<div class="text-danger">{{ error }}</div>
-								{% endfor %}
+							{% for error in form.userName_user.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
 							{% endif %}
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Nombre(s)</label>
-								{{ form.name_user(class="form-control", required="required", pattern="[a-zA-z ]{1,25}", title="Solo letras y espacios son permitidos") }}
-								{% for error in form.name_user.errors %}
-									<div class="text-danger">{{ error }}</div>
-								{% endfor %}
+							{{ form.name_user(class="form-control", required="required", pattern="[a-zA-z ]{1,25}",
+							title="Solo letras y espacios son permitidos") }}
+							{% for error in form.name_user.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Apellido(s)</label>
-								{{ form.lastName_user(class="form-control", required="required", pattern="[a-zA-z ]{1,25}", title="Solo letras y espacios son permitidos") }}
-								{% for error in form.lastName_user.errors %}
-									<div class="text-danger">{{ error }}</div>
-								{% endfor %}
+							{{ form.lastName_user(class="form-control", required="required", pattern="[a-zA-z ]{1,25}",
+							title="Solo letras y espacios son permitidos") }}
+							{% for error in form.lastName_user.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Numero de teléfono</label>
-								{{ form.numberPhone_user(class="form-control", required="required", title="Solo letras y espacios son permitidos") }}
-								{% for error in form.numberPhone_user.errors %}
-									<div class="text-danger">{{ error }}</div>
-								{% endfor %}
+							{{ form.numberPhone_user(class="form-control", required="required", title="Solo letras y
+							espacios son permitidos") }}
+							{% for error in form.numberPhone_user.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
 						</div>
 					</div>
+					<!-- Primer campo de contraseña -->
 					<div class="col-12 col-md-6">
 						<div class="form-group position-relative">
 							<label for="Password1" class="bmd-label-floating">Contraseña</label>
-							{{ form.password_user(id="password", type="password", class="form-control pr-5", required="required", pattern="(?=.*\\d)(?=.*[a-zA-Z]).{8,}", title="Las contraseñas deben coincidir") }}
+							{{ form.password_user(id="password", type="password", class="form-control pr-5",
+							required="required", pattern="(?=.*\\d)(?=.*[a-zA-Z]).{8,}", title="Las contraseñas deben
+							coincidir") }}
 							<!-- Botón de ver/ocultar contraseña -->
-							<button type="button" class="btn btn-link p-0 position-absolute" id="togglePassword1" style="right: 10px; top: 50%; transform: translateY(1%);">
+							<button type="button" class="btn btn-link p-0 position-absolute" id="togglePassword1"
+								style="right: 10px; top: 50%; transform: translateY(1%);">
 								<i class="fa fa-eye" id="eye-icon1"></i>
 							</button>
 							{% for error in form.password_user.errors %}
-								<div class="text-danger">{{ error }}</div>
+							<div class="text-danger">{{ error }}</div>
 							{% endfor %}
 						</div>
 					</div>
-					
+
+					<!-- Segundo campo de contraseña (confirmación) -->
 					<div class="col-12 col-md-6">
 						<div class="form-group position-relative">
 							<label for="Password1" class="bmd-label-floating">Confirmar Contraseña</label>
-							{{ form.password_user_confirm(id="password_confirm", type="password", class="form-control pr-5", required="required", pattern="(?=.*\\d)(?=.*[a-zA-Z]).{8,}", title="Las contraseñas deben coincidir") }}
+							{{ form.password_user_confirm(id="password_confirm", type="password", class="form-control
+							pr-5", required="required", pattern="(?=.*\\d)(?=.*[a-zA-Z]).{8,}", title="Las contraseñas
+							deben coincidir") }}
 							<!-- Botón de ver/ocultar contraseña -->
-							<button type="button" class="btn btn-link p-0 position-absolute" id="togglePassword2" style="right: 10px; top: 50%; transform: translateY(1%);">
+							<button type="button" class="btn btn-link p-0 position-absolute" id="togglePassword2"
+								style="right: 10px; top: 50%; transform: translateY(1%);">
 								<i class="fa fa-eye" id="eye-icon2"></i>
 							</button>
 							{% for error in form.password_user_confirm.errors %}
-								<div class="text-danger">{{ error }}</div>
+							<div class="text-danger">{{ error }}</div>
 							{% endfor %}
 						</div>
 					</div>
-					
-				</div>
-			</div>
-			<div class="col-12">
-				<div style="padding: 20px 0 5px 0; color: #004f45;">Tipo de Usuario</div>
-				<div class="form-group">
-					{% for id_rol, name_rol in form.id_rol.choices %}
-						<div class="radio">
-							<label>
-								<input type="radio" name="{{ form.id_rol.name }}" value="{{ id_rol }}" {% if form.id_rol.data == id_rol %}checked{% endif %}>
-								<i class="fas fa-{{ 'user-tie' if name_rol == 'Administrador' else 'user' }} fa-fw"></i> &nbsp; {{ name_rol }}
-							</label>
-						</div>
-					{% endfor %}
-				</div>
-			</div>			
-			<fieldset>
-				<legend><i class="far fa-image"></i> &nbsp; Imagen</legend>
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-12">
-							<div class="form-group">
-								<label for="ProductImg" class="bmd-label-floating">Imagen de Usuario</label><br>
-								{{ form.image_user() }}
-								{% if form.image_user.errors %}
-									{% for error in form.image_user.errors %}
-										<p>{{ error }}</p>
-									{% endfor %}
-								{% endif %}
-								<br>
-								<small class="text-muted">Selecciona una imagen para tu peril (solo se admiten archivos tipo jpg, png)</small>
+
+					<div class="col-12">
+						<div style="padding: 20px 0 5px 0; color: #004f45;">Tipo de Usuario</div>
+						<div class="form-group">
+							{% for id_rol, name_rol in form.id_rol.choices %}
+							<div class="radio">
+								<label>
+									<input type="radio" name="{{ form.id_rol.name }}" value="{{ id_rol }}" {% if
+										form.id_rol.data==id_rol %}checked{% endif %}>
+									<i
+										class="fas fa-{{ 'user-tie' if name_rol == 'Administrador' else 'user' }} fa-fw"></i>
+									&nbsp; {{ name_rol }}
+								</label>
 							</div>
+							{% endfor %}
 						</div>
 					</div>
-				</div>
-			</fieldset>
+					<fieldset>
+						<legend><i class="far fa-image"></i> &nbsp; Imagen</legend>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<label for="ProductImg" class="bmd-label-floating">Imagen de Usuario</label><br>
+										{{ form.image_user() }}
+										{% if form.image_user.errors %}
+										{% for error in form.image_user.errors %}
+										<p>{{ error }}</p>
+										{% endfor %}
+										{% endif %}
+										<br>
+										<small class="text-muted">Selecciona una imagen para tu peril (solo se admiten
+											archivos tipo jpg, png)</small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</fieldset>
 		</fieldset>
 		<p class="text-center" style="margin-top: 40px;">
 			<button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; CLEAR</button>

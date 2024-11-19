@@ -14,18 +14,6 @@
 	</p>
 </div>
 
-<div class="container-fluid">
-	<ul class="full-box list-unstyled page-nav-tabs">
-		<li>
-			<a class="active" href="{{ url_for('admin.admin_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NEW
-				ADMIN</a>
-		</li>
-		<li>
-			<a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LIST ADMIN</a>
-		</li>
-	</ul>
-</div>
-
 <!-- Content -->
 <div class="container-fluid">
 	<form method="post" action="{{ url_for('admin.admin_update_users', id_user=user.id_user) }}" class="form-neon" enctype="multipart/form-data">

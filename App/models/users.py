@@ -161,7 +161,6 @@ class User:
                 users.append(user)
         return users, total
 
-
 #id_user, userName_user, password_user, id_rol, name_user, lastName_user, numberPhone_user, image_user
     @staticmethod
     def check_username(userName_user):
@@ -213,3 +212,11 @@ class Type:
                 type= Type(id_rol=row["id_rol"], name_rol=row["name_rol"])
                 types.append(type)
         return types
+    
+
+def count_users():
+    with mydb.cursor(dictionary=True) as cursor:
+        cursor.execute("SELECT COUNT(*) FROM users_sgipo")
+        result = cursor.fetchone()
+        return result['COUNT(*)']
+    

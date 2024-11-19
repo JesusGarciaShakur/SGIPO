@@ -23,9 +23,10 @@ def login():
                 'type': user.id_rol,
                 'name_user': user.name_user,
                 'lastName_user': user.lastName_user,
-                'numberPhone_user': user.numberPhone_user
+                'numberPhone_user': user.numberPhone_user,
+                'image_user': user.image_user
             }
-            print(f"Usuario autenticado: {user.userName_user} conm el permiso de rol: {user.id_rol}")
+            print(f"Usuario autenticado: {user.userName_user} con el permiso de rol: {user.id_rol}, informacion de imagen {user.image_user}")
             if user.id_rol == 1:
                 return redirect(url_for('admin.home'))
             else:
