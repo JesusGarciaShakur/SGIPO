@@ -60,7 +60,7 @@
                     <td>
                         <div class="btn-group" role="group">
                             <!-- Botón Editar -->
-                            <a href="{{ url_for('admin.admin_update_users', id_user=user.id_user) }}"
+                            <a href="{{ url_for('admin.admin_update', id_user=user.id_user) }}"
                                 class="btn btn-primary btn-sm" style="border-radius: 5px;">
                                 <i class="far fa-edit"></i> Editar
                             </a>
@@ -74,7 +74,7 @@
                             <div class="modal-content">
                                 <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
                                 <p>Esta acción no se puede deshacer.</p>
-                                <form action="{{ url_for('admin.admin_delete_users', id_user=user.id_user) }}" method="post">
+                                <form action="{{ url_for('admin.admin_delete', id_user=user.id_user) }}" method="post">
                                     <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
                                     <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
                                 </form>

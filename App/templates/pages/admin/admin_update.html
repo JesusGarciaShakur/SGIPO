@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Administrador{% endblock title %}
+{% block title %}Actualizar Administrador{% endblock title %}
 
 {% block content %}
 
@@ -16,7 +16,7 @@
 
 <!-- Content -->
 <div class="container-fluid">
-	<form method="post" action="{{ url_for('admin.admin_update_users', id_user=user.id_user) }}" class="form-neon" enctype="multipart/form-data">
+	<form method="post" action="{{ url_for('admin.admin_update', id_user=user.id_user) }}" class="form-neon" enctype="multipart/form-data">
 		{{ form.csrf_token }}
 		<fieldset>
 			<legend><i class="far fa-address-card"></i> &nbsp; Informacion personal</legend>
@@ -127,7 +127,7 @@
 		<p class="text-center" style="margin-top: 40px;">
 			<button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; CLEAR</button>
 			&nbsp; &nbsp;
-			<button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; SAVE</button>
+			<button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; ACTUALIZAR</button>
 		</p>
 	</form>
 </div>
