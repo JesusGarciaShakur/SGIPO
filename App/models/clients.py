@@ -1,5 +1,4 @@
 from .db import get_connection
-from werkzeug.security import generate_password_hash, check_password_hash
 
 mydb = get_connection()
 # id_client, name_client, lastName_client, age_client, numberPhone_client, email_client, direction_client, id_disease

@@ -106,10 +106,10 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-child fa-fw"></i> &nbsp; Clientes <i
 									class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin_register') }}"><i
+								<li><a href="{{ url_for('client.client_register') }}"><i
 											class="fas fa-user-plus fa-fw"></i> &nbsp;
 										Nuevo cliente</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i>
+								<li><a href="{{ url_for('client.client_list') }}"><i class="fas fa-users fa-fw"></i>
 										&nbsp; Lista de Clientes</a></li>
 							</ul>
 						</li>
@@ -137,7 +137,7 @@
 										&nbsp; Nuevo Servicio</a></li>
 								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-stream fa-fw"></i>
 										&nbsp; Lista de Servicios</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-plus-square fa-fw"></i>
+								<li><a href="{{ url_for('service.service_list') }}"><i class="fas fa-plus-square fa-fw"></i>
 										&nbsp; Registrar nuevo servicio</a></li>
 							</ul>
 						</li>
@@ -161,6 +161,17 @@
 										&nbsp; Lista de Ordenes</a></li>
 								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-plus-square fa-fw"></i>
 										&nbsp; Generar Factura</a></li>
+							</ul>
+						</li>
+
+						<li>
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-toolbox fa-fw"></i> &nbsp; Reparaciones de 
+								Óptica <i class="fas fa-chevron-down"></i></a>
+							<ul>
+								<li><a href="{{ url_for('repair.repair_list') }}"><i class="fas fa-list-ul fa-fw"></i>
+										&nbsp; Lista de Reparaciones</a></li>
+								<li><a href="{{ url_for('repair.repair_register') }}"><i class="fas fa-tools fa-fw"></i>
+										&nbsp; Registrar nueva reparacion</a></li>
 							</ul>
 						</li>
 

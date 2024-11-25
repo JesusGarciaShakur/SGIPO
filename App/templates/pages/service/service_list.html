@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista Servicios{% endblock title %}
+
+
+{% block content %}
+
+<!-- Page header -->
+<div class="full-box page-header">
+    <h3 class="text-left">
+        <i class="fas fa-child fa-fw"></i> &nbsp; Lista de Servicios
+    </h3>
+    <p class="text-justify">
+        A continuación se muestra la lista de servicios disponibles en la óptica "Prestigio Óptico"
+    </p>
+</div>
+
+<div class="container-fluid">
+    <ul class="full-box list-unstyled page-nav-tabs">
+        <li>
+            <a href="{{ url_for('service.service_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NUEVO SERVICIO</a>
+        </li>
+        <li>
+            <a class="active" href="{{ url_for('service.service_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
+                SERVICIOS</a>
+        </li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <form method="get" action="{{ url_for('service.service_list') }}" class="form-inline justify-content-center">
+        <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, username, teléfono, etc."
+            style="width: 300px;" value="{{ request.args.get('search', '') }}">
+        <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-dark table-sm custom-table">
+            <thead>
+                <tr class="text-center roboto-medium">
+                    <th>Nombre del servicio</th>
+                    <th>Descripción del servicio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services %}
+                <tr>
+                    <td>{{ service.name_service }}</td>
+                    <td>{{ service.description_service }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <!-- Botón Editar -->
+                            <a href="{{ url_for('service.service_update', id_service=service.id_service) }}"
+                                class="btn btn-primary btn-sm" style="border-radius: 5px;">
+                                <i class="far fa-edit"></i> Editar
+                            </a>
+                            <!-- Botón Eliminar con modal -->
+                            <button type="button" class="btn btn-danger btn-sm btn-delete-user" style="border-radius: 5px;">
+                                <i class="fa fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                        <!-- Modal de Confirmación -->
+                        <div class="modal" id="deleteModal{{ service.id_service }}">
+                            <div class="modal-content">
+                                <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
+                                <p>Esta acción no se puede deshacer.</p>
+                                <form action="{{ url_for('service.service_delete', id_service=service.id_service) }}" method="post">
+                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
+                                    <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('service.service_list', page=page-1, search=request.args.get('search', '')) }}"
+                    tabindex="{% if page == 1 %}-1{% endif %}" aria-label="Anterior">
+                    Anterior
+                </a>
+            </li>
+            {% for p in range(1, total_pages + 1) %}
+            <li class="page-item {% if p == page %}active{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('service.service_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
+            </li>
+            {% endfor %}
+            <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('service.service_list', page=page+1, search=request.args.get('search', '')) }}"
+                    tabindex="{% if page == total_pages %}-1{% endif %}" aria-label="Siguiente">
+                    Siguiente
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+</div>
+{% endblock %}

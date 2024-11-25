@@ -3,6 +3,7 @@ from utils.file_handler import save_image
 from forms.user_forms import RegisterUserForm, UpdateUserForm
 from models.users import User, Type, count_users
 from models.clients import count_clients
+from models.repairs import count_repairs
 
 admin_views = Blueprint('admin', __name__)
 
@@ -11,7 +12,8 @@ def home():
     if session.get('user') and session.get('user')['type'] == 1:
         total_users = count_users()
         total_clients = count_clients()
-        return render_template('pages/home.html', total_users=total_users, total_clients=total_clients)
+        total_repairs = count_repairs()
+        return render_template('pages/home/home.html', total_users=total_users, total_clients=total_clients, total_repairs=total_repairs)
     else:
         abort(403)
 

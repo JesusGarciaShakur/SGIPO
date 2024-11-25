@@ -14,6 +14,15 @@
 	</p>
 </div>
 
+<div class="container-fluid">
+    <ul class="full-box list-unstyled page-nav-tabs">
+        <li>
+            <a href="{{ url_for('client.client_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
+                CLIENTES</a>
+        </li>
+    </ul>
+</div>
+
 <!-- Content -->
 <div class="container-fluid">
 	<form method="post" action="{{ url_for('client.client_update', id_client=client.id_client) }}" class="form-neon" enctype="multipart/form-data">

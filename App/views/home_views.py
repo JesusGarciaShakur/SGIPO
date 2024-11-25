@@ -34,7 +34,7 @@ def login():
                 print("Invalid user")
     else:
         print("Form validation failed")
-    return render_template('pages/login.html', form=form)
+    return render_template('pages/home/login.html', form=form)
 
 @home_views.route('/logout/', methods=['GET', 'POST'])
 def logout():

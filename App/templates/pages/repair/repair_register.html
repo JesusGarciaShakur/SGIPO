@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %}Registro Cliente{% endblock title %}
+
+{% block content %}
+
+<!-- Page header -->
+<div class="full-box page-header">
+	<h3 class="text-left">
+		<i class="fas fa-toolbox fa-fw"></i> &nbsp; Registrar nueva Reparación
+	</h3>
+	<p class="text-justify">
+		A continuación, se presenta un formulario para registrar una nueva Reparación dentro de la óptica "Prestigio Óptico".
+	</p>
+</div>
+
+<div class="container-fluid">
+	<ul class="full-box list-unstyled page-nav-tabs">
+		<li>
+			<a class="active" href="{{ url_for('repair.repair_register') }}"><i class="fas fa-tools fa-fw"></i> &nbsp;
+				NUEVA
+				REPARACIÓN</a>
+		</li>
+		<li>
+			<a href="{{ url_for('repair.repair_list') }}"><i class="fas fa-list-ul fa-fw"></i> &nbsp; LISTA
+				REPARACIONES</a>
+		</li>
+	</ul>
+</div>
+
+<!-- Content -->
+<div class="container-fluid">
+	<form method="post" action="{{ url_for('repair.repair_register') }}" class="form-neon" enctype="multipart/form-data">
+		{{ form.csrf_token }}
+		<fieldset>
+			<legend><i class="far fa-address-card"></i> &nbsp; Información de reparación</legend>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 col-md-6">
+						<div class="form-group">
+							<label for="AdminName" class="bmd-label-floating">Nombre del articulo a cambiar o reparar</label>
+							{{ form.objectName_repair(class="form-control", required="required",
+							title="Solo letras y espacios son permitidos") }}
+							{% for error in form.objectName_repair.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
+					<div class="col-12 col-md-6">
+						<div class="form-group">
+							<label for="AdminName" class="bmd-label-floating">Cantidad de piezas a reparar</label>
+							{{ form.quantity_repaired(class="form-control", required="required", pattern="\d{1,5}",
+							title="Solo letras y espacios son permitidos") }}
+							{% for error in form.quantity_repaired.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="AdminName" class="">Costo total de la reparación</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                {{ form.cost_repair(class="form-control", required="required", pattern="\d{1,35}") }}
+                            </div>
+                            {% for error in form.cost_repair.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="date" class="">Fecha de reparación</label>
+                            {{ form.date_repair(class="form-control", required="required") }}
+                            {% for error in form.date_repair.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</fieldset>
+		<p class="text-center" style="margin-top: 40px;">
+			<button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
+			&nbsp; &nbsp;
+			<button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
+		</p>
+	</form>
+</div>
+{% endblock %}
