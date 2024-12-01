@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista Proveedores{% endblock title %}
+
+
+{% block content %}
+
+<!-- Page header -->
+<div class="full-box page-header">
+    <h3 class="text-left">
+        <i class="fas fa-truck-moving fa-fw"></i> &nbsp; Lista de Proveedores
+    </h3>
+    <p class="text-justify">
+        A continuación se muestran todos los Proveedores de la óptica "Prestigio Óptico".
+    </p>
+</div>
+
+<div class="container-fluid">
+    <ul class="full-box list-unstyled page-nav-tabs">
+        <li>
+            <a href="{{ url_for('supplier.supplier_register') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; NUEVO PROVEEDOR</a>
+        </li>
+        <li>
+            <a class="active" href="{{ url_for('supplier.supplier_list') }}"><i class="fas fa-truck-moving fa-fw"></i> &nbsp; LISTA
+                PROVEEDORES</a>
+        </li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <form method="get" action="{{ url_for('supplier.supplier_list') }}" class="form-inline justify-content-center">
+        <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, username, teléfono, etc."
+            style="width: 300px;" value="{{ request.args.get('search', '') }}">
+        <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-dark table-sm custom-table">
+            <thead>
+                <tr class="text-center roboto-medium">
+                    <th>Nombre del proveedor</th>
+                    <th>Dirección del proveedor</th>
+                    <th>RFC del proveedor</th>
+                    <th>Contacto del proveedor</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for supplier in suppliers %}
+                <tr>
+                    <td>{{ supplier.name_supplier }}</td>
+                    <td>{{ supplier.direction_supplier }}</td>
+                    <td>{{ supplier.rfc_supplier }}</td>
+                    <td>{{ supplier.contact_supplier }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <!-- Botón Editar -->
+                            <a href="{{ url_for('supplier.supplier_update', id_supplier=supplier.id_supplier) }}"
+                                class="btn btn-primary btn-sm" style="border-radius: 5px;">
+                                <i class="far fa-edit"></i> Editar
+                            </a>
+                            <!-- Botón Eliminar con modal -->
+                            <button type="button" class="btn btn-danger btn-sm btn-delete-user" style="border-radius: 5px;">
+                                <i class="fa fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                        <!-- Modal de Confirmación -->
+                        <div class="modal" id="deleteModal{{ supplier.id_supplier }}">
+                            <div class="modal-content">
+                                <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
+                                <p>Esta acción no se puede deshacer.</p>
+                                <form action="{{ url_for('supplier.supplier_delete', id_supplier=supplier.id_supplier) }}" method="post">
+                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
+                                    <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('supplier.supplier_list', page=page-1, search=request.args.get('search', '')) }}"
+                    tabindex="{% if page == 1 %}-1{% endif %}" aria-label="Anterior">
+                    Anterior
+                </a>
+            </li>
+            {% for p in range(1, total_pages + 1) %}
+            <li class="page-item {% if p == page %}active{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('supplier.supplier_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
+            </li>
+            {% endfor %}
+            <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('supplier.supplier_list', page=page+1, search=request.args.get('search', '')) }}"
+                    tabindex="{% if page == total_pages %}-1{% endif %}" aria-label="Siguiente">
+                    Siguiente
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+</div>
+{% endblock %}

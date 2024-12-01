@@ -33,11 +33,11 @@
 		</div>
 	</a>
 
-	<a href="#" class="tile">
+	<a href="{{ url_for('supplier.supplier_list') }}" class="tile">
 		<div class="tile-tittle">Lista de proveedores</div>
 		<div class="tile-icon">
 			<i class="fas fa-truck-moving fa-fw"></i>
-			<p>Registered</p>
+			<p>{{ total_suppliers }} Registrados</p>
 		</div>
 	</a>
 

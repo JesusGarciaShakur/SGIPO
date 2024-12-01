@@ -5,6 +5,7 @@ from models.users import User, Type, count_users
 from models.clients import count_clients
 from models.repairs import count_repairs
 from models.services import count_service_requests
+from models.suppliers import count_suppliers
 
 admin_views = Blueprint('admin', __name__)
 
@@ -15,11 +16,13 @@ def home():
         total_clients = count_clients()
         total_repairs = count_repairs()
         total_services = count_service_requests()
+        total_suppliers = count_suppliers()
         return render_template('pages/home/home.html',
                             total_users=total_users,
                             total_clients=total_clients,
                             total_repairs=total_repairs,
-                            total_services=total_services)
+                            total_services=total_services,
+                            total_suppliers=total_suppliers)
     else:
         abort(403)
 
