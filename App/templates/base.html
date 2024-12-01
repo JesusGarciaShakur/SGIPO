@@ -132,11 +132,11 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-concierge-bell fa-fw"></i> &nbsp;
 								Servicios <i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('admin.admin_register') }}"><i
+								<li><a href="{{ url_for('service.service_request_list') }}"><i class="fas fa-stream fa-fw"></i>
+									&nbsp; Lista de Servicios</a></li>
+								<li><a href="{{ url_for('service.service_request_register') }}"><i
 											class="fas fa-plus-square fa-fw"></i>
 										&nbsp; Nuevo Servicio</a></li>
-								<li><a href="{{ url_for('admin.admin_list') }}"><i class="fas fa-stream fa-fw"></i>
-										&nbsp; Lista de Servicios</a></li>
 								<li><a href="{{ url_for('service.service_list') }}"><i class="fas fa-plus-square fa-fw"></i>
 										&nbsp; Registrar nuevo servicio</a></li>
 							</ul>
@@ -183,9 +183,8 @@
 			<nav class="full-box navbar-info">
 				<a href="#" class="float-left show-nav-lateral"><i class="fas fa-exchange-alt"></i></a>
 				<a href="#" data-toggle="modal" data-target="#ModalHelp"><i class="far fa-question-circle"></i></a>
-				<a href="#"><i class="fas fa-user-cog"></i></a>
 				<a href="#" class="btn-exit-system"><i class="fas fa-power-off"></i></a>
-			</nav>
+			</nav>			
 			{% block content %}{% endblock %}
 		</section>
 		<!-- Modal de salir-->

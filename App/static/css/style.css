@@ -158,7 +158,7 @@ html {
 }
 
 select.form-control option {
-	background-color: var(--color-two);
+	background-color: var(--blanco-puro);
 }
 
 .form-control-file:active,

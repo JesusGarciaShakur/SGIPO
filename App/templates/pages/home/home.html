@@ -57,11 +57,11 @@
 		</div>
 	</a>
 
-	<a href="#" class="tile">
+	<a href="{{ url_for('service.service_request_list') }}" class="tile">
 		<div class="tile-tittle">Lista de Servicios</div>
 		<div class="tile-icon">
 			<i class="fas fa-stream fa-fw"></i>
-			<p>Registered</p>
+			<p>{{ total_services }} Registrados</p>
 		</div>
 	</a>
 
@@ -81,7 +81,7 @@
 		</div>
 	</a>
 
-	<a href="#" class="tile">
+	<a href="{{ url_for('repair.repair_list') }}" class="tile">
 		<div class="tile-tittle">Reparaciones Óptica</div>
 		<div class="tile-icon">
 			<i class="fas fa-toolbox fa-fw"></i>

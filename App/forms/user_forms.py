@@ -18,12 +18,14 @@ class RegisterUserForm(FlaskForm):
     numberPhone_user = StringField('Teléfono', validators = [DataRequired(), Length(min=10, max=10)])
     image_user = FileField('Imagen de Usuario', validators=[ FileAllowed(['png', 'jpg'], 'Solo imágenes con extension png, jpg!')])
     submit = SubmitField('Registrarse')
-        
-
+    
     #Validar username único
     def validate_userName_user(self, field):
-        if User.check_username(field.data):
-            raise ValidationError('El username ya esta en uso')
+        # Verifica si el nombre de usuario ha cambiado y si el nuevo nombre ya existe
+        if field.data != self.userName_user:  # Compara si el nuevo username es diferente al actual
+            if User.check_username(field.data):
+                raise ValidationError('El username ya esta en uso')
+
         
 #Clase para login
 class LoginForms(FlaskForm):
@@ -42,3 +44,10 @@ class UpdateUserForm(FlaskForm):
     numberPhone_user = StringField('Teléfono', validators = [DataRequired(), Length(min=10, max=10)])
     image_user = FileField('Imagen de Usuario', validators=[ FileAllowed(['png', 'jpg'], 'Solo imágenes con extension png, jpg!')])
     submit = SubmitField('Actualizar')
+
+
+class UpdateUserInfo(FlaskForm):
+    password_user = PasswordField('Contraseña', validators = [DataRequired(), Length(min=8)])#
+    password_user_confirm = PasswordField('Confirmar contraseña', validators=[DataRequired(), EqualTo('password_user')])#
+    userName_user = StringField('Nombre de usuario', validators = [DataRequired(), Length(min=4, max=25)])
+    submit = SubmitField('Actualizar información')

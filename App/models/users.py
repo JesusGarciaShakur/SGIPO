@@ -169,6 +169,7 @@ class User:
             cursor.execute(sql, (userName_user,))
             result = cursor.fetchone()
             return result is not None
+        
 
     @staticmethod
     def check_password(password_user):

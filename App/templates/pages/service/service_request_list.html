@@ -1,39 +1,35 @@
 {% extends 'base.html' %}
 
-{% block title %}Lista Administradores{% endblock title %}
+{% block title %}Lista Solicitudes{% endblock title %}
 
 
-{% block content %}	
+{% block content %}
+
 <!-- Page header -->
 <div class="full-box page-header">
     <h3 class="text-left">
-        <i class="fas fa-users fa-fw"></i> &nbsp; Lista de Administradores
+        <i class="fas fa-stream  fa-fw"></i> &nbsp; Lista de Solicitud de Servicios
     </h3>
     <p class="text-justify">
-        A continuación se muestran todos los usuarios con acceso al sistema. Estos usuarios tienen permisos completos 
-        para realizar acciones como crear, editar, eliminar y buscar dentro de los diferentes módulos del sistema.
+        A continuación se muestra la lista de las solicitudes de servicios.
     </p>
 </div>
 
 <div class="container-fluid">
     <ul class="full-box list-unstyled page-nav-tabs">
         <li>
-            <a href="{{ url_for('admin.admin_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NUEVO ADMIN</a>
+            <a href="{{ url_for('service.service_request_register') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; NUEVA SOLICITUD</a>
         </li>
         <li>
-            <a class="active" href="{{ url_for('admin.admin_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
-                ADMINS</a>
-        </li>
-        <li>
-            <a href="{{ url_for('admin.admin_updateProfile', id_user=logged_in_id_user) }}"><i class="fas fa-user-cog fa-fw"></i> &nbsp; CAMBIAR
-                CONTRASEÑA</a>
+            <a class="active" href="{{ url_for('service.service_request_list') }}"><i class="fas fa-stream  fa-fw"></i> &nbsp; LISTA
+                SOLICITUDES</a>
         </li>
     </ul>
 </div>
 
 <!-- Content -->
 <div class="container-fluid">
-    <form method="get" action="{{ url_for('admin.admin_list') }}" class="form-inline justify-content-center">
+    <form method="get" action="{{ url_for('service.service_request_list') }}" class="form-inline justify-content-center">
         <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, username, teléfono, etc."
             style="width: 300px;" value="{{ request.args.get('search', '') }}">
         <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
@@ -44,40 +40,38 @@
         <table class="table table-dark table-sm custom-table">
             <thead>
                 <tr class="text-center roboto-medium">
-                    <th>Tipo de Usuario</th>
-                    <th>Nombre de Usuario</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Número de teléfono</th>
+                    <th>Nombre del cliente</th>
+                    <th>Nombre del servicio</th>
+                    <th>Fecha de solicitud</th>
+                    <th>Precio a cobrar</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                {% for user in users %}
+                {% for service_request in service_requests %}
                 <tr>
-                    <td>{{ user.id_rol }}</td>
-                    <td>{{ user.userName_user }}</td>
-                    <td>{{ user.name_user }}</td>
-                    <td>{{ user.lastName_user }}</td>
-                    <td>{{ user.numberPhone_user }}</td>
+                    <td>{{ service_request.id_client }}</td>
+                    <td>{{ service_request.id_service }}</td>
+                    <td>{{ service_request.date_request }}</td>
+                    <td>$ {{ service_request.price_request }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <!-- Botón Editar -->
-                            <a href="{{ url_for('admin.admin_update', id_user=user.id_user) }}"
-                                class="btn btn-primary btn-sm" style="border-radius: 5px;">
+                            <a href="{{ url_for('service.service_request_update', id_request=service_request.id_request) }}" class="btn btn-primary btn-sm" style="border-radius: 5px;">
                                 <i class="far fa-edit"></i> Editar
                             </a>
+                            
                             <!-- Botón Eliminar con modal -->
                             <button type="button" class="btn btn-danger btn-sm btn-delete-user" style="border-radius: 5px;">
                                 <i class="fa fa-trash"></i> Eliminar
                             </button>
                         </div>
                         <!-- Modal de Confirmación -->
-                        <div class="modal" id="deleteModal{{ user.id_user }}">
+                        <div class="modal" id="deleteModal{{ service_request.id_request }}">
                             <div class="modal-content">
                                 <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
                                 <p>Esta acción no se puede deshacer.</p>
-                                <form action="{{ url_for('admin.admin_delete', id_user=user.id_user) }}" method="post">
+                                <form action="{{ url_for('service.service_request_delete', id_request=service_request.id_request) }}" method="post">
                                     <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
                                     <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
                                 </form>
@@ -94,7 +88,7 @@
         <ul class="pagination justify-content-center">
             <li class="page-item {% if page == 1 %}disabled{% endif %}">
                 <a class="page-link"
-                    href="{{ url_for('admin.admin_list', page=page-1, search=request.args.get('search', '')) }}"
+                    href="{{ url_for('service.service_request_list', page=page-1, search=request.args.get('search', '')) }}"
                     tabindex="{% if page == 1 %}-1{% endif %}" aria-label="Anterior">
                     Anterior
                 </a>
@@ -102,12 +96,12 @@
             {% for p in range(1, total_pages + 1) %}
             <li class="page-item {% if p == page %}active{% endif %}">
                 <a class="page-link"
-                    href="{{ url_for('admin.admin_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
+                    href="{{ url_for('service.service_request_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
             </li>
             {% endfor %}
             <li class="page-item {% if page == total_pages %}disabled{% endif %}">
                 <a class="page-link"
-                    href="{{ url_for('admin.admin_list', page=page+1, search=request.args.get('search', '')) }}"
+                    href="{{ url_for('service.service_request_list', page=page+1, search=request.args.get('search', '')) }}"
                     tabindex="{% if page == total_pages %}-1{% endif %}" aria-label="Siguiente">
                     Siguiente
                 </a>

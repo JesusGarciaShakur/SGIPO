@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}Edición de Solicitud{% endblock title %}
+
+{% block content %}
+
+<!-- Page header -->
+<div class="full-box page-header">
+    <h3 class="text-left">
+        <i class="fas fa-user-plus fa-fw"></i> &nbsp; Editar una solicitud de servicio
+    </h3>
+    <p class="text-justify">
+        A continuación, se presenta un formulario para editar una nueva solicitud de servicio a realizar.
+    </p>
+</div>
+
+
+<!-- Content -->
+<div class="container-fluid">
+    <form method="post" action="{{ url_for('service.service_request_update', id_request=service_request.id_request) }}" class="form-neon"
+        enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <fieldset>
+            <legend><i class="far fa-address-card"></i> &nbsp; Información de Solicitud de Servicio</legend>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            {{ form.id_client.label }}
+                            <select class="form-control" name="{{ form.id_client.name }}">
+                                <option value="">Seleccionar usuario...</option>
+                                {% for id_client, name_client in form.id_client.choices %}
+                                    <option value="{{ id_client }}" {% if form.id_client.data == id_client %}selected{% endif %}>
+                                        {{ name_client }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            {% if form.id_client.errors %}
+                                {% for error in form.id_client.errors %}
+                                    <p class="text-danger">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            {{ form.id_service.label }}
+                            <select class="form-control" name="{{ form.id_service.name }}">
+                                <option value="">Seleccionar usuario...</option>
+                                {% for id_service, name_service in form.id_service.choices %}
+                                    <option value="{{ id_service }}" {% if form.id_service.data == id_service %}selected{% endif %}>
+                                        {{ name_service }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            {% if form.id_service.errors %}
+                                {% for error in form.id_service.errors %}
+                                    <p class="text-danger">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="date" class="">Fecha de solicitud</label>
+                            {{ form.date_request(class="form-control", required="required") }}
+                            {% for error in form.date_request.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="AdminName" class="">Costo del servicio</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                {{ form.price_request(class="form-control", required="required") }}
+                            </div>
+                            {% for error in form.price_request.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <p class="text-center" style="margin-top: 40px;">
+            <button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
+            &nbsp; &nbsp;
+            <button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
+        </p>
+    </form>
+</div>
+{% endblock %}

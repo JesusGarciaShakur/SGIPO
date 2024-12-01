@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["jsonify", "listadmin", "mydb", "sgipo"]
+  "cSpell.words": [
+    "jsonify",
+    "listadmin",
+    "mydb",
+    "servicerequests",
+    "sgipo",
+    "solicitudservicios"
+  ]
 }

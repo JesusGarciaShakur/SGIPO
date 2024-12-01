@@ -111,9 +111,186 @@ class Service:
                                     description_service=row["description_service"])
                     services.append(service)
             return services, total
+        
+#id_request, id_service, id_client, date_request, price_request
+class ServiceRequest:
+    def __init__(self, id_request='', id_service='', id_client='', date_request='', price_request=''):
+        self.id_request = id_request
+        self.id_service = id_service
+        self.id_client = id_client
+        self.date_request = date_request
+        self.price_request = price_request
 
-def count_services():
+    def save(self):
+        with mydb.cursor() as cursor:
+            sql = "INSERT INTO servicerequests_sgipo (id_service, id_client, date_request, price_request) VALUES (%s, %s, %s, %s)"
+            values = (self.id_service, self.id_client, self.date_request, self.price_request)
+            cursor.execute(sql, values)
+        mydb.commit()
+
+    def update(self):
+        with mydb.cursor() as cursor:
+            sql = "UPDATE servicerequests_sgipo SET id_service=%s, id_client=%s, date_request=%s, price_request=%s WHERE id_request=%s"
+            values = (self.id_service, self.id_client, self.date_request, self.price_request, self.id_request)
+            cursor.execute(sql, values)
+            mydb.commit()
+        return self.id_request
+    
+    def delete(self):
+        with mydb.cursor() as cursor:
+            sql = f"DELETE FROM servicerequests_sgipo WHERE id_request = {self.id_request}"
+            cursor.execute(sql)
+            mydb.commit()
+        return self.id_request
+    
+    @staticmethod
+    def get(id_request):
         with mydb.cursor(dictionary=True) as cursor:
-            cursor.execute("SELECT COUNT(*) FROM services_sgipo")
-            result = cursor.fetchone()
-            return result['COUNT(*)']
+            sql = f"SELECT * FROM servicerequests_sgipo WHERE id_request = {id_request}"
+            cursor.execute(sql)
+            service_request = cursor.fetchone()
+            if  service_request:
+                service_request = ServiceRequest(id_request=service_request["id_request"],
+                                id_service=service_request["id_service"],
+                                id_client=service_request["id_client"],
+                                date_request=service_request["date_request"],
+                                price_request=service_request["price_request"])
+                return service_request
+            return None
+    
+    @staticmethod
+    def __get__(id_request):
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = f"SELECT * FROM servicerequests_sgipo WHERE id_request = {id_request}"
+            cursor.execute(sql)
+            service_request = cursor.fetchone()
+            if  service_request:
+                service_request = ServiceRequest(id_request=service_request["id_request"],
+                                id_service=service_request["id_service"],
+                                id_client=service_request["id_client"],
+                                date_request=service_request["date_request"],
+                                price_request=service_request["price_request"])
+                return service_request
+            return None
+    
+    def get_all():
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = "SELECT * FROM vista_solicitudservicios"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            service_requests = []
+            for row in result:
+                service_request = ServiceRequest(id_request=row["id de solicitud"],
+                                id_service=row["nombre de servicio"],
+                                id_client=row["nombre de cliente"],
+                                date_request=row["fecha de solicitud"],
+                                price_request=row["precio a cobrar"])
+                service_requests.append(service_request)
+        return service_requests
+    
+    @staticmethod
+    def get_paginated_service_requests(page, per_page):
+        offset = (page - 1) * per_page
+        service_requests = []
+
+        with mydb.cursor(dictionary=True) as cursor:
+            # Obtener el número total de registros
+            cursor.execute("SELECT COUNT(*) FROM vista_solicitudservicios")
+            total = cursor.fetchone()['COUNT(*)']
+
+            # Obtener los registros paginados
+            cursor.execute(
+                "SELECT * FROM vista_solicitudservicios ORDER BY 'id_request' DESC LIMIT %s OFFSET %s", 
+                (per_page, offset)
+            )
+            result = cursor.fetchall()
+
+            # Construir la lista de `service_requests`
+            for row in result:
+                service_request = ServiceRequest(
+                    id_request=row["id de solicitud"],
+                    id_service=row["nombre de servicio"],
+                    id_client=row["nombre de cliente"],
+                    date_request=row["fecha de solicitud"],
+                    price_request=row["precio a cobrar"]
+                )
+                service_requests.append(service_request)
+
+        return service_requests, total
+
+    
+    @staticmethod
+    def search(query, page, per_page):
+        offset = (page - 1) * per_page
+        service_requests = []
+        search_query = f"%{query}%"
+
+        with mydb.cursor(dictionary=True) as cursor:
+            # Obtener el total de resultados
+            cursor.execute("""
+                SELECT COUNT(*) FROM vista_solicitudservicios
+                WHERE `nombre de servicio` LIKE %s OR `nombre de cliente` LIKE %s
+                OR `fecha de solicitud` LIKE %s OR `precio a cobrar` LIKE %s
+            """, (search_query, search_query, search_query, search_query))
+            total = cursor.fetchone()['COUNT(*)']
+
+            # Obtener los resultados paginados
+            cursor.execute("""
+                SELECT * FROM vista_solicitudservicios
+                WHERE `nombre de servicio` LIKE %s OR `nombre de cliente` LIKE %s
+                OR `fecha de solicitud` LIKE %s OR `precio a cobrar` LIKE %s
+                ORDER BY `id de solicitud` DESC LIMIT %s OFFSET %s
+            """, (search_query, search_query, search_query, search_query, per_page, offset))
+            result = cursor.fetchall()
+
+            # Construir objetos ServiceRequest
+            for row in result:
+                service_request = ServiceRequest(
+                    id_request=row["id de solicitud"],
+                    id_service=row["nombre de servicio"],
+                    id_client=row["nombre de cliente"],
+                    date_request=row["fecha de solicitud"],
+                    price_request=row["precio a cobrar"]
+                )
+                service_requests.append(service_request)  # Mover esta línea dentro del bucle
+
+        return service_requests, total
+
+    
+
+
+class Client:
+    def __init__(self, id_client='', name_client='', lastName_client='', age_client='', numberPhone_client='', email_client='', direction_client='', id_disease=''):
+        self.id_client = id_client
+        self.name_client = name_client
+        self.lastName_client = lastName_client
+        self.age_client = age_client
+        self.numberPhone_client = numberPhone_client
+        self.email_client = email_client
+        self.direction_client = direction_client
+        self.id_disease = id_disease
+
+    @staticmethod
+    def get_all():
+        with mydb.cursor(dictionary=True) as cursor:
+            sql = "SELECT * FROM vista_clientes"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            clients = []
+            for row in result:
+                client = Client(id_client=row["id de cliente"],
+                                name_client=row["nombre"],
+                                lastName_client=row["apellido"],
+                                age_client=row["edad"],
+                                numberPhone_client=row["numero de telefono"],
+                                email_client=row["correo electronico"],
+                                direction_client=row["direccion"],
+                                id_disease=row["nombre padecimiento"])
+                clients.append(client)
+        return clients
+    
+def count_service_requests():
+    with mydb.cursor(dictionary=True) as cursor:
+        cursor.execute("SELECT COUNT(*) FROM servicerequests_sgipo")
+        result = cursor.fetchone()
+        return result['COUNT(*)']
