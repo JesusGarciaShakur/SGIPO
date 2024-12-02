@@ -36,11 +36,8 @@ class LoginForms(FlaskForm):
 #Clase para actualizar perfil
 class UpdateUserForm(FlaskForm):
     id_rol = SelectField('Tipo de Usuario', coerce=int, validators=[DataRequired()], choices=[])
-    userName_user = StringField('Nombre(s)', validators = [DataRequired(), Length(min=4, max=25)])
     name_user = StringField('Nombre de Usuario', validators = [DataRequired(), Length(min=4, max=25)])
     lastName_user = StringField('Apellido(s)', validators = [DataRequired(), Length(min=4, max=25)])
-    password_user = PasswordField('Contraseña', validators = [DataRequired(), Length(min=8)])
-    password_user_confirm = PasswordField('Confirmar contraseña', validators=[DataRequired(), EqualTo('password_user')])
     numberPhone_user = StringField('Teléfono', validators = [DataRequired(), Length(min=10, max=10)])
     image_user = FileField('Imagen de Usuario', validators=[ FileAllowed(['png', 'jpg'], 'Solo imágenes con extension png, jpg!')])
     submit = SubmitField('Actualizar')

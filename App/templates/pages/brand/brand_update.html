@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Editar Marca{% endblock title %}
+
+{% block content %}
+
+<!-- Page header -->
+<div class="full-box page-header">
+	<h3 class="text-left">
+		<i class="fas fa-plus-square fa-fw"></i> &nbsp; Editar nueva Marca
+	</h3>
+	<p class="text-justify">
+		A continuación, se presenta un formulario para registrar a un nuevo cliente.
+		Este usuario no tendrá acceso al sistema, su uso es meramente informativo.
+	</p>
+</div>
+
+<div class="container-fluid">
+	<ul class="full-box list-unstyled page-nav-tabs">
+		<li>
+			<a href="{{ url_for('brand.brand_list') }}"><i class="fas fa-list-alt fa-fw"></i> &nbsp; LISTA
+				MARCAS</a>
+		</li>
+	</ul>
+</div>
+
+<!-- Content -->
+<div class="container-fluid">
+	<form method="post" action="{{ url_for('brand.brand_update', id_brand=brand.id_brand) }}" class="form-neon" enctype="multipart/form-data">
+		{{ form.csrf_token }}
+		<fieldset>
+			<legend><i class="far fa-address-card"></i> &nbsp; Informacion personal</legend>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 col-md-12">
+						<div class="form-group">
+							<label for="AdminName" class="bmd-label-floating">Nombre de la Marca
+                            </label>
+							{{ form.name_brand(class="form-control", required="required", pattern="{1,50}",
+							title="Solo letras y espacios son permitidos") }}
+							{% for error in form.name_brand.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
+					<div class="col-12 col-md-12">
+						<div class="form-group">
+							<label for="AdminName" class="bmd-label-floating">Descripción</label>
+							{{ form.description_brand(class="form-control", required="required", rows="10") }}
+							{% for error in form.description_brand.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            {{ form.id_supplier.label }}
+                            <select class="form-control" name="{{ form.id_supplier.name }}">
+                                <option value="">Seleccionar proveedor de marca...</option>
+                                {% for supplier, name_supplier in form.id_supplier.choices %}
+                                    <option value="{{ supplier }}">{{ name_supplier }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.id_supplier.errors %}
+                                {% for error in form.id_supplier.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+		</fieldset>
+		<p class="text-center" style="margin-top: 40px;">
+			<button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
+			&nbsp; &nbsp;
+			<button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
+		</p>
+	</form>
+</div>
+{% endblock %}
