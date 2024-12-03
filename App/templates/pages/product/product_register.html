@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %}Registro Productos{% endblock title %}
+
+{% block content %}
+
+<!-- Page header -->
+<div class="full-box page-header">
+	<h3 class="text-left">
+		<i class="fas fa-user-plus fa-fw"></i> &nbsp; Registrar nuevo Producto
+	</h3>
+	<p class="text-justify">
+		A continuación, se presenta un formulario para registrar un nuevo Producto.
+	</p>
+</div>
+
+<div class="container-fluid">
+	<ul class="full-box list-unstyled page-nav-tabs">
+		<li>
+			<a class="active" href="{{ url_for('product.product_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp;
+				NUEVO
+				PRODUCTO</a>
+		</li>
+		<li>
+			<a href="{{ url_for('product.product_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
+				PRODUCTOS</a>
+		</li>
+	</ul>
+</div>
+
+<!-- Content -->
+<div class="container-fluid">
+	<form method="post" action="{{ url_for('product.product_register') }}" class="form-neon" enctype="multipart/form-data">
+		{{ form.csrf_token }}
+		<fieldset>
+			<legend><i class="far fa-address-card"></i> &nbsp; Información de producto</legend>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 col-md-12">
+						<div class="form-group">
+							<label for="AdminName" class="bmd-label-floating">Nombre del producto</label>
+							{{ form.name_product(class="form-control", required="required", pattern="{1,50}",
+							title="Solo letras y espacios son permitidos") }}
+							{% for error in form.name_product.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
+					<div class="col-12 col-md-12">
+						<div class="form-group">
+							<label for="AdminName" class="bmd-label-floating">Descripción del producto</label>
+							{{ form.description_product(class="form-control", required="required", pattern="{1,50}",
+							title="Solo letras y espacios son permitidos") }}
+							{% for error in form.description_product.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="AdminName" class="">Costo del producto</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                {{ form.price_product(class="form-control", required="required", pattern="\d{1,35}") }}
+                            </div>
+                            {% for error in form.price_product.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+					<div class="col-12 col-md-6">
+						<div class="form-group">
+							<label for="AdminName" class="bmd-label-floating">Cantidad del producto</label>
+							{{ form.stock_product(class="form-control", required="required", pattern="{1,5})") }}
+							{% for error in form.stock_product.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            {{ form.id_brand.label }}
+                            <select class="form-control" name="{{ form.id_brand.name }}">
+                                <option value="">Seleccionar marca...</option>
+                                {% for brand, name_brand in form.id_brand.choices %}
+                                    <option value="{{ brand }}">{{ name_brand }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.id_brand.errors %}
+                                {% for error in form.id_brand.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+		</fieldset>
+		<p class="text-center" style="margin-top: 40px;">
+			<button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
+			&nbsp; &nbsp;
+			<button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
+		</p>
+	</form>
+</div>
+{% endblock %}

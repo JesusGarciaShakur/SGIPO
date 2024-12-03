@@ -6,6 +6,7 @@ from models.clients import count_clients
 from models.repairs import count_repairs
 from models.services import count_service_requests
 from models.suppliers import count_suppliers
+from models.products import count_products
 
 admin_views = Blueprint('admin', __name__)
 
@@ -17,12 +18,14 @@ def home():
         total_repairs = count_repairs()
         total_services = count_service_requests()
         total_suppliers = count_suppliers()
+        total_products = count_products()
         return render_template('pages/home/home.html',
                             total_users=total_users,
                             total_clients=total_clients,
                             total_repairs=total_repairs,
                             total_services=total_services,
-                            total_suppliers=total_suppliers)
+                            total_suppliers=total_suppliers,
+                            total_products=total_products)
     else:
         abort(403)
 
@@ -158,11 +161,3 @@ def get_users():
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
     return response
-
-@admin_views.route('/product')
-def product():
-    return render_template('pages/product.html')
-
-@admin_views.route('/product_list')
-def product_list():
-    return render_template('pages/productlist.html')
