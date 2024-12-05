@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}Registro de Orden{% endblock title %}
+
+{% block content %}
+
+<!-- Page header -->
+<div class="full-box page-header">
+    <h3 class="text-left">
+        <i class="fas fa-plus-square fa-fw"></i> &nbsp; Registrar nueva orden de productos
+    </h3>
+    <p class="text-justify">
+        A continuación, se presenta un formulario para registrar una nueva solicitud de servicio a realizar.
+    </p>
+</div>
+
+<div class="container-fluid">
+    <ul class="full-box list-unstyled page-nav-tabs">
+        <li>
+            <a class="active" href="{{ url_for('purchase.purchase_register') }}"><i class="fas fa-plus-square fa-fw"></i>
+                &nbsp;
+                NUEVA
+                SOLICITUD</a>
+        </li>
+        <li>
+            <a href="{{ url_for('purchase.purchase_list') }}"><i class="fas fa-stream fa-fw"></i> &nbsp; LISTA
+                SOLICITUDES</a>
+        </li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <form method="post" action="{{ url_for('purchase.purchase_register') }}" class="form-neon"
+        enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <fieldset>
+            <legend><i class="far fa-address-card"></i> &nbsp; Información de Solicitud de Servicio</legend>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            {{ form.id_supplier.label }}
+                            <select class="form-control" name="{{ form.id_supplier.name }}">
+                                <option value="">Seleccionar proveedor...</option>
+                                {% for id_supplier, name_supplier in form.id_supplier.choices %}
+                                    <option value="{{ id_supplier }}">{{ name_supplier }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.id_supplier.errors %}
+                                {% for error in form.id_supplier.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            {{ form.id_product.label }}
+                            <select class="form-control" name="{{ form.id_product.name }}">
+                                <option value="">Seleccionar producto...</option>
+                                {% for product, name_product in form.id_product.choices %}
+                                    <option value="{{ product }}">{{ name_product }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.id_product.errors %}
+                                {% for error in form.id_product.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="date" class="">Fecha de solicitud</label>
+                            {{ form.date_ordered(class="form-control", required="required") }}
+                            {% for error in form.date_ordered.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+					<div class="col-12 col-md-6">
+						<div class="form-group">
+							<label for="AdminName" class="bmd-label-floating">Cantidad de piezas solicitadas</label>
+							{{ form.quantity_ordered(class="form-control", required="required", pattern="\d{1,5}",
+							title="Solo letras y espacios son permitidos") }}
+							{% for error in form.quantity_ordered.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
+                </div>
+            </div>
+        </fieldset>
+        <p class="text-center" style="margin-top: 40px;">
+            <button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
+            &nbsp; &nbsp;
+            <button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
+        </p>
+    </form>
+</div>
+{% endblock %}
