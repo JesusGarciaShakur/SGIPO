@@ -18,10 +18,10 @@
 <div class="container-fluid">
     <ul class="full-box list-unstyled page-nav-tabs">
         <li>
-            <a href="{{ url_for('sale.sale_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NUEVA ORDEN</a>
+            <a href="{{ url_for('return.return_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NUEVA ORDEN</a>
         </li>
         <li>
-            <a class="active" href="{{ url_for('sale.sale_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
+            <a class="active" href="{{ url_for('return.return_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
                 ORDENES</a>
         </li>
     </ul>
@@ -29,7 +29,7 @@
 
 <!-- Content -->
 <div class="container-fluid">
-    <form method="get" action="{{ url_for('sale.sale_list') }}" class="form-inline justify-content-center">
+    <form method="get" action="{{ url_for('return.return_list') }}" class="form-inline justify-content-center">
         <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, username, teléfono, etc."
             style="width: 300px;" value="{{ request.args.get('search', '') }}">
         <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
@@ -40,28 +40,22 @@
         <table class="table table-dark table-sm custom-table">
             <thead>
                 <tr class="text-center roboto-medium">
-                    <th>ID de Venta</th>
-                    <th>Nombre del Cliente</th>
-                    <th>Nombre del Producto</th>
-                    <th>Cantidad vendida</th>
-                    <th>Precio de venta</th>
-                    <th>Fecha de venta</th>
+                    <th>ID de venta</th>
+                    <th>Razón de devolución</th>
+                    <th>Fecha devolución</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                {% for sale in sales %}
+                {% for return_ in returns %}
                 <tr>
-                    <td>{{ sale.id_sale }}</td>
-                    <td>{{ sale.id_client }}</td>
-                    <td>{{ sale.id_product }}</td>
-                    <td>{{ sale.quantity_sold }}</td>
-                    <td>$ {{ sale.final_price }}</td>
-                    <td>{{ sale.date_sold }}</td>
+                    <td>{{ return_.id_sale }}</td>
+                    <td>{{ return_.reason }}</td>
+                    <td>{{ return_.date_return }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <!-- Botón Editar -->
-                            <a href="{{ url_for('sale.sale_update', id_sale=sale.id_sale) }}"
+                            <a href="{{ url_for('return.return_update', id_return=return_.id_return) }}"
                                 class="btn btn-primary btn-sm" style="border-radius: 5px;">
                                 <i class="far fa-edit"></i> Editar
                             </a>
@@ -71,11 +65,11 @@
                             </button>
                         </div>
                         <!-- Modal de Confirmación -->
-                        <div class="modal" id="deleteModal{{ sale.id_sale }}">
+                        <div class="modal" id="deleteModal{{ return_.id_return }}">
                             <div class="modal-content">
                                 <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
                                 <p>Esta acción no se puede deshacer.</p>
-                                <form action="{{ url_for('sale.sale_delete', id_sale=sale.id_sale) }}" method="post">
+                                <form action="{{ url_for('return.return_delete', id_return=return_.id_return) }}" method="post">
                                     <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
                                     <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
                                 </form>
@@ -92,7 +86,7 @@
         <ul class="pagination justify-content-center">
             <li class="page-item {% if page == 1 %}disabled{% endif %}">
                 <a class="page-link"
-                    href="{{ url_for('sale.sale_list', page=page-1, search=request.args.get('search', '')) }}"
+                    href="{{ url_for('return.return_list', page=page-1, search=request.args.get('search', '')) }}"
                     tabindex="{% if page == 1 %}-1{% endif %}" aria-label="Anterior">
                     Anterior
                 </a>
@@ -100,12 +94,12 @@
             {% for p in range(1, total_pages + 1) %}
             <li class="page-item {% if p == page %}active{% endif %}">
                 <a class="page-link"
-                    href="{{ url_for('sale.sale_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
+                    href="{{ url_for('return.return_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
             </li>
             {% endfor %}
             <li class="page-item {% if page == total_pages %}disabled{% endif %}">
                 <a class="page-link"
-                    href="{{ url_for('sale.sale_list', page=page+1, search=request.args.get('search', '')) }}"
+                    href="{{ url_for('return.return_list', page=page+1, search=request.args.get('search', '')) }}"
                     tabindex="{% if page == total_pages %}-1{% endif %}" aria-label="Siguiente">
                     Siguiente
                 </a>

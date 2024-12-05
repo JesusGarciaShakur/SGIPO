@@ -11,6 +11,7 @@ from views.brand_views import brand_views
 from views.product_views import product_views
 from views.purchase_views import purchase_views
 from views.sale_views import sale_views
+from views.return_views import return_views
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'My Secret Key'
 #Registrar blueprints(views)
@@ -25,5 +26,6 @@ app.register_blueprint(brand_views)
 app.register_blueprint(product_views)
 app.register_blueprint(purchase_views)
 app.register_blueprint(sale_views)
+app.register_blueprint(return_views)
 if __name__ == '__main__':
     app.run(debug=True)

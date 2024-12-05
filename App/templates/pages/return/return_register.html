@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}Registro de Venta{% endblock title %}
+
+{% block content %}
+
+<!-- Page header -->
+<div class="full-box page-header">
+    <h3 class="text-left">
+        <i class="fas fa-plus-square fa-fw"></i> &nbsp; Registrar nueva venta de productos
+    </h3>
+    <p class="text-justify">
+        A continuación, se presenta un formulario para registrar una nueva venta de productos.
+    </p>
+</div>
+
+<div class="container-fluid">
+    <ul class="full-box list-unstyled page-nav-tabs">
+        <li>
+            <a class="active" href="{{ url_for('return.return_register') }}"><i class="fas fa-plus-square fa-fw"></i>
+                &nbsp;
+                NUEVA
+                VENTA</a>
+        </li>
+        <li>
+            <a href="{{ url_for('return.return_list') }}"><i class="fas fa-stream fa-fw"></i> &nbsp; LISTA
+                VENTAS</a>
+        </li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <form method="post" action="{{ url_for('return.return_register') }}" class="form-neon"
+        enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <fieldset>
+            <legend><i class="far fa-address-card"></i> &nbsp; Información de Venta</legend>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            {{ form.id_sale.label }}
+                            <select class="form-control" name="{{ form.id_sale.name }}">
+                                <option value="">Seleccionar Venta...</option>
+                                {% for id_sale, date_sale in form.id_sale.choices %}
+                                    <option value="{{ id_sale }}">{{ date_sale }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.id_sale.errors %}
+                                {% for error in form.id_sale.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            <label for="AdminName" class="bmd-label-floating">Descripción de la devolución</label>
+                            {{ form.reason(class="form-control", required="required",
+                            title="Solo letras y espacios son permitidos") }}
+                            {% for error in form.reason.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="date" class="">Fecha de solicitud</label>
+                            {{ form.date_return(class="form-control", required="required") }}
+                            {% for error in form.date_return.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <p class="text-center" style="margin-top: 40px;">
+            <button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
+            &nbsp; &nbsp;
+            <button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
+        </p>
+    </form>
+</div>
+{% endblock %}
