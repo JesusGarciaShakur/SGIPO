@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}Registro de Venta{% endblock title %}
+
+{% block content %}
+
+<!-- Page header -->
+<div class="full-box page-header">
+    <h3 class="text-left">
+        <i class="fas fa-plus-square fa-fw"></i> &nbsp; Registrar nueva venta de productos
+    </h3>
+    <p class="text-justify">
+        A continuación, se presenta un formulario para registrar una nueva venta de productos.
+    </p>
+</div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <form method="post" action="{{ url_for('sale.sale_update', id_sale=sale.id_sale) }}" class="form-neon"
+        enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <fieldset>
+            <legend><i class="far fa-address-card"></i> &nbsp; Información de Venta</legend>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            {{ form.id_client.label }}
+                            <select class="form-control" name="{{ form.id_client.name }}">
+                                <option value="">Seleccionar cliente...</option>
+                                {% for id_client, name_supplier in form.id_client.choices %}
+                                    <option value="{{ id_client }} "{% if form.id_client.data == id_client %}selected{% endif %}>{{ name_supplier }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.id_client.errors %}
+                                {% for error in form.id_client.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12">
+                        <div class="form-group">
+                            {{ form.id_product.label }}
+                            <select class="form-control" name="{{ form.id_product.name }}">
+                                <option value="">Seleccionar producto...</option>
+                                {% for id_product, name_product in form.id_product.choices %}
+                                    <option value="{{ id_product }} "{% if form.id_product.data == id_product %}selected{% endif %}>{{ name_product }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if form.id_product.errors %}
+                                {% for error in form.id_product.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+						<div class="form-group">
+							<label for="AdminName" class="bmd-label-floating">Cantidad de piezas en esta venta</label>
+							{{ form.quantity_sold(class="form-control", required="required", pattern="\d{1,5}",
+							title="Solo letras y espacios son permitidos") }}
+							{% for error in form.quantity_sold.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="AdminName" class="">Precio final de venta</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                {{ form.final_price(class="form-control", required="required", pattern="\d{1,35}") }}
+                            </div>
+                            {% for error in form.final_price.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="date" class="">Fecha de solicitud</label>
+                            {{ form.date_sold(class="form-control", required="required") }}
+                            {% for error in form.date_sold.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <p class="text-center" style="margin-top: 40px;">
+            <button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
+            &nbsp; &nbsp;
+            <button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; ACTUALIZAR</button>
+        </p>
+    </form>
+</div>
+{% endblock %}

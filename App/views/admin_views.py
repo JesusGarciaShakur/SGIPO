@@ -8,6 +8,7 @@ from models.services import count_service_requests
 from models.suppliers import count_suppliers
 from models.products import count_products
 from models.services import count_service_requests
+from models.sales import count_sales
 
 admin_views = Blueprint('admin', __name__)
 
@@ -21,6 +22,7 @@ def home():
         total_suppliers = count_suppliers()
         total_products = count_products()
         total_purchases = count_service_requests()
+        total_sales = count_sales()
         return render_template('pages/home/home.html',
                             total_users=total_users,
                             total_clients=total_clients,
@@ -28,7 +30,8 @@ def home():
                             total_services=total_services,
                             total_suppliers=total_suppliers,
                             total_products=total_products,
-                            total_purchases=total_purchases)
+                            total_purchases=total_purchases,
+                            total_sales=total_sales)
     else:
         abort(403)
 

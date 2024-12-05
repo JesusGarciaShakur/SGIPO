@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista Ventas{% endblock title %}
+
+
+{% block content %}
+
+<!-- Page header -->
+<div class="full-box page-header">
+    <h3 class="text-left">
+        <i class="fas fa-child fa-fw"></i> &nbsp; Lista de Ventas
+    </h3>
+    <p class="text-justify">
+        A continuación se muestran todas las Ventas realizadas en óptica "Prestigio Óptico".
+    </p>
+</div>
+
+<div class="container-fluid">
+    <ul class="full-box list-unstyled page-nav-tabs">
+        <li>
+            <a href="{{ url_for('sale.sale_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NUEVA ORDEN</a>
+        </li>
+        <li>
+            <a class="active" href="{{ url_for('sale.sale_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
+                ORDENES</a>
+        </li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="container-fluid">
+    <form method="get" action="{{ url_for('sale.sale_list') }}" class="form-inline justify-content-center">
+        <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, username, teléfono, etc."
+            style="width: 300px;" value="{{ request.args.get('search', '') }}">
+        <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-dark table-sm custom-table">
+            <thead>
+                <tr class="text-center roboto-medium">
+                    <th>Nombre del Cliente</th>
+                    <th>Nombre del Producto</th>
+                    <th>Cantidad vendida</th>
+                    <th>Precio de venta</th>
+                    <th>Fecha de venta</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sale in sales %}
+                <tr>
+                    <td>{{ sale.id_client }}</td>
+                    <td>{{ sale.id_product }}</td>
+                    <td>{{ sale.quantity_sold }}</td>
+                    <td>$ {{ sale.final_price }}</td>
+                    <td>{{ sale.date_sold }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <!-- Botón Editar -->
+                            <a href="{{ url_for('sale.sale_update', id_sale=sale.id_sale) }}"
+                                class="btn btn-primary btn-sm" style="border-radius: 5px;">
+                                <i class="far fa-edit"></i> Editar
+                            </a>
+                            <!-- Botón Eliminar con modal -->
+                            <button type="button" class="btn btn-danger btn-sm btn-delete-user" style="border-radius: 5px;">
+                                <i class="fa fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                        <!-- Modal de Confirmación -->
+                        <div class="modal" id="deleteModal{{ sale.id_sale }}">
+                            <div class="modal-content">
+                                <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
+                                <p>Esta acción no se puede deshacer.</p>
+                                <form action="{{ url_for('sale.sale_delete', id_sale=sale.id_sale) }}" method="post">
+                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
+                                    <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('sale.sale_list', page=page-1, search=request.args.get('search', '')) }}"
+                    tabindex="{% if page == 1 %}-1{% endif %}" aria-label="Anterior">
+                    Anterior
+                </a>
+            </li>
+            {% for p in range(1, total_pages + 1) %}
+            <li class="page-item {% if p == page %}active{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('sale.sale_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
+            </li>
+            {% endfor %}
+            <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+                <a class="page-link"
+                    href="{{ url_for('sale.sale_list', page=page+1, search=request.args.get('search', '')) }}"
+                    tabindex="{% if page == total_pages %}-1{% endif %}" aria-label="Siguiente">
+                    Siguiente
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+</div>
+{% endblock %}

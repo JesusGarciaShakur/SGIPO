@@ -49,11 +49,11 @@
 		</div>
 	</a>
 
-	<a href="#" class="tile">
+	<a href="{{ url_for('sale.sale_list') }}" class="tile">
 		<div class="tile-tittle">Lista de Ventas</div>
 		<div class="tile-icon">
 			<i class="fas fa-shopping-cart fa-fw"></i>
-			<p>Registered</p>
+			<p>{{ total_sales }} Registrados</p>
 		</div>
 	</a>
 
