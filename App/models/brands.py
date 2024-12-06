@@ -45,28 +45,14 @@ class Brand:
                             id_supplier=brand["id_supplier"])
                 return brand
             return None
-        
-    @staticmethod
-    def __get__(id_brand):
-        with mydb.cursor(dictionary=True) as cursor:
-            sql = f"SELECT * FROM brands_sgipo WHERE id_brand = {id_brand}"
-            cursor.execute(sql)
-            brand = cursor.fetchone()
-            if brand:
-                brand = Brand(id_brand=brand["id_brand"],
-                            name_brand=brand["name_brand"],
-                            description_brand=brand["description_brand"],
-                            id_supplier=brand["id_supplier"])
-                return brand
-            return None
     
     @staticmethod
     def get_all():
+        brands = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_marcas"
             cursor.execute(sql)
             result = cursor.fetchall()
-            brands = []
             for row in result:
                 brand = Brand(id_brand=row["id de marca"],
                             name_brand=row["nombre de marca"],
@@ -127,11 +113,11 @@ class Supplier:
 
     @staticmethod
     def get_all():
+        suppliers = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM suppliers_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
-            suppliers = []
             for row in result:
                 supplier = Supplier(id_supplier=row["id_supplier"],
                                     name_supplier=row["name_supplier"],

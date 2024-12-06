@@ -62,24 +62,6 @@ class User:
             return None
 
     @staticmethod
-    def __get__(id_user):
-        with mydb.cursor(dictionary=True) as cursor:
-            sql = f"SELECT * FROM users_sgipo WHERE id_user = { id_user }"
-            cursor.execute(sql)
-            user = cursor.fetchone()
-            if user:
-                user = User(id_user=user["id_user"],
-                            userName_user=user["userName_user"],
-                            password_user=user["password_user"],
-                            id_rol=user["id_rol"],
-                            name_user=user["name_user"],
-                            lastName_user=user["lastName_user"],
-                            numberPhone_user=user["numberPhone_user"],
-                            image_user=user["image_user"])
-                return user
-            return None
-
-    @staticmethod
     def get_all():
         users = []
         with mydb.cursor(dictionary=True) as cursor:

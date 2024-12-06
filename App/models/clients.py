@@ -55,32 +55,14 @@ class Client:
                                 id_disease=client["id_disease"])
                 return client
             return None
-        
-    @staticmethod
-    def __get__(id_client):
-        with mydb.cursor(dictionary=True) as cursor:
-            sql = f"SELECT * FROM clients_sgipo WHERE id_client = {id_client}"
-            cursor.execute(sql)
-            client = cursor.fetchone()
-            if  client:
-                client = Client(id_client=client["id_client"],
-                                name_client=client["name_client"],
-                                lastName_client=client["lastName_client"],
-                                age_client=client["age_client"],
-                                numberPhone_client=client["numberPhone_client"],
-                                email_client=client["email_client"],
-                                direction_client=client["direction_client"],
-                                id_disease=client["id_disease"])
-                return client
-            return None
     
     @staticmethod
     def get_all():
+        clients = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_clientes"
             cursor.execute(sql)
             result = cursor.fetchall()
-            clients = []
             for row in result:
                 client = Client(id_client=row["id de cliente"],
                                 name_client=row["nombre"],
@@ -162,11 +144,11 @@ class Disease:
 
     @staticmethod
     def get_all():
+        diseases = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM chronic_diseases_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
-            diseases = []
             for row in result:
                 disease = Disease(id_disease=row["id_disease"], name_disease=row["name_disease"])
                 diseases.append(disease)

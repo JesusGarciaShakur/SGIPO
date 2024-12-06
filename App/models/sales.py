@@ -52,11 +52,11 @@ class Sale:
         
     @staticmethod
     def get_all():
+        sales = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_ventas"
             cursor.execute(sql)
             result = cursor.fetchall()
-            sales = []
             for row in result:
                 sale = Sale(id_sale=row["id de venta"],
                                 id_client=row["nombre cliente"],
@@ -133,11 +133,11 @@ class Client:
 
     @staticmethod
     def get_all():
+        clients = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_clientes"
             cursor.execute(sql)
             result = cursor.fetchall()
-            clients = []
             for row in result:
                 client = Client(id_client=row["id de cliente"],
                                 name_client=row["nombre"],

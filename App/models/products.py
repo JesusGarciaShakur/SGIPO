@@ -143,11 +143,11 @@ class Brand:
 
     @staticmethod
     def get_all():
+        brands = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_marcas"
             cursor.execute(sql)
             result = cursor.fetchall()
-            brands = []
             for row in result:
                 brand = Brand(id_brand=row["id de marca"],
                             name_brand=row["nombre de marca"],

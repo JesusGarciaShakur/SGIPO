@@ -50,11 +50,11 @@ class Purchase:
         
     @staticmethod
     def get_all():
+        purchases = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_ordenes"
             cursor.execute(sql)
             result = cursor.fetchall()
-            purchases = []
             for row in result:
                 purchase = Purchase(id_purchase=row["id de orden"],
                                 id_supplier=row["nombre proveedor"],
@@ -128,11 +128,11 @@ class Product:
 
     @staticmethod
     def get_all():
+        products = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_productos"
             cursor.execute(sql)
             result = cursor.fetchall()
-            products = []
             for row in result:
                 product = Product(id_product=row["id de producto"],
                                 name_product=row["nombre del producto"],

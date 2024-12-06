@@ -52,27 +52,12 @@ class Repair:
             return None
         
     @staticmethod
-    def __get__(id_repair):
-        with mydb.cursor(dictionary=True) as cursor:
-            sql = f"SELECT * FROM repairs_sgipo WHERE id_repair = {id_repair}"
-            cursor.execute(sql)
-            repair = cursor.fetchone()
-            if  repair:
-                repair = Repair(id_repair=repair["id_repair"],
-                                objectName_repair=repair["objectName_repair"],
-                                quantity_repaired=repair["quantity_repaired"],
-                                cost_repair=repair["cost_repair"],
-                                date_repair=repair["date_repair"])
-                return repair
-            return None
-        
-    @staticmethod
     def get_all():
+        repairs = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM repairs_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
-            repairs = []
             for row in result:
                 repair = Repair(id_repair=row["id_repair"],
                                 objectName_repair=row["objectName_repair"],

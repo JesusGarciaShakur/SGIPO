@@ -53,11 +53,11 @@ class Supplier:
         
     @staticmethod
     def get_all():
+        suppliers = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM suppliers_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
-            suppliers = []
             for row in result:
                 supplier = Supplier(id_supplier=row["id_supplier"],
                                     name_supplier=row["name_supplier"],

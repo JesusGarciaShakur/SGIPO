@@ -48,11 +48,11 @@ class Return:
         
     @staticmethod
     def get_all():
+        returns = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM returns_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
-            returns = []
             for row in result:
                 return_ = Return(id_return=row["id_return"],
                                 id_sale=row["id_sale"],
@@ -118,11 +118,11 @@ class Sale:
 
     @staticmethod
     def get_all():
+        sales = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_ventas"
             cursor.execute(sql)
             result = cursor.fetchall()
-            sales = []
             for row in result:
                 sale = Sale(id_sale=row["id de venta"],
                                 id_client=row["nombre cliente"],

@@ -21,19 +21,6 @@ class Disease:
                                 description_disease=disease["description_disease"])
                 return disease
             return None
-        
-    @staticmethod
-    def __get__(id_disease):
-        with mydb.cursor(dictionary=True) as cursor:
-            sql = f"SELECT * FROM chronic_diseases_sgipo WHERE id_disease = {id_disease}"
-            cursor.execute(sql)
-            disease = cursor.fetchone()
-            if disease:
-                disease = Disease(id_disease=disease["id_disease"],
-                                name_disease=disease["name_disease"],
-                                description_disease=disease["description_disease"])
-                return disease
-            return None
 
     @staticmethod
     def get_all():

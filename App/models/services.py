@@ -59,11 +59,11 @@ class Service:
         
     @staticmethod
     def get_all():
+        services = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM services_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
-            services = []
             for row in result:
                 service = Service(id_service=row["id_service"],
                                 name_service=row["name_service"],
@@ -158,27 +158,12 @@ class ServiceRequest:
                 return service_request
             return None
     
-    @staticmethod
-    def __get__(id_request):
-        with mydb.cursor(dictionary=True) as cursor:
-            sql = f"SELECT * FROM servicerequests_sgipo WHERE id_request = {id_request}"
-            cursor.execute(sql)
-            service_request = cursor.fetchone()
-            if  service_request:
-                service_request = ServiceRequest(id_request=service_request["id_request"],
-                                id_service=service_request["id_service"],
-                                id_client=service_request["id_client"],
-                                date_request=service_request["date_request"],
-                                price_request=service_request["price_request"])
-                return service_request
-            return None
-    
     def get_all():
+        service_requests = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_solicitudservicios"
             cursor.execute(sql)
             result = cursor.fetchall()
-            service_requests = []
             for row in result:
                 service_request = ServiceRequest(id_request=row["id de solicitud"],
                                 id_service=row["nombre de servicio"],
@@ -272,11 +257,11 @@ class Client:
 
     @staticmethod
     def get_all():
+        clients = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_clientes"
             cursor.execute(sql)
             result = cursor.fetchall()
-            clients = []
             for row in result:
                 client = Client(id_client=row["id de cliente"],
                                 name_client=row["nombre"],
