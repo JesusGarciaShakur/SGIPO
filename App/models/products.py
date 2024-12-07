@@ -26,6 +26,8 @@ class Product:
             sql = "UPDATE products_sgipo SET name_product = %s, description_product = %s, id_brand = %s, price_product = %s, stock_product = %s, image_product = %s WHERE id_product = %s"
             values = (self.name_product, self.description_product, self.id_brand, self.price_product, self.stock_product, self.id_product, self.image_product)
             cursor.execute(sql, values)
+            print(f"SQL: {sql}")
+            print(f"Values: {values}")
             mydb.commit()
         return self.id_product
     
@@ -54,29 +56,12 @@ class Product:
             return None
         
     @staticmethod
-    def __get__(id_product):
-        with mydb.cursor(dictionary=True) as cursor:
-            sql = f"SELECT * FROM products_sgipo WHERE id_product = {id_product}"
-            cursor.execute(sql)
-            product = cursor.fetchone()
-            if  product:
-                product = Product(id_product=product["id_product"],
-                                name_product=product["name_product"],
-                                description_product=product["description_product"],
-                                id_brand=product["id_brand"],
-                                price_product=product["price_product"],
-                                stock_product=product["stock_product"],
-                                image_product=product["image_product"])
-                return product
-            return None
-        
-    @staticmethod
     def get_all():
+        products = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_productos"
             cursor.execute(sql)
             result = cursor.fetchall()
-            products = []
             for row in result:
                 product = Product(id_product=row["id de producto"],
                                 name_product=row["nombre del producto"],
@@ -90,8 +75,8 @@ class Product:
 
     @staticmethod
     def get_paginated_products(page, per_page):
-        offset = (page - 1) * per_page
         products = []
+        offset = (page - 1) * per_page
         with mydb.cursor(dictionary=True) as cursor:
             cursor.execute("SELECT COUNT(*) FROM vista_productos")
             total = cursor.fetchone()['COUNT(*)']

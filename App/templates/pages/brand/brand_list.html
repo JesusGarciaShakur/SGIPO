@@ -28,7 +28,7 @@
 <!-- Content -->
 <div class="container-fluid">
     <form method="get" action="{{ url_for('brand.brand_list') }}" class="form-inline justify-content-center">
-        <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, descripción, etc."
+        <input type="text" name="search" class="form-control" placeholder="Buscar"
             style="width: 300px;" value="{{ request.args.get('search', '') }}">
         <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
             <i class="fas fa-search"></i>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Registro Cliente{% endblock title %}
+{% block title %}Registro Proveedor{% endblock title %}
 
 {% block content %}
 
@@ -33,7 +33,7 @@
 	<form method="post" action="{{ url_for('supplier.supplier_register') }}" class="form-neon" enctype="multipart/form-data">
 		{{ form.csrf_token }}
 		<fieldset>
-			<legend><i class="far fa-address-card"></i> &nbsp; Información personal</legend>
+			<legend><i class="fas fa-dolly"></i> &nbsp; Información del proveedor</legend>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-md-6">

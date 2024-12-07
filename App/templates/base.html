@@ -79,10 +79,10 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-box-open fa-fw"></i> &nbsp; Productos
 								<i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('product.product_register') }}"><i class="fas fa-box fa-fw"></i> &nbsp;
-										Nuevo producto</a></li>
 								<li><a href="{{ url_for('product.product_list') }}"><i class="fas fa-boxes fa-fw"></i>
 										&nbsp; Lista de productos</a></li>
+								<li><a href="{{ url_for('product.product_register') }}"><i class="fas fa-box fa-fw"></i> &nbsp;
+										Nuevo producto</a></li>
 								<li><a href="{{ url_for('brand.brand_list') }}"><i class="fas fa-copyright fa-fw"></i>
 										&nbsp; Lista de Marcas</a></li>
 								<li><a href="{{ url_for('brand.brand_register') }}"><i class="fas fa-plus-square fa-fw"></i>
@@ -94,11 +94,11 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-truck-moving fa-fw"></i> &nbsp;
 								Proveedores <i class="fas fa-chevron-down"></i></a>
 							<ul>
+								<li><a href="{{ url_for('supplier.supplier_list') }}"><i
+											class="fas fa-truck-moving fa-fw"></i> &nbsp; Lista de Proveedores</a></li>
 								<li><a href="{{ url_for('supplier.supplier_register') }}"><i
 											class="fas fa-plus-square fa-fw"></i>
 										&nbsp; Nuevo Proveedor</a></li>
-								<li><a href="{{ url_for('supplier.supplier_list') }}"><i
-											class="fas fa-truck-moving fa-fw"></i> &nbsp; Lista de Proveedores</a></li>
 							</ul>
 						</li>
 
@@ -106,11 +106,11 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-child fa-fw"></i> &nbsp; Clientes <i
 									class="fas fa-chevron-down"></i></a>
 							<ul>
+								<li><a href="{{ url_for('client.client_list') }}"><i class="fas fa-users fa-fw"></i>
+										&nbsp; Lista de Clientes</a></li>
 								<li><a href="{{ url_for('client.client_register') }}"><i
 											class="fas fa-user-plus fa-fw"></i> &nbsp;
 										Nuevo cliente</a></li>
-								<li><a href="{{ url_for('client.client_list') }}"><i class="fas fa-users fa-fw"></i>
-										&nbsp; Lista de Clientes</a></li>
 							</ul>
 						</li>
 
@@ -118,11 +118,11 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; Ventas
 								<i class="fas fa-chevron-down"></i></a>
 							<ul>
+								<li><a href="{{ url_for('sale.sale_list') }}"><i
+											class="fas fa-shopping-cart fa-fw"></i> &nbsp; Lista de Ventas</a></li>
 								<li><a href="{{ url_for('sale.sale_register') }}"><i
 											class="fas fa-cart-plus fa-fw"></i> &nbsp;
 										Nueva venta</a></li>
-								<li><a href="{{ url_for('sale.sale_list') }}"><i
-											class="fas fa-shopping-cart fa-fw"></i> &nbsp; Lista de Ventas</a></li>
 								<li><a href="{{ url_for('return.return_list') }}"><i class="fas fa-thumbs-down fa-fw"></i>
 										&nbsp; Devoluciones</a></li>
 							</ul>
@@ -137,7 +137,7 @@
 								<li><a href="{{ url_for('service.service_request_register') }}"><i
 											class="fas fa-plus-square fa-fw"></i>
 										&nbsp; Nuevo Servicio</a></li>
-								<li><a href="{{ url_for('service.service_list') }}"><i class="fas fa-plus-square fa-fw"></i>
+								<li><a href="{{ url_for('service.service_list') }}"><i class="fas fa-clipboard-list fa-fw"></i>
 										&nbsp; Registrar nuevo servicio</a></li>
 							</ul>
 						</li>
@@ -148,6 +148,8 @@
 							<ul>
 								<li><a href="{{ url_for('purchase.purchase_list') }}"><i class="fas fa-stream fa-fw"></i>
 										&nbsp; Lista de Ordenes</a></li>
+								<li><a href="{{ url_for('purchase.purchase_register') }}"><i class="fas fa-plus-square fa-fw"></i>
+										&nbsp; Nueva Orden</a></li>
 							</ul>
 						</li>
 
@@ -158,10 +160,9 @@
 								<li><a href="{{ url_for('repair.repair_list') }}"><i class="fas fa-list-ul fa-fw"></i>
 										&nbsp; Lista de Reparaciones</a></li>
 								<li><a href="{{ url_for('repair.repair_register') }}"><i class="fas fa-tools fa-fw"></i>
-										&nbsp; Registrar nueva reparacion</a></li>
+										&nbsp; Registrar nueva reparación</a></li>
 							</ul>
 						</li>
-
 					</ul>
 				</nav>
 			</div>

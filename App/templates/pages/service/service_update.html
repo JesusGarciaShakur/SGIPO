@@ -6,20 +6,11 @@
 <!-- Page header -->
 <div class="full-box page-header">
     <h3 class="text-left">
-        <i class="fas fa-user-plus fa-fw"></i> &nbsp; Editar servicio
+        <i class="fas fa-pen fa-fw"></i> &nbsp; Editar servicio
     </h3>
     <p class="text-justify">
         A continuación, se presenta un formulario para editar un servicio.
     </p>
-</div>
-
-<div class="container-fluid">
-    <ul class="full-box list-unstyled page-nav-tabs">
-        <li>
-            <a href="{{ url_for('service.service_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
-                SERVICIOS</a>
-        </li>
-    </ul>
 </div>
 
 <!-- Content -->
@@ -28,7 +19,7 @@
         enctype="multipart/form-data">
         {{ form.csrf_token }}
         <fieldset>
-            <legend><i class="far fa-address-card"></i> &nbsp; Información de Servicio</legend>
+            <legend><i class="fas fa-concierge-bell"></i> &nbsp; Información de Servicio</legend>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-md-12">
@@ -57,7 +48,7 @@
         <p class="text-center" style="margin-top: 40px;">
             <button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
             &nbsp; &nbsp;
-            <button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; EDITAR</button>
+            <button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; ACTUALIZAR</button>
         </p>
     </form>
 </div>

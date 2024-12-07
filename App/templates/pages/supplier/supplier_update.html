@@ -6,7 +6,7 @@
 <!-- Page header -->
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-plus-square fa-fw"></i> &nbsp; Editar Proveedor
+		<i class="fas fa-pen fa-fw"></i> &nbsp; Editar Proveedor
 	</h3>
 	<p class="text-justify">
 		A continuación, se presenta un formulario para registrar a un nuevo Proveedor.
@@ -14,21 +14,12 @@
 	</p>
 </div>
 
-<div class="container-fluid">
-	<ul class="full-box list-unstyled page-nav-tabs">
-		<li>
-			<a href="{{ url_for('supplier.supplier_list') }}"><i class="fas fa-truck-moving fa-fw"></i> &nbsp; LISTA
-				PROVEEDORES</a>
-		</li>
-	</ul>
-</div>
-
 <!-- Content -->
 <div class="container-fluid">
 	<form method="post" action="{{ url_for('supplier.supplier_update', id_supplier=supplier.id_supplier) }}" class="form-neon" enctype="multipart/form-data">
 		{{ form.csrf_token }}
 		<fieldset>
-			<legend><i class="far fa-address-card"></i> &nbsp; Información personal</legend>
+			<legend><i class="fas fa-dolly"></i> &nbsp; Información del proveedor</legend>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-md-6">
@@ -72,7 +63,7 @@
 		<p class="text-center" style="margin-top: 40px;">
 			<button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
 			&nbsp; &nbsp;
-			<button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; EDITAR</button>
+			<button type="submit" class="btn btn-success"><i class="far fa-save"></i> &nbsp; ACTUALIZAR</button>
 		</p>
 	</form>
 </div>

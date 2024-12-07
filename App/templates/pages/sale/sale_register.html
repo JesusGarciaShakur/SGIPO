@@ -16,13 +16,10 @@
 <div class="container-fluid">
     <ul class="full-box list-unstyled page-nav-tabs">
         <li>
-            <a class="active" href="{{ url_for('sale.sale_register') }}"><i class="fas fa-plus-square fa-fw"></i>
-                &nbsp;
-                NUEVA
-                VENTA</a>
+            <a class="active"href="{{ url_for('sale.sale_register') }}"><i class="fas fa-cart-plus fa-fw"></i> &nbsp; NUEVA VENTA</a>
         </li>
         <li>
-            <a href="{{ url_for('sale.sale_list') }}"><i class="fas fa-stream fa-fw"></i> &nbsp; LISTA
+            <a href="{{ url_for('sale.sale_list') }}"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; LISTA
                 VENTAS</a>
         </li>
     </ul>
@@ -34,7 +31,7 @@
         enctype="multipart/form-data">
         {{ form.csrf_token }}
         <fieldset>
-            <legend><i class="far fa-address-card"></i> &nbsp; Información de Venta</legend>
+            <legend><i class="fas fa-shopping-cart"></i> &nbsp; Información de Venta</legend>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-md-12">

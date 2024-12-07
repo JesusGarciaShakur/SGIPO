@@ -8,7 +8,7 @@
 <!-- Page header -->
 <div class="full-box page-header">
     <h3 class="text-left">
-        <i class="fas fa-child fa-fw"></i> &nbsp; Lista de Ordenes
+        <i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Ordenes
     </h3>
     <p class="text-justify">
         A continuación se muestran todas las Ordenes realizadas a proveedores de la óptica "Prestigio Óptico".
@@ -18,10 +18,10 @@
 <div class="container-fluid">
     <ul class="full-box list-unstyled page-nav-tabs">
         <li>
-            <a href="{{ url_for('purchase.purchase_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NUEVA ORDEN</a>
+            <a href="{{ url_for('purchase.purchase_register') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; NUEVA ORDEN</a>
         </li>
         <li>
-            <a class="active" href="{{ url_for('purchase.purchase_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
+            <a class="active" href="{{ url_for('purchase.purchase_list') }}"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA
                 ORDENES</a>
         </li>
     </ul>
@@ -30,7 +30,7 @@
 <!-- Content -->
 <div class="container-fluid">
     <form method="get" action="{{ url_for('purchase.purchase_list') }}" class="form-inline justify-content-center">
-        <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, username, teléfono, etc."
+        <input type="text" name="search" class="form-control" placeholder="Buscar"
             style="width: 300px;" value="{{ request.args.get('search', '') }}">
         <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
             <i class="fas fa-search"></i>

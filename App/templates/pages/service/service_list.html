@@ -8,7 +8,7 @@
 <!-- Page header -->
 <div class="full-box page-header">
     <h3 class="text-left">
-        <i class="fas fa-child fa-fw"></i> &nbsp; Lista de Servicios
+        <i class="fas fa-stream fa-fw"></i> &nbsp; Lista de Servicios
     </h3>
     <p class="text-justify">
         A continuación se muestra la lista de servicios disponibles en la óptica "Prestigio Óptico"
@@ -18,10 +18,10 @@
 <div class="container-fluid">
     <ul class="full-box list-unstyled page-nav-tabs">
         <li>
-            <a href="{{ url_for('service.service_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NUEVO SERVICIO</a>
+            <a href="{{ url_for('service.service_register') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; NUEVO SERVICIO</a>
         </li>
         <li>
-            <a class="active" href="{{ url_for('service.service_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
+            <a class="active" href="{{ url_for('service.service_list') }}"><i class="fas fa-stream fa-fw"></i> &nbsp; LISTA
                 SERVICIOS</a>
         </li>
     </ul>
@@ -30,7 +30,7 @@
 <!-- Content -->
 <div class="container-fluid">
     <form method="get" action="{{ url_for('service.service_list') }}" class="form-inline justify-content-center">
-        <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, username, teléfono, etc."
+        <input type="text" name="search" class="form-control" placeholder="Buscar"
             style="width: 300px;" value="{{ request.args.get('search', '') }}">
         <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
             <i class="fas fa-search"></i>
