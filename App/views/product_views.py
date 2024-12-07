@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, make_response, render_template, redirect, request, session, abort, url_for
 from forms.product_forms import RegisterProductForm, UpdateProductForm
 from models.products import Product, Brand
+from utils.file_handler import save_image
 
 product_views = Blueprint('product', __name__)
 
@@ -32,7 +33,10 @@ def product_register():
             id_brand = form.id_brand.data
             price_product = form.price_product.data
             stock_product = form.stock_product.data
+            f = form.image_product.data
             product = Product(name_product=name_product, description_product=description_product, id_brand=id_brand, price_product=price_product, stock_product=stock_product)
+            if f:
+                product.image_product = save_image(f, 'img/products', product.name_product)
             product.save()
             return redirect(url_for('product.product_list'))
         return render_template('pages/product/product_register.html', form=form)
@@ -52,6 +56,11 @@ def product_update(id_product):
             product.id_brand = form.id_brand.data
             product.price_product = form.price_product.data
             product.stock_product = form.stock_product.data
+            f = form.image_product.data
+            if f:
+                product.image_product = save_image(f, 'img/products', product.name_product)
+            else:
+                product.image_product = product.image_product
             product.update()
             return redirect(url_for('product.product_list'))
         form.name_product.data = product.name_product

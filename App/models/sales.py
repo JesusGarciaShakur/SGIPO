@@ -161,11 +161,11 @@ class Product:
 
     @staticmethod
     def get_all():
+        products = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_productos"
             cursor.execute(sql)
             result = cursor.fetchall()
-            products = []
             for row in result:
                 product = Product(id_product=row["id de producto"],
                                 name_product=row["nombre del producto"],

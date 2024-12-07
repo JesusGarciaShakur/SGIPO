@@ -3,18 +3,19 @@ from .db import get_connection
 mydb = get_connection()
 #id_product, name_product, description_product, id_brand, price_product, stock_product
 class Product:
-    def __init__(self, id_product='', name_product='', description_product='', id_brand='', price_product='', stock_product=''):
+    def __init__(self, id_product='', name_product='', description_product='', id_brand='', price_product='', stock_product='', image_product=''):
         self.id_product = id_product
         self.name_product = name_product
         self.description_product = description_product
         self.id_brand = id_brand
         self.price_product = price_product
         self.stock_product = stock_product
+        self.image_product = image_product
 
     def save(self):
         with mydb.cursor() as cursor:
-            sql = "INSERT INTO products_sgipo(name_product, description_product, id_brand, price_product, stock_product) VALUES (%s, %s, %s, %s, %s)"
-            values = (self.name_product, self.description_product, self.id_brand, self.price_product, self.stock_product)
+            sql = "INSERT INTO products_sgipo(name_product, description_product, id_brand, price_product, stock_product, image_product) VALUES (%s, %s, %s, %s, %s, %s)"
+            values = (self.name_product, self.description_product, self.id_brand, self.price_product, self.stock_product, self.image_product)
             print(f"SQL: {sql}")
             print(f"Values: {values}")
             cursor.execute(sql, values)
@@ -22,8 +23,8 @@ class Product:
 
     def update(self):
         with mydb.cursor() as cursor:
-            sql = "UPDATE products_sgipo SET name_product = %s, description_product = %s, id_brand = %s, price_product = %s, stock_product = %s WHERE id_product = %s"
-            values = (self.name_product, self.description_product, self.id_brand, self.price_product, self.stock_product, self.id_product)
+            sql = "UPDATE products_sgipo SET name_product = %s, description_product = %s, id_brand = %s, price_product = %s, stock_product = %s, image_product = %s WHERE id_product = %s"
+            values = (self.name_product, self.description_product, self.id_brand, self.price_product, self.stock_product, self.id_product, self.image_product)
             cursor.execute(sql, values)
             mydb.commit()
         return self.id_product
@@ -47,7 +48,8 @@ class Product:
                                 description_product=product["description_product"],
                                 id_brand=product["id_brand"],
                                 price_product=product["price_product"],
-                                stock_product=product["stock_product"])
+                                stock_product=product["stock_product"],
+                                image_product=product["image_product"])
                 return product
             return None
         
@@ -63,7 +65,8 @@ class Product:
                                 description_product=product["description_product"],
                                 id_brand=product["id_brand"],
                                 price_product=product["price_product"],
-                                stock_product=product["stock_product"])
+                                stock_product=product["stock_product"],
+                                image_product=product["image_product"])
                 return product
             return None
         
@@ -80,7 +83,8 @@ class Product:
                                 description_product=row["descripcion producto"],
                                 id_brand=row["nombre marca"],
                                 price_product=row["precio producto"],
-                                stock_product=row["cantidad en stock"])
+                                stock_product=row["cantidad en stock"],
+                                image_product=row["imagen producto"])
                 products.append(product)
         return products
 
@@ -100,7 +104,8 @@ class Product:
                                 description_product=row["descripcion producto"],
                                 id_brand=row["nombre marca"],
                                 price_product=row["precio producto"],
-                                stock_product=row["cantidad en stock"])
+                                stock_product=row["cantidad en stock"],
+                                image_product=row["imagen producto"])
                 products.append(product)
         return products, total
 
@@ -130,16 +135,18 @@ class Product:
                                 description_product=row["descripcion producto"],
                                 id_brand=row["nombre marca"],
                                 price_product=row["precio producto"],
-                                stock_product=row["cantidad en stock"])
+                                stock_product=row["cantidad en stock"],
+                                image_product=row["imagen producto"])
                 products.append(product)
         return products, total
     
 class Brand:
-    def __init__(self, id_brand='', name_brand='', description_brand='', id_supplier=''):
+    def __init__(self, id_brand='', name_brand='', description_brand='', id_supplier='', image_brand=''):
         self.id_brand = id_brand
         self.name_brand = name_brand
         self.description_brand = description_brand
         self.id_supplier = id_supplier
+        self.image_brand = image_brand
 
     @staticmethod
     def get_all():
@@ -152,7 +159,8 @@ class Brand:
                 brand = Brand(id_brand=row["id de marca"],
                             name_brand=row["nombre de marca"],
                             description_brand=row["descripcion marca"],
-                            id_supplier=row["nombre proveedor"])
+                            id_supplier=row["nombre proveedor"],
+                            image_brand=row["imagen marca"])
                 brands.append(brand)
         return brands
 

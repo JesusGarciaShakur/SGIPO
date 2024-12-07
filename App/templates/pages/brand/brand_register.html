@@ -72,6 +72,27 @@
                             {% endif %}
                         </div>
                     </div>
+					<fieldset>
+						<legend><i class="far fa-image"></i> &nbsp; Imagen</legend>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<label for="ProductImg" class="bmd-label-floating">Imagen de Marca</label><br>
+										{{ form.image_brand() }}
+										{% if form.image_brand.errors %}
+										{% for error in form.image_brand.errors %}
+										<p>{{ error }}</p>
+										{% endfor %}
+										{% endif %}
+										<br>
+										<small class="text-muted">Selecciona una imagen para tu peril (solo se admiten
+											archivos tipo jpg, png)</small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</fieldset>
 		</fieldset>
 		<p class="text-center" style="margin-top: 40px;">
 			<button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>

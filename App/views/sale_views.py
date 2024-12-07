@@ -8,7 +8,7 @@ sale_views = Blueprint('sale', __name__)
 def sale_list():
     if session.get('user') and session.get('user')['type'] == 1:
         page = int(request.args.get('page', 1))
-        per_page = 10
+        per_page = 5
         search_query = request.args.get('search', '')
         if search_query:
             sales, total = Sale.search(search_query, page, per_page)
@@ -18,6 +18,7 @@ def sale_list():
         return render_template('pages/sale/sale_list.html', sales=sales, page=page, total_pages=total_pages)
     else:
         abort(403)
+        
 @sale_views.route('/sale_register', methods=['GET', 'POST'])
 #id_sale,id_client,id_product,,quantity_sold,final_price,date_sold
 def sale_register():
@@ -78,7 +79,7 @@ def sale_delete(id_sale):
 @sale_views.route('/get_sales')
 def get_sales():
     page = request.args.get('page', 1, type=int)
-    per_page = 10
+    per_page = 5
     sales, total = Sale.get_paginated_sales(page, per_page)
 
     sales_dict = [
@@ -88,7 +89,7 @@ def get_sales():
             'id_product': sale.id_product,
             'quantity_sold': sale.quantity_sold,
             'final_price': sale.final_price,
-            'date_sold': sale.date_sold,
+            'date_sold': sale.date_sold
         }
         for sale in sales
     ]
@@ -96,4 +97,4 @@ def get_sales():
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
-    return response 
+    return response

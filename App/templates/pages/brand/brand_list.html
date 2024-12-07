@@ -2,7 +2,6 @@
 
 {% block title %}Lista Marcas{% endblock title %}
 
-
 {% block content %}
 
 <!-- Page header -->
@@ -11,7 +10,7 @@
         <i class="fas fa-list-alt fa-fw"></i> &nbsp; Lista de Marcas
     </h3>
     <p class="text-justify">
-        A continuación se muestran todos los Marcas de la óptica "Prestigio Óptico".
+        A continuación se muestran todas las marcas de la óptica "Prestigio Óptico".
     </p>
 </div>
 
@@ -21,8 +20,7 @@
             <a href="{{ url_for('brand.brand_register') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; NUEVA MARCA</a>
         </li>
         <li>
-            <a class="active" href="{{ url_for('brand.brand_list') }}"><i class="fas fa-list-alt fa-fw"></i> &nbsp; LISTA
-                MARCAS</a>
+            <a class="active" href="{{ url_for('brand.brand_list') }}"><i class="fas fa-list-alt fa-fw"></i> &nbsp; LISTA MARCAS</a>
         </li>
     </ul>
 </div>
@@ -30,58 +28,66 @@
 <!-- Content -->
 <div class="container-fluid">
     <form method="get" action="{{ url_for('brand.brand_list') }}" class="form-inline justify-content-center">
-        <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, username, teléfono, etc."
+        <input type="text" name="search" class="form-control" placeholder="Buscar por nombre, descripción, etc."
             style="width: 300px;" value="{{ request.args.get('search', '') }}">
         <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
             <i class="fas fa-search"></i>
         </button>
     </form>
-    <div class="table-responsive">
-        <table class="table table-dark table-sm custom-table">
-            <thead>
-                <tr class="text-center roboto-medium">
-                    <th>Nombre de la Marca</th>
-                    <th>Descripción</th>
-                    <th>Proveedor de la marca</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for brand in brands %}
-                <tr>
-                    <td>{{ brand.name_brand }}</td>
-                    <td>{{ brand.description_brand }}</td>
-                    <td>{{ brand.id_supplier }}</td>
-                    <td>
-                        <div class="btn-group" role="group">
-                            <!-- Botón Editar -->
-                            <a href="{{ url_for('brand.brand_update', id_brand=brand.id_brand) }}"
-                                class="btn btn-primary btn-sm" style="border-radius: 5px;">
-                                <i class="far fa-edit"></i> Editar
-                            </a>
-                            <!-- Botón Eliminar con modal -->
-                            <button type="button" class="btn btn-danger btn-sm btn-delete-user" style="border-radius: 5px;">
-                                <i class="fa fa-trash"></i> Eliminar
-                            </button>
-                        </div>
-                        <!-- Modal de Confirmación -->
-                        <div class="modal" id="deleteModal{{ brand.id_brand }}">
-                            <div class="modal-content">
-                                <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
-                                <p>Esta acción no se puede deshacer.</p>
-                                <form action="{{ url_for('brand.brand_delete', id_brand=brand.id_brand) }}" method="post">
-                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
-                                    <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
-                                </form>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+    <!-- Tarjetas -->
+    <div class="row mt-4">
+        {% for brand in brands %}
+        <div class="col-md-4 col-lg-3">
+            <div class="card mb-4 shadow-sm">
+                <!-- Imagen de la marca -->
+                <img class="card-img-top" src="{{ url_for('static', filename='img/brands/' + brand.image_brand) }}" alt="{{ brand.name_brand }}"
+                    style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ brand.name_brand }}</h5>
+                    <p class="card-text">{{ brand.description_brand }}</p>
+                    <p class="text-muted">Proveedor: {{ brand.id_supplier }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ url_for('brand.brand_update', id_brand=brand.id_brand) }}"
+                            class="btn btn-primary btn-sm">
+                            <i class="far fa-edit"></i> Editar
+                        </a>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                            data-target="#deleteModal{{ brand.id_brand }}">
+                            <i class="fa fa-trash"></i> Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Confirmación -->
+        <div class="modal fade" id="deleteModal{{ brand.id_brand }}" tabindex="-1" role="dialog"
+            aria-labelledby="deleteModalLabel{{ brand.id_brand }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel{{ brand.id_brand }}">Eliminar Marca</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Estás seguro que quieres eliminar esta marca? Esta acción no se puede deshacer.
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{{ url_for('brand.brand_delete', id_brand=brand.id_brand) }}" method="post">
+                            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    
+
+    <!-- Paginación -->
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item {% if page == 1 %}disabled{% endif %}">
@@ -106,6 +112,6 @@
             </li>
         </ul>
     </nav>
-    
 </div>
+
 {% endblock %}

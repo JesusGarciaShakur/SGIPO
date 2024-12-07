@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, make_response, render_template, redirect, request, session, abort, url_for
 from forms.brand_forms import RegisterBrandForm, UpdateBrandForm
 from models.brands import Brand, Supplier
+from utils.file_handler import save_image
 
 brand_views = Blueprint('brand', __name__)
 
@@ -30,7 +31,10 @@ def brand_register():
             name_brand = form.name_brand.data
             description_brand = form.description_brand.data
             id_supplier = form.id_supplier.data
+            f = form.image_brand.data
             brand = Brand(name_brand=name_brand, description_brand=description_brand, id_supplier=id_supplier)
+            if f:
+                brand.image_brand = save_image(f, 'img/brands', brand.name_brand)
             brand.save()
             return redirect(url_for('brand.brand_list'))
         return render_template('pages/brand/brand_register.html', form=form)
@@ -48,6 +52,11 @@ def brand_update(id_brand):
             brand.name_brand = form.name_brand.data
             brand.description_brand = form.description_brand.data
             brand.id_supplier = form.id_supplier.data
+            f = form.image_brand.data
+            if f:
+                brand.image_brand = save_image(f, 'img/brands', brand.name_brand)
+            else:
+                brand.image_brand = brand.image_brand
             brand.update()
             return redirect(url_for('brand.brand_list'))
         form.name_brand.data = brand.name_brand
@@ -78,6 +87,7 @@ def get_brands():
             'name_brand': brand.name_brand,
             'description_brand': brand.description_brand,
             'id_supplier': brand.id_supplier,
+            'image_brand': brand.image_brand,
         }
         for brand in brands
     ]

@@ -4,23 +4,24 @@ mydb = get_connection()
 #id_brand,name_brand ,description_brand ,id_supplier
 
 class Brand:
-    def __init__(self, id_brand='', name_brand='', description_brand='', id_supplier=''):
+    def __init__(self, id_brand='', name_brand='', description_brand='', id_supplier='', image_brand=''):
         self.id_brand = id_brand
         self.name_brand = name_brand
         self.description_brand = description_brand
         self.id_supplier = id_supplier
+        self.image_brand = image_brand
 
     def save(self):
         with mydb.cursor() as cursor:
-            sql = "INSERT INTO brands_sgipo (name_brand, description_brand, id_supplier) VALUES (%s, %s, %s)"
-            values = (self.name_brand, self.description_brand, self.id_supplier)
+            sql = "INSERT INTO brands_sgipo (name_brand, description_brand, id_supplier, image_brand) VALUES (%s, %s, %s, %s)"
+            values = (self.name_brand, self.description_brand, self.id_supplier, self.image_brand)
             cursor.execute(sql, values)
         mydb.commit()
 
     def update(self):
         with mydb.cursor() as cursor:
-            sql = "UPDATE brands_sgipo SET name_brand = %s, description_brand = %s, id_supplier = %s WHERE id_brand = %s"
-            values = (self.name_brand, self.description_brand, self.id_supplier, self.id_brand)
+            sql = "UPDATE brands_sgipo SET name_brand = %s, description_brand = %s, id_supplier = %s, image_brand = %s WHERE id_brand = %s"
+            values = (self.name_brand, self.description_brand, self.id_supplier, self.image_brand, self.id_brand )
             cursor.execute(sql, values)
             mydb.commit()
         return self.id_brand
@@ -42,7 +43,8 @@ class Brand:
                 brand = Brand(id_brand=brand["id_brand"],
                             name_brand=brand["name_brand"],
                             description_brand=brand["description_brand"],
-                            id_supplier=brand["id_supplier"])
+                            id_supplier=brand["id_supplier"],
+                            image_brand=brand["image_brand"])
                 return brand
             return None
     
@@ -57,7 +59,8 @@ class Brand:
                 brand = Brand(id_brand=row["id de marca"],
                             name_brand=row["nombre de marca"],
                             description_brand=row["descripcion marca"],
-                            id_supplier=row["nombre proveedor"])
+                            id_supplier=row["nombre proveedor"],
+                            image_brand=row["imagen marca"])
                 brands.append(brand)
         return brands
 
@@ -75,7 +78,8 @@ class Brand:
                 brand = Brand(id_brand=row["id de marca"],
                             name_brand=row["nombre de marca"],
                             description_brand=row["descripcion marca"],
-                            id_supplier=row["nombre proveedor"])
+                            id_supplier=row["nombre proveedor"],
+                            image_brand=row["imagen marca"])
                 brands.append(brand)
         return brands, total
 
@@ -99,7 +103,8 @@ class Brand:
                 brand = Brand(id_brand=row["id de marca"],
                             name_brand=row["nombre de marca"],
                             description_brand=row["descripcion marca"],
-                            id_supplier=row["nombre proveedor"])
+                            id_supplier=row["nombre proveedor"],
+                            image_brand=row["imagen marca"])
                 brands.append(brand)
         return brands, total
 
