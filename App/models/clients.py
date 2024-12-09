@@ -84,7 +84,7 @@ class Client:
             cursor.execute("SELECT COUNT(*) FROM vista_clientes")
             total = cursor.fetchone()['COUNT(*)']
             
-            cursor.execute("SELECT * FROM vista_clientes ORDER BY 'id_client'DESC LIMIT %s OFFSET %s", (per_page, offset))
+            cursor.execute("SELECT * FROM vista_clientes ORDER BY `id de cliente` DESC LIMIT %s OFFSET %s", (per_page, offset))
             result = cursor.fetchall()
             for row in result:
                 client = Client(id_client=row["id de cliente"],

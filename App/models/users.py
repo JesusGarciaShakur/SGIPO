@@ -107,7 +107,7 @@ class User:
             cursor.execute("SELECT COUNT(*) FROM vista_usuarios")
             total = cursor.fetchone()['COUNT(*)']
 
-            cursor.execute("SELECT * FROM vista_usuarios ORDER BY 'id_user' DESC LIMIT %s OFFSET %s", (per_page, offset))
+            cursor.execute("SELECT * FROM vista_usuarios ORDER BY `id de usuario` DESC LIMIT %s OFFSET %s", (per_page, offset))
             result = cursor.fetchall()
             for row in result:
                 user = User(

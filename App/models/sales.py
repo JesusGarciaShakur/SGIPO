@@ -77,17 +77,19 @@ class Sale:
             cursor.execute("SELECT COUNT(*) FROM vista_ventas")
             total = cursor.fetchone()['COUNT(*)']
             
-            cursor.execute("SELECT * FROM vista_ventas ORDER BY 'id_sale'DESC LIMIT %s OFFSET %s", (per_page, offset))
+            # Ajuste en la consulta para ordenar correctamente
+            cursor.execute("SELECT * FROM vista_ventas ORDER BY `id de venta` DESC LIMIT %s OFFSET %s", (per_page, offset))
             result = cursor.fetchall()
             for row in result:
                 sale = Sale(id_sale=row["id de venta"],
-                                id_client=row["nombre cliente"],
-                                id_product=row["nombre producto"],
-                                quantity_sold=row["articulos vendidos"],
-                                final_price=row["precio final"],
-                                date_sold=row["fecha venta"])
+                            id_client=row["nombre cliente"],
+                            id_product=row["nombre producto"],
+                            quantity_sold=row["articulos vendidos"],
+                            final_price=row["precio final"],
+                            date_sold=row["fecha venta"])
                 sales.append(sale)
         return sales, total
+
     
     @staticmethod
     def search(query, page, per_page):

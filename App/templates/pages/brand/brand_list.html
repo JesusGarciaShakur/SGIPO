@@ -45,15 +45,15 @@
                     style="height: 200px; object-fit: cover;">
                 <div class="card-body">
                     <h5 class="card-title">{{ brand.name_brand }}</h5>
-                    <p class="card-text">{{ brand.description_brand }}</p>
                     <p class="text-muted">Proveedor: {{ brand.id_supplier }}</p>
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group" role="group">
+                        <!-- Botón Editar -->
                         <a href="{{ url_for('brand.brand_update', id_brand=brand.id_brand) }}"
-                            class="btn btn-primary btn-sm">
+                            class="btn btn-primary btn-sm" style="border-radius: 5px;">
                             <i class="far fa-edit"></i> Editar
                         </a>
-                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                            data-target="#deleteModal{{ brand.id_brand }}">
+                        <!-- Botón Eliminar con modal -->
+                        <button type="button" class="btn btn-danger btn-sm btn-delete-user" style="border-radius: 5px;">
                             <i class="fa fa-trash"></i> Eliminar
                         </button>
                     </div>
@@ -61,29 +61,17 @@
             </div>
         </div>
 
-        <!-- Modal de Confirmación -->
-        <div class="modal fade" id="deleteModal{{ brand.id_brand }}" tabindex="-1" role="dialog"
-            aria-labelledby="deleteModalLabel{{ brand.id_brand }}" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel{{ brand.id_brand }}">Eliminar Marca</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Estás seguro que quieres eliminar esta marca? Esta acción no se puede deshacer.
-                    </div>
-                    <div class="modal-footer">
-                        <form action="{{ url_for('brand.brand_delete', id_brand=brand.id_brand) }}" method="post">
-                            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
-                        </form>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <!-- Modal de Confirmación -->
+                        <div class="modal" id="deleteModal{{ brand.id_brand }}">
+                            <div class="modal-content">
+                                <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
+                                <p>Esta acción no se puede deshacer.</p>
+                                <form action="{{ url_for('brand.brand_delete', id_brand=brand.id_brand) }}" method="post">
+                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
+                                    <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
+                                </form>
+                            </div>
+                        </div>
         {% endfor %}
     </div>
 

@@ -74,7 +74,7 @@ class Purchase:
             cursor.execute("SELECT COUNT(*) FROM vista_ordenes")
             total = cursor.fetchone()['COUNT(*)']
             
-            cursor.execute("SELECT * FROM vista_ordenes ORDER BY 'id_purchase'DESC LIMIT %s OFFSET %s", (per_page, offset))
+            cursor.execute("SELECT * FROM vista_ordenes ORDER BY `id de orden` DESC LIMIT %s OFFSET %s", (per_page, offset))
             result = cursor.fetchall()
             for row in result:
                 purchase = Purchase(id_purchase=row["id de orden"],

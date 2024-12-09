@@ -81,7 +81,7 @@ class Product:
             cursor.execute("SELECT COUNT(*) FROM vista_productos")
             total = cursor.fetchone()['COUNT(*)']
             
-            cursor.execute("SELECT * FROM vista_productos ORDER BY 'id de producto'DESC LIMIT %s OFFSET %s", (per_page, offset))
+            cursor.execute("SELECT * FROM vista_productos ORDER BY `id de producto` DESC LIMIT %s OFFSET %s", (per_page, offset))
             result = cursor.fetchall()
             for row in result:
                 product = Product(id_product=row["id de producto"],
