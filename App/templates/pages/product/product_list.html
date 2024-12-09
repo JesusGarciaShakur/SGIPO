@@ -103,7 +103,7 @@
                     Anterior
                 </a>
             </li>
-            {% for p in range(1, total_pages + 1) %}
+            {% for p in range(start_page, end_page + 1) %}
             <li class="page-item {% if p == page %}active{% endif %}">
                 <a class="page-link" href="{{ url_for('product.product_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
             </li>

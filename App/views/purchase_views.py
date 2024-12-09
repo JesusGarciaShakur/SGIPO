@@ -15,7 +15,18 @@ def purchase_list():
         else:
             purchases, total = Purchase.get_paginated_purchases(page, per_page)
         total_pages = (total + per_page - 1) // per_page
-        return render_template('pages/purchase/purchase_list.html', purchases=purchases, page=page, total_pages=total_pages)
+        # Rango de paginación
+        visible_pages = 5  # Número máximo de páginas visibles
+        start_page = max(1, page - (visible_pages // 2))
+        end_page = min(total_pages, start_page + visible_pages - 1)
+        start_page = max(1, end_page - visible_pages + 1)  # Ajustar si estamos cerca del inicio
+        
+        return render_template('pages/purchase/purchase_list.html',
+                            purchases=purchases,
+                            page=page,
+                            total_pages=total_pages,
+                            start_page=start_page,
+                            end_page=end_page)
     else:
         abort(403)
     

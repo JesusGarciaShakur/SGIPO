@@ -16,7 +16,18 @@ def product_list():
         else:
             products, total = Product.get_paginated_products(page, per_page)
         total_pages = (total + per_page - 1) // per_page
-        return render_template('pages/product/product_list.html', products=products, page=page, total_pages=total_pages)
+        # Rango de paginación
+        visible_pages = 5  # Número máximo de páginas visibles
+        start_page = max(1, page - (visible_pages // 2))
+        end_page = min(total_pages, start_page + visible_pages - 1)
+        start_page = max(1, end_page - visible_pages + 1)  # Ajustar si estamos cerca del inicio
+        
+        return render_template('pages/product/product_list.html',
+                            products=products,
+                            page=page,
+                            total_pages=total_pages,
+                            start_page=start_page,
+                            end_page=end_page)
     else:
         abort(403)
     #id_product, name_product, description_product, id_brand, price_product, stock_product

@@ -16,7 +16,18 @@ def service_list():
         else:
             services, total = Service.get_paginated_services(page, per_page)
         total_pages = (total + per_page - 1) // per_page
-        return render_template('pages/service/service_list.html', services=services, page=page, total_pages=total_pages)
+        # Rango de paginación
+        visible_pages = 5  # Número máximo de páginas visibles
+        start_page = max(1, page - (visible_pages // 2))
+        end_page = min(total_pages, start_page + visible_pages - 1)
+        start_page = max(1, end_page - visible_pages + 1)  # Ajustar si estamos cerca del inicio
+        
+        return render_template('pages/service/service_list.html',
+                            services=services,
+                            page=page,
+                            total_pages=total_pages,
+                            start_page=start_page,
+                            end_page=end_page)
     else:
         abort(403)
 
@@ -91,7 +102,17 @@ def service_request_list():
         else:
             service_requests, total = ServiceRequest.get_paginated_service_requests(page, per_page)
         total_pages = (total + per_page - 1) // per_page
-        return render_template('pages/service/service_request_list.html', service_requests=service_requests, page=page, total_pages=total_pages)
+        # Rango de paginación
+        visible_pages = 5  # Número máximo de páginas visibles
+        start_page = max(1, page - (visible_pages // 2))
+        end_page = min(total_pages, start_page + visible_pages - 1)
+        start_page = max(1, end_page - visible_pages + 1)  # Ajustar si estamos cerca del inicio
+        
+        return render_template('pages/service/service_request_list.html',
+                            service_requests=service_requests,
+                            page=page, total_pages=total_pages,
+                            start_page=start_page,
+                            end_page=end_page)
     else:
         abort(403)
 #id_request, id_service, id_client, date_request, price_request
