@@ -24,7 +24,7 @@ class Product:
     def update(self):
         with mydb.cursor() as cursor:
             sql = "UPDATE products_sgipo SET name_product = %s, description_product = %s, id_brand = %s, price_product = %s, stock_product = %s, image_product = %s WHERE id_product = %s"
-            values = (self.name_product, self.description_product, self.id_brand, self.price_product, self.stock_product, self.id_product, self.image_product)
+            values = (self.name_product, self.description_product, self.id_brand, self.price_product, self.stock_product, self.image_product, self.id_product)
             cursor.execute(sql, values)
             print(f"SQL: {sql}")
             print(f"Values: {values}")
