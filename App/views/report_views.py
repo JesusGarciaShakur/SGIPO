@@ -15,8 +15,6 @@ mydb = get_connection()
 
 report_views = Blueprint('report', __name__)
 
-
-
 @report_views.route('/sales_report', methods=['GET'])
 def sales_report():
     if session.get('user') and session.get('user')['type'] == 1:
@@ -34,9 +32,9 @@ def sales_report():
         sales = []
         with mydb.cursor(dictionary=True) as cursor:
             sql = """
-                SELECT * FROM sales_sgipo
-                WHERE date_sold BETWEEN %s AND %s
-                ORDER BY date_sold
+                SELECT * FROM vista_ventas
+                WHERE `fecha de venta` BETWEEN %s AND %s
+                ORDER BY `fecha de venta`
             """
             cursor.execute(sql, (start_date, end_date))
             sales = cursor.fetchall()
@@ -44,8 +42,11 @@ def sales_report():
         if not sales:
             return jsonify({'message': 'No sales found in the specified date range.'}), 404
 
+        # Verificar los datos retornados
+        print("Sales data:", sales)
+
         # Calcular el total de ventas
-        total_sales = sum(sale['final_price'] for sale in sales)
+        total_sales = sum(sale['precio final'] for sale in sales)
 
         # Crear el PDF
         buffer = BytesIO()
@@ -72,12 +73,12 @@ def sales_report():
         # Datos
         pdf.setFont("Helvetica", 10)
         for sale in sales:
-            pdf.drawString(50, y, str(sale['id_sale']))
-            pdf.drawString(100, y, sale['id_client'])
-            pdf.drawString(200, y, sale['id_product'])
-            pdf.drawString(300, y, str(sale['quantity_sold']))
-            pdf.drawString(400, y, f"${sale['final_price']:.2f}")
-            pdf.drawString(500, y, sale['date_sold'].strftime('%Y-%m-%d'))
+            pdf.drawString(50, y, str(sale['id de venta']))
+            pdf.drawString(100, y, sale['nombre cliente'])
+            pdf.drawString(200, y, sale['nombre producto'])
+            pdf.drawString(300, y, str(sale['articulos vendidos']))
+            pdf.drawString(400, y, f"${sale['precio final']:.2f}")
+            pdf.drawString(500, y, sale['fecha venta'].strftime('%Y-%m-%d'))
             y -= 20
             if y < 50:  # Nueva página si es necesario
                 pdf.showPage()
@@ -92,8 +93,6 @@ def sales_report():
         })
     else:
         abort(403)
-
-
 
 @report_views.route('/generate_report', methods=['GET'])
 def generate_report_view():
@@ -123,7 +122,7 @@ def generate_pdf():
         sales = generate_report(start_date, end_date)  # Función para obtener los datos de ventas
         
         # Calcular el total de ventas
-        total_sales = sum(sale['final_price'] for sale in sales) if sales else 0
+        total_sales = sum(sale['precio final'] for sale in sales) if sales else 0
 
         # Renderizar el HTML con los datos
         rendered = render_template(

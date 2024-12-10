@@ -123,32 +123,53 @@ class Sale:
         return sales, total
     
 
+
 from datetime import datetime
+import mysql.connector
 
 def generate_report(start_date_str, end_date_str):
-    # Convierte las fechas de string a objeto datetime
-    start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
-    end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+    try:
+        # Validar y convertir las fechas de string a objeto datetime
+        try:
+            start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
+            end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+        except ValueError:
+            return {"error": "Invalid date format. Use YYYY-MM-DD."}
 
-    # Establece la conexión con la base de datos
-    conn = get_connection()
-    cursor = conn.cursor(dictionary=True)  # Obtiene los resultados como diccionarios
+        # Verificar que la fecha de inicio no sea mayor a la fecha de fin
+        if start_date > end_date:
+            return {"error": "Start date must be earlier than or equal to end date."}
 
-    # Consulta SQL para obtener las ventas dentro del rango de fechas
-    query = '''
-        SELECT * FROM sales_sgipo
-        WHERE date_sold >= %s AND date_sold <= %s
-    '''
-    cursor.execute(query, (start_date, end_date))
+        # Establecer la conexión con la base de datos
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)  # Los resultados serán devueltos como diccionarios
+
+        # Consulta SQL para obtener las ventas dentro del rango de fechas
+        query = '''
+            SELECT * FROM vista_ventas
+            WHERE `fecha venta` >= %s AND `fecha venta` <= %s
+        '''
+        cursor.execute(query, (start_date, end_date))
+        
+        # Recuperar todos los resultados
+        sales = cursor.fetchall()
+        return sales
+
+    except mysql.connector.Error as e:
+        # Manejo de errores de la base de datos
+        return {"error": f"Database error: {str(e)}"}
     
-    # Recupera todos los resultados
-    sales = cursor.fetchall()
+    except Exception as e:
+        # Manejo de otros errores
+        return {"error": f"Unexpected error: {str(e)}"}
+    
+    finally:
+        # Asegurar que los recursos se cierren correctamente
+        if 'cursor' in locals() and cursor:
+            cursor.close()
+        if 'conn' in locals() and conn:
+            conn.close()
 
-    # Cierra la conexión
-    cursor.close()
-    conn.close()
-
-    return sales
 
 
 class Client:
