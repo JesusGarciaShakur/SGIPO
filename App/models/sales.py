@@ -121,6 +121,35 @@ class Sale:
                                 date_sold=row["fecha venta"])
                 sales.append(sale)
         return sales, total
+    
+
+from datetime import datetime
+
+def generate_report(start_date_str, end_date_str):
+    # Convierte las fechas de string a objeto datetime
+    start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
+    end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+
+    # Establece la conexión con la base de datos
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)  # Obtiene los resultados como diccionarios
+
+    # Consulta SQL para obtener las ventas dentro del rango de fechas
+    query = '''
+        SELECT * FROM sales_sgipo
+        WHERE date_sold >= %s AND date_sold <= %s
+    '''
+    cursor.execute(query, (start_date, end_date))
+    
+    # Recupera todos los resultados
+    sales = cursor.fetchall()
+
+    # Cierra la conexión
+    cursor.close()
+    conn.close()
+
+    return sales
+
 
 class Client:
     def __init__(self, id_client='', name_client='', lastName_client='', age_client='', numberPhone_client='', email_client='', direction_client='', id_disease=''):

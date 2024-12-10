@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Ventas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        header p {
+            font-size: 14px;
+            color: #777;
+        }
+        .report-details {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .report-details p {
+            font-size: 16px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        table td {
+            color: #555;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+        .footer p {
+            margin: 0;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Reporte de Ventas</h1>
+            <p>Generado el: {{ start_date }} al {{ end_date }}</p>
+        </header>
+
+        <div class="report-details">
+            <p><strong>Ventas Totales:</strong> ${{ total_sales }}</p>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID de Venta</th>
+                        <th>Cliente</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Final</th>
+                        <th>Fecha de Venta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sale in sales %}
+                        <tr>
+                            <td>{{ sale.id_sale }}</td>
+                            <td>{{ sale.id_client }}</td>
+                            <td>{{ sale.id_product }}</td>
+                            <td>{{ sale.quantity_sold }}</td>
+                            <td>${{ sale.final_price }}</td>
+                            <td>{{ sale.date_sold }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 PrestigioÓptico - Todos los derechos reservados</p>
+        </div>
+    </div>
+</body>
+</html>
