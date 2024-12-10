@@ -97,44 +97,50 @@ def sales_report():
 
 @report_views.route('/generate_report', methods=['GET'])
 def generate_report_view():
-    start_date = request.args.get('start_date')
-    end_date = request.args.get('end_date')
-    
-    if start_date and end_date:
-        sales = generate_report(start_date, end_date)
-    else:
-        sales = []
+    if session.get('user') and session.get('user')['type'] == 1:
+        start_date = request.args.get('start_date')
+        end_date = request.args.get('end_date')
+        
+        if start_date and end_date:
+            sales = generate_report(start_date, end_date)
+        else:
+            sales = []
 
-    return render_template('pages/report/report.html', sales=sales)
+        return render_template('pages/report/report.html', sales=sales)
+    else:
+        abort(403)
 
 @report_views.route('/generate_pdf', methods=['GET'])
 def generate_pdf():
-    start_date = request.args.get('start_date')
-    end_date = request.args.get('end_date')
-    
-    if not start_date or not end_date:
-        return jsonify({'error': 'Debe proporcionar las fechas de inicio y fin.'}), 400
+    if session.get('user') and session.get('user')['type'] == 1:
+        start_date = request.args.get('start_date')
+        end_date = request.args.get('end_date')
+        
+        if not start_date or not end_date:
+            return jsonify({'error': 'Debe proporcionar las fechas de inicio y fin.'}), 400
 
-    # Obtener las ventas desde la base de datos
-    sales = generate_report(start_date, end_date)  # Función para obtener los datos de ventas
-    
-    # Calcular el total de ventas
-    total_sales = sum(sale['final_price'] for sale in sales) if sales else 0
+        # Obtener las ventas desde la base de datos
+        sales = generate_report(start_date, end_date)  # Función para obtener los datos de ventas
+        
+        # Calcular el total de ventas
+        total_sales = sum(sale['final_price'] for sale in sales) if sales else 0
 
-    # Renderizar el HTML con los datos
-    rendered = render_template(
-        'pages/report/sale_report.html',
-        sales=sales,
-        start_date=start_date,
-        end_date=end_date,
-        total_sales=total_sales
-    )
-    
-    # Configurar pdfkit con la ruta de wkhtmltopdf
-    config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
-    
-    # Convertir el HTML a PDF
-    pdf = pdfkit.from_string(rendered, False, configuration=config)
-    
-    # Enviar el PDF como archivo descargable
-    return send_file(io.BytesIO(pdf), as_attachment=True, download_name="reporte_ventas.pdf", mimetype='application/pdf')
+        # Renderizar el HTML con los datos
+        rendered = render_template(
+            'pages/report/sale_report.html',
+            sales=sales,
+            start_date=start_date,
+            end_date=end_date,
+            total_sales=total_sales
+        )
+        
+        # Configurar pdfkit con la ruta de wkhtmltopdf
+        config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
+        
+        # Convertir el HTML a PDF
+        pdf = pdfkit.from_string(rendered, False, configuration=config)
+        
+        # Enviar el PDF como archivo descargable
+        return send_file(io.BytesIO(pdf), as_attachment=True, download_name="reporte_ventas.pdf", mimetype='application/pdf')
+    else:
+        abort(403)
