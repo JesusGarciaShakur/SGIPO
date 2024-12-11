@@ -42,9 +42,6 @@ def sales_report():
         if not sales:
             return jsonify({'message': 'No sales found in the specified date range.'}), 404
 
-        # Verificar los datos retornados
-        print("Sales data:", sales)
-
         # Calcular el total de ventas
         total_sales = sum(sale['precio final'] for sale in sales)
 

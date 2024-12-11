@@ -189,19 +189,26 @@ class ServiceRequest:
             cursor.execute("SELECT COUNT(*) FROM vista_solicitudservicios")
             total = cursor.fetchone()['COUNT(*)']
 
-            # Obtener los registros paginados
-            cursor.execute(
-                "SELECT * FROM vista_solicitudservicios ORDER BY 'id_request' DESC LIMIT %s OFFSET %s", 
-                (per_page, offset)
-            )
+            # Consulta para recuperar los datos, incluyendo el apellido
+            cursor.execute("""
+                SELECT 
+                    `id de solicitud`,
+                    `nombre de servicio`,
+                    `nombre de cliente`,
+                    `apellido cliente`,
+                    `fecha de solicitud`,
+                    `precio a cobrar`
+                FROM vista_solicitudservicios
+                ORDER BY `id de solicitud` DESC
+                LIMIT %s OFFSET %s
+            """, (per_page, offset))
             result = cursor.fetchall()
-
             # Construir la lista de `service_requests`
             for row in result:
                 service_request = ServiceRequest(
                     id_request=row["id de solicitud"],
                     id_service=row["nombre de servicio"],
-                    id_client=row["nombre de cliente"],
+                    id_client=f"{row['nombre de cliente']} {row['apellido cliente']}",  # Combina nombre y apellido
                     date_request=row["fecha de solicitud"],
                     price_request=row["precio a cobrar"]
                 )

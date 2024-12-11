@@ -22,9 +22,6 @@ class Supplier:
         with mydb.cursor() as cursor:
             sql = "UPDATE suppliers_sgipo SET name_supplier = %s, direction_supplier = %s, rfc_supplier = %s, contact_supplier = %s WHERE id_supplier = %s"
             values = (self.name_supplier, self.direction_supplier, self.rfc_supplier, self.contact_supplier, self.id_supplier)
-            #revisar errores
-            print(f"SQL: {sql}")
-            print(f"Values: {values}")
             cursor.execute(sql, values)
             mydb.commit()
         return self.id_supplier

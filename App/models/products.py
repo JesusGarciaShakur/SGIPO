@@ -16,8 +16,6 @@ class Product:
         with mydb.cursor() as cursor:
             sql = "INSERT INTO products_sgipo(name_product, description_product, id_brand, price_product, stock_product, image_product) VALUES (%s, %s, %s, %s, %s, %s)"
             values = (self.name_product, self.description_product, self.id_brand, self.price_product, self.stock_product, self.image_product)
-            print(f"SQL: {sql}")
-            print(f"Values: {values}")
             cursor.execute(sql, values)
         mydb.commit()
 
@@ -26,8 +24,6 @@ class Product:
             sql = "UPDATE products_sgipo SET name_product = %s, description_product = %s, id_brand = %s, price_product = %s, stock_product = %s, image_product = %s WHERE id_product = %s"
             values = (self.name_product, self.description_product, self.id_brand, self.price_product, self.stock_product, self.image_product, self.id_product)
             cursor.execute(sql, values)
-            print(f"SQL: {sql}")
-            print(f"Values: {values}")
             mydb.commit()
         return self.id_product
     

@@ -24,9 +24,6 @@ class Client:
         with mydb.cursor() as cursor:
             sql = "UPDATE clients_sgipo SET name_client=%s, lastName_client=%s, age_client=%s, numberPhone_client=%s, email_client=%s, direction_client=%s, id_disease=%s WHERE id_client=%s"
             values = (self.name_client, self.lastName_client, self.age_client, self.numberPhone_client, self.email_client, self.direction_client, self.id_disease, self.id_client)
-            #revisar errores
-            print(f"SQL: {sql}")
-            print(f"Values: {values}")
             cursor.execute(sql, values)
             mydb.commit()
         return self.id_client

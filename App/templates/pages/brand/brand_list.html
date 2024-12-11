@@ -42,9 +42,14 @@
         {% for brand in brands %}
         <div class="col-md-4 col-lg-3">
             <div class="card mb-4 shadow-sm">
-                <!-- Imagen de la marca -->
-                <img class="card-img-top" src="{{ url_for('static', filename='img/brands/' + brand.image_brand) }}"
-                    alt="{{ brand.name_brand }}" style="height: 200px; object-fit: cover;">
+                {% if brand.image_brand %}
+                <img src="{{ url_for('static', filename='img/brands/' + brand.image_brand) }}"
+                    class="card-img-top img-fluid" alt="{{ brand.name_brand }}"
+                    style="object-fit: cover; height: 200px;">
+                {% else %}
+                <img src="{{ url_for('static', filename='img/brands/image.png') }}" class="card-img-top img-fluid"
+                    alt="Default Image" style="object-fit: cover; height: 200px;">
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ brand.name_brand }}</h5>
                     <p class="text-muted">Proveedor: {{ brand.id_supplier }}</p>

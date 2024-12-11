@@ -79,19 +79,34 @@ class Sale:
             cursor.execute("SELECT COUNT(*) FROM vista_ventas")
             total = cursor.fetchone()['COUNT(*)']
             
-            # Ajuste en la consulta para ordenar correctamente
-            cursor.execute("SELECT * FROM vista_ventas ORDER BY `id de venta` DESC LIMIT %s OFFSET %s", (per_page, offset))
+            # Consulta para recuperar los datos, incluyendo el apellido
+            cursor.execute("""
+                SELECT 
+                    `id de venta`,
+                    `nombre cliente`,
+                    `apellido cliente`,
+                    `nombre producto`,
+                    `articulos vendidos`,
+                    `precio final`,
+                    `fecha venta`
+                FROM vista_ventas
+                ORDER BY `id de venta` DESC
+                LIMIT %s OFFSET %s
+            """, (per_page, offset))
             result = cursor.fetchall()
             for row in result:
-                sale = Sale(id_sale=row["id de venta"],
-                            id_client=row["nombre cliente"],
-                            id_product=row["nombre producto"],
-                            quantity_sold=row["articulos vendidos"],
-                            final_price=row["precio final"],
-                            date_sold=row["fecha venta"])
+                sale = Sale(
+                    id_sale=row["id de venta"],
+                    id_client=f"{row['nombre cliente']} {row['apellido cliente']}",  # Combina nombre y apellido
+                    id_product=row["nombre producto"],
+                    quantity_sold=row["articulos vendidos"],
+                    final_price=row["precio final"],
+                    date_sold=row["fecha venta"]
+                )
                 sales.append(sale)
-        connection.close
+        connection.close()  # Cierra la conexión correctamente
         return sales, total
+
 
     
     @staticmethod

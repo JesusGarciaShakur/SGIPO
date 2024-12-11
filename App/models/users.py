@@ -29,9 +29,6 @@ class User:
             self.password_user = generate_password_hash(self.password_user)
             sql = "UPDATE users_sgipo SET userName_user=%s, password_user=%s, id_rol=%s, name_user=%s, lastName_user=%s, numberPhone_user=%s, image_user=%s WHERE id_user=%s"
             values = (self.userName_user, self.password_user, self.id_rol, self.name_user, self.lastName_user, self.numberPhone_user, self.image_user, self.id_user)
-            #revisar errores
-            print(f"SQL: {sql}")
-            print(f"Values: {values}")
             cursor.execute(sql, values)
             mydb.commit()
         return self.id_user 
@@ -192,7 +189,6 @@ class User:
             val = (userName_user,)
             cursor.execute(sql, val)
             user = cursor.fetchone()
-            print(user)
             if user != None:
                 if check_password_hash(user["password_user"], password_user):
                     return User.__get__(user["id_user"])
@@ -211,7 +207,6 @@ class Type:
             sql = "SELECT * FROM roles_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
-            print(result)
             for row in result:
                 type= Type(id_rol=row["id_rol"], name_rol=row["name_rol"])
                 types.append(type)

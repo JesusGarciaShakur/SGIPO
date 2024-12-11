@@ -27,7 +27,18 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 	<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/logos/icon.ico') }}">
 </head>
-
+<style>
+	.error-message {
+		color: #721c24;
+		background-color: #f8d7da;
+		border-color: #f5c6cb;
+		padding: 10px;
+		border-radius: 5px;
+		margin-top: 10px;
+		text-align: center;
+	}
+	
+</style>
 <body>
 
 	<div class="login-container">
@@ -38,6 +49,9 @@
 			<p class="text-center">
 				Inicia sesión con tu cuenta
 			</p>
+            {% for message in get_flashed_messages() %}
+            <p class="error-message">{{ message }}</p>
+            {% endfor %}
 			<form method="post">
 				{{ form.csrf_token }}
 				<div class="form-group">
@@ -55,8 +69,7 @@
 					<label for="Password" class="bmd-label-floating">
 						<i class="fas fa-key"></i> &nbsp; Contraseña
 					</label>
-					{{ form.password_user(id="password", type="password", class="form-control pr-5",
-					required="required") }}
+					{{ form.password_user(id="password", type="password", class="form-control pr-5", required="required") }}
 					<button type="button" class="btn btn-link p-0 position-absolute" id="togglePassword1"
 						style="right: 10px; top: 50%; transform: translateY(1%);">
 						<i class="fa fa-eye" id="eye-icon1"></i>
@@ -71,6 +84,7 @@
 			</form>
 		</div>
 	</div>
+	
 	<!-- jQuery V3.4.1 -->
 	<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
 	<!-- popper -->
