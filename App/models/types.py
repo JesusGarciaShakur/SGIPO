@@ -34,7 +34,8 @@ class Type:
     @staticmethod
     def get_all():
         types = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM roles_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -42,4 +43,5 @@ class Type:
                 type = Type(id_rol=row["id_rol"],
                             name_rol=row["name_rol"])
                 types.append(type)
+        connection.close()
         return types

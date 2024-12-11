@@ -39,8 +39,8 @@
 					<img src="{{ url_for('static', filename='img/profiles/' + session['user']['image_user']) }}"
 						class="img-fluid" alt="Imagen del perfil">
 					{% else %}
-					<img src="{{ url_for('static', filename='img/profiles/Avatar.png') }}"
-						class="img-fluid" alt="Imagen de Perfil de Usuario">
+					<img src="{{ url_for('static', filename='img/profiles/Avatar.png') }}" class="img-fluid"
+						alt="Imagen de Perfil de Usuario">
 					{% endif %}
 					<figcaption class="roboto-medium text-center">
 						<!-- Mostrar el nombre y apellido del usuario desde la sesión -->
@@ -71,7 +71,8 @@
 								<li><a href="{{ url_for('admin.admin_register') }}"><i
 											class="fas fa-user-plus fa-fw"></i> &nbsp;
 										Nuevo Administrador</a></li>
-								<li><a href="{{ url_for('report.generate_report_view') }}"><i class="fas fa-file-pdf fa-fw"></i>
+								<li><a href="{{ url_for('report.generate_report_view') }}"><i
+											class="fas fa-file-pdf fa-fw"></i>
 										&nbsp; Generar reportes</a></li>
 							</ul>
 						</li>
@@ -82,11 +83,13 @@
 							<ul>
 								<li><a href="{{ url_for('product.product_list') }}"><i class="fas fa-boxes fa-fw"></i>
 										&nbsp; Lista de productos</a></li>
-								<li><a href="{{ url_for('product.product_register') }}"><i class="fas fa-box fa-fw"></i> &nbsp;
+								<li><a href="{{ url_for('product.product_register') }}"><i class="fas fa-box fa-fw"></i>
+										&nbsp;
 										Nuevo producto</a></li>
 								<li><a href="{{ url_for('brand.brand_list') }}"><i class="fas fa-copyright fa-fw"></i>
 										&nbsp; Lista de Marcas</a></li>
-								<li><a href="{{ url_for('brand.brand_register') }}"><i class="fas fa-plus-square fa-fw"></i>
+								<li><a href="{{ url_for('brand.brand_register') }}"><i
+											class="fas fa-plus-square fa-fw"></i>
 										&nbsp; Nueva Marca</a></li>
 							</ul>
 						</li>
@@ -119,12 +122,13 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; Ventas
 								<i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('sale.sale_list') }}"><i
-											class="fas fa-shopping-cart fa-fw"></i> &nbsp; Lista de Ventas</a></li>
-								<li><a href="{{ url_for('sale.sale_register') }}"><i
-											class="fas fa-cart-plus fa-fw"></i> &nbsp;
+								<li><a href="{{ url_for('sale.sale_list') }}"><i class="fas fa-shopping-cart fa-fw"></i>
+										&nbsp; Lista de Ventas</a></li>
+								<li><a href="{{ url_for('sale.sale_register') }}"><i class="fas fa-cart-plus fa-fw"></i>
+										&nbsp;
 										Nueva venta</a></li>
-								<li><a href="{{ url_for('return.return_list') }}"><i class="fas fa-thumbs-down fa-fw"></i>
+								<li><a href="{{ url_for('return.return_list') }}"><i
+											class="fas fa-thumbs-down fa-fw"></i>
 										&nbsp; Devoluciones</a></li>
 							</ul>
 						</li>
@@ -133,12 +137,14 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-concierge-bell fa-fw"></i> &nbsp;
 								Servicios <i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('service.service_request_list') }}"><i class="fas fa-stream fa-fw"></i>
-									&nbsp; Lista de Servicios</a></li>
+								<li><a href="{{ url_for('service.service_request_list') }}"><i
+											class="fas fa-stream fa-fw"></i>
+										&nbsp; Lista de Servicios</a></li>
 								<li><a href="{{ url_for('service.service_request_register') }}"><i
 											class="fas fa-plus-square fa-fw"></i>
 										&nbsp; Nuevo Servicio</a></li>
-								<li><a href="{{ url_for('service.service_list') }}"><i class="fas fa-clipboard-list fa-fw"></i>
+								<li><a href="{{ url_for('service.service_list') }}"><i
+											class="fas fa-clipboard-list fa-fw"></i>
 										&nbsp; Registrar nuevo servicio</a></li>
 							</ul>
 						</li>
@@ -147,15 +153,18 @@
 							<a href="#" class="nav-btn-submenu"><i class="fas fa-book-open fa-fw"></i> &nbsp; Ordenes de
 								Compra <i class="fas fa-chevron-down"></i></a>
 							<ul>
-								<li><a href="{{ url_for('purchase.purchase_list') }}"><i class="fas fa-stream fa-fw"></i>
+								<li><a href="{{ url_for('purchase.purchase_list') }}"><i
+											class="fas fa-stream fa-fw"></i>
 										&nbsp; Lista de Ordenes</a></li>
-								<li><a href="{{ url_for('purchase.purchase_register') }}"><i class="fas fa-plus-square fa-fw"></i>
+								<li><a href="{{ url_for('purchase.purchase_register') }}"><i
+											class="fas fa-plus-square fa-fw"></i>
 										&nbsp; Nueva Orden</a></li>
 							</ul>
 						</li>
 
 						<li>
-							<a href="#" class="nav-btn-submenu"><i class="fas fa-toolbox fa-fw"></i> &nbsp; Reparaciones de 
+							<a href="#" class="nav-btn-submenu"><i class="fas fa-toolbox fa-fw"></i> &nbsp; Reparaciones
+								de
 								Óptica <i class="fas fa-chevron-down"></i></a>
 							<ul>
 								<li><a href="{{ url_for('repair.repair_list') }}"><i class="fas fa-list-ul fa-fw"></i>
@@ -173,7 +182,7 @@
 				<a href="#" class="float-left show-nav-lateral"><i class="fas fa-exchange-alt"></i></a>
 				<a href="#" data-toggle="modal" data-target="#ModalHelp"><i class="far fa-question-circle"></i></a>
 				<a href="#" class="btn-exit-system"><i class="fas fa-power-off"></i></a>
-			</nav>			
+			</nav>
 			{% block content %}{% endblock %}
 		</section>
 		<!-- Modal de salir-->
@@ -191,22 +200,41 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content" style="width: 2000px;">
 					<div class="modal-header">
-						<h5 class="modal-title roboto-medium text-center" id="exampleModalLongTitle">Aviso Legal de OptiManager</h5>
+						<h5 class="modal-title roboto-medium text-center" id="exampleModalLongTitle">Aviso Legal de
+							OptiManager</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body" style="text-align: justify;">
-						<strong>OptiManager</strong> es un sistema de gestión exclusivo para la óptica <strong>Prestigio Óptico</strong>, diseñado y desarrollado para optimizar la administración de inventarios dentro de la empresa. Este sistema es de uso exclusivo para <strong>Prestigio Óptico</strong> y no está autorizado para ser utilizado fuera de esta organización.
-						Cualquier consulta relacionada con el diseño, implementación, mantenimiento o mejora del sistema deberá ser dirigida exclusivamente al creador del sistema, el <strong>T.S.U Jesus G. Rodriguez</strong>, responsable de su desarrollo y personalización. Es importante destacar que el mal uso del sistema o de la información contenida en él no será responsabilidad del autor del software.
+						<strong>OptiManager</strong> es un sistema de gestión exclusivo para la óptica <strong>Prestigio
+							Óptico</strong>, diseñado y desarrollado para optimizar la administración de inventarios
+						dentro de la empresa. Este sistema es de uso exclusivo para <strong>Prestigio Óptico</strong> y
+						no está autorizado para ser utilizado fuera de esta organización.
+						Cualquier consulta relacionada con el diseño, implementación, mantenimiento o mejora del sistema
+						deberá ser dirigida exclusivamente al creador del sistema, el <strong>T.S.U Jesus G.
+							Rodriguez</strong>, responsable de su desarrollo y personalización. Es importante destacar
+						que el mal uso del sistema o de la información contenida en él no será responsabilidad del autor
+						del software.
 						<br>
-						<strong>OptiManager</strong> está protegido por las leyes mexicanas que regulan la propiedad intelectual y el desarrollo de software, incluyendo la Ley de Propiedad Industrial (LPI) y la Ley Federal del Derecho de Autor (LFDA). Cualquier intento de replicar, modificar o distribuir el sistema sin autorización explícita y por escrito del creador será considerado un acto de plagio y se procederá conforme a lo estipulado por la legislación vigente en México.
+						<strong>OptiManager</strong> está protegido por las leyes mexicanas que regulan la propiedad
+						intelectual y el desarrollo de software, incluyendo la Ley de Propiedad Industrial (LPI) y la
+						Ley Federal del Derecho de Autor (LFDA). Cualquier intento de replicar, modificar o distribuir
+						el sistema sin autorización explícita y por escrito del creador será considerado un acto de
+						plagio y se procederá conforme a lo estipulado por la legislación vigente en México.
 						<br>
-						El código fuente del sistema está sujeto a monitoreo continuo y auditorías técnicas. Cualquier intento de replicación, modificación no autorizada o distribución será detectado, y se tomarán las medidas legales necesarias ante los tribunales correspondientes.
+						El código fuente del sistema está sujeto a monitoreo continuo y auditorías técnicas. Cualquier
+						intento de replicación, modificación no autorizada o distribución será detectado, y se tomarán
+						las medidas legales necesarias ante los tribunales correspondientes.
 						<br>
-						<strong>Prestigio Óptico</strong> y el creador del sistema, en su calidad de profesional independiente, se reservan todos los derechos sobre <strong>OptiManager</strong> y su propiedad intelectual. Al utilizar este sistema, usted acepta y se compromete a cumplir con estos términos y condiciones. La violación de los mismos será gestionada conforme a las leyes mexicanas, con las sanciones legales que correspondan.
+						<strong>Prestigio Óptico</strong> y el creador del sistema, en su calidad de profesional
+						independiente, se reservan todos los derechos sobre <strong>OptiManager</strong> y su propiedad
+						intelectual. Al utilizar este sistema, usted acepta y se compromete a cumplir con estos términos
+						y condiciones. La violación de los mismos será gestionada conforme a las leyes mexicanas, con
+						las sanciones legales que correspondan.
 						<br>
-						<strong>OptiManager</strong>: Un sistema diseñado profesionalmente para garantizar la gestión eficiente de los recursos de <strong>Prestigio Óptico</strong>.
+						<strong>OptiManager</strong>: Un sistema diseñado profesionalmente para garantizar la gestión
+						eficiente de los recursos de <strong>Prestigio Óptico</strong>.
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-black roboto-condensed-regular"

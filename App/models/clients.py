@@ -59,7 +59,8 @@ class Client:
     @staticmethod
     def get_all():
         clients = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_clientes"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -73,14 +74,15 @@ class Client:
                                 direction_client=row["direccion"],
                                 id_disease=row["nombre padecimiento"])
                 clients.append(client)
+        connection.close()
         return clients
     
     @staticmethod
     def get_paginated_clients(page, per_page):
-        offset = (page - 1) * per_page
         clients = []
-
-        with mydb.cursor(dictionary=True) as cursor:
+        offset = (page - 1) * per_page
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             cursor.execute("SELECT COUNT(*) FROM vista_clientes")
             total = cursor.fetchone()['COUNT(*)']
             
@@ -96,6 +98,7 @@ class Client:
                                 direction_client=row["direccion"],
                                 id_disease=row["nombre padecimiento"])
                 clients.append(client)
+        connection.close()
         return clients, total
     
     @staticmethod
@@ -145,13 +148,15 @@ class Disease:
     @staticmethod
     def get_all():
         diseases = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM chronic_diseases_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
             for row in result:
                 disease = Disease(id_disease=row["id_disease"], name_disease=row["name_disease"])
                 diseases.append(disease)
+        connection.close()
         return diseases
     
 def count_clients():

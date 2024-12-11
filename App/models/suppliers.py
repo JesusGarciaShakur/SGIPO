@@ -54,7 +54,8 @@ class Supplier:
     @staticmethod
     def get_all():
         suppliers = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM suppliers_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -65,13 +66,15 @@ class Supplier:
                                     rfc_supplier=row["rfc_supplier"],
                                     contact_supplier=row["contact_supplier"])
                 suppliers.append(supplier)
+        connection.close()
         return suppliers
     
     @staticmethod
     def get_paginated_suppliers(page, per_page):
-        offset = (page - 1) * per_page
         suppliers = []
-        with mydb.cursor(dictionary=True) as cursor:
+        offset = (page - 1) * per_page
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             cursor.execute("SELECT COUNT(*) FROM suppliers_sgipo")
             total = cursor.fetchone()['COUNT(*)']
 
@@ -84,6 +87,7 @@ class Supplier:
                                     rfc_supplier=row["rfc_supplier"],
                                     contact_supplier=row["contact_supplier"])
                 suppliers.append(supplier)
+        connection.close()
         return suppliers, total
 
     @staticmethod

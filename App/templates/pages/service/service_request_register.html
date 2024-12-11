@@ -16,7 +16,8 @@
 <div class="container-fluid">
     <ul class="full-box list-unstyled page-nav-tabs">
         <li>
-            <a class="active" href="{{ url_for('service.service_request_register') }}"><i class="fas fa-plus-square fa-fw"></i>
+            <a class="active" href="{{ url_for('service.service_request_register') }}"><i
+                    class="fas fa-plus-square fa-fw"></i>
                 &nbsp;
                 NUEVA
                 SOLICITUD</a>
@@ -43,13 +44,13 @@
                             <select class="form-control" name="{{ form.id_client.name }}">
                                 <option value="">Seleccionar usuario...</option>
                                 {% for id_client, name_client in form.id_client.choices %}
-                                    <option value="{{ id_client }}">{{ name_client }}</option>
+                                <option value="{{ id_client }}">{{ name_client }}</option>
                                 {% endfor %}
                             </select>
                             {% if form.id_client.errors %}
-                                {% for error in form.id_client.errors %}
-                                    <p>{{ error }}</p>
-                                {% endfor %}
+                            {% for error in form.id_client.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
                             {% endif %}
                         </div>
                     </div>
@@ -59,13 +60,13 @@
                             <select class="form-control" name="{{ form.id_service.name }}">
                                 <option value="">Seleccionar servicio...</option>
                                 {% for service, name_service in form.id_service.choices %}
-                                    <option value="{{ service }}">{{ name_service }}</option>
+                                <option value="{{ service }}">{{ name_service }}</option>
                                 {% endfor %}
                             </select>
                             {% if form.id_service.errors %}
-                                {% for error in form.id_service.errors %}
-                                    <p>{{ error }}</p>
-                                {% endfor %}
+                            {% for error in form.id_service.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
                             {% endif %}
                         </div>
                     </div>

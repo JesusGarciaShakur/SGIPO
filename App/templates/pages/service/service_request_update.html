@@ -16,8 +16,8 @@
 
 <!-- Content -->
 <div class="container-fluid">
-    <form method="post" action="{{ url_for('service.service_request_update', id_request=service_request.id_request) }}" class="form-neon"
-        enctype="multipart/form-data">
+    <form method="post" action="{{ url_for('service.service_request_update', id_request=service_request.id_request) }}"
+        class="form-neon" enctype="multipart/form-data">
         {{ form.csrf_token }}
         <fieldset>
             <legend><i class="fas fa-concierge-bell"></i> &nbsp; Información de Solicitud de Servicio</legend>
@@ -29,15 +29,16 @@
                             <select class="form-control" name="{{ form.id_client.name }}">
                                 <option value="">Seleccionar usuario...</option>
                                 {% for id_client, name_client in form.id_client.choices %}
-                                    <option value="{{ id_client }}" {% if form.id_client.data == id_client %}selected{% endif %}>
-                                        {{ name_client }}
-                                    </option>
+                                <option value="{{ id_client }}" {% if form.id_client.data==id_client %}selected{% endif
+                                    %}>
+                                    {{ name_client }}
+                                </option>
                                 {% endfor %}
                             </select>
                             {% if form.id_client.errors %}
-                                {% for error in form.id_client.errors %}
-                                    <p class="text-danger">{{ error }}</p>
-                                {% endfor %}
+                            {% for error in form.id_client.errors %}
+                            <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
                             {% endif %}
                         </div>
                     </div>
@@ -47,15 +48,16 @@
                             <select class="form-control" name="{{ form.id_service.name }}">
                                 <option value="">Seleccionar usuario...</option>
                                 {% for id_service, name_service in form.id_service.choices %}
-                                    <option value="{{ id_service }}" {% if form.id_service.data == id_service %}selected{% endif %}>
-                                        {{ name_service }}
-                                    </option>
+                                <option value="{{ id_service }}" {% if form.id_service.data==id_service %}selected{%
+                                    endif %}>
+                                    {{ name_service }}
+                                </option>
                                 {% endfor %}
                             </select>
                             {% if form.id_service.errors %}
-                                {% for error in form.id_service.errors %}
-                                    <p class="text-danger">{{ error }}</p>
-                                {% endfor %}
+                            {% for error in form.id_service.errors %}
+                            <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
                             {% endif %}
                         </div>
                     </div>

@@ -51,7 +51,8 @@ class Brand:
     @staticmethod
     def get_all():
         brands = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_marcas"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -62,13 +63,15 @@ class Brand:
                             id_supplier=row["nombre proveedor"],
                             image_brand=row["imagen marca"])
                 brands.append(brand)
+        connection.close()
         return brands
 
     @staticmethod
     def get_paginated_brands(page, per_page):
-        offset = (page - 1) * per_page
         brands = []
-        with mydb.cursor(dictionary=True) as cursor:
+        offset = (page - 1) * per_page
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             cursor.execute("SELECT COUNT(*) FROM vista_marcas")
             total = cursor.fetchone()['COUNT(*)']
 
@@ -81,6 +84,7 @@ class Brand:
                             id_supplier=row["nombre proveedor"],
                             image_brand=row["imagen marca"])
                 brands.append(brand)
+        connection.close()
         return brands, total
 
     @staticmethod
@@ -119,7 +123,8 @@ class Supplier:
     @staticmethod
     def get_all():
         suppliers = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM suppliers_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -130,6 +135,7 @@ class Supplier:
                                     rfc_supplier=row["rfc_supplier"],
                                     contact_supplier=row["contact_supplier"])
                 suppliers.append(supplier)
+        connection.close()
         return suppliers
 
 def count_brands():

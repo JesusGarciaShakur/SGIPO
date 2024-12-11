@@ -17,7 +17,8 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a class="active" href="{{ url_for('supplier.supplier_register') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp;
+			<a class="active" href="{{ url_for('supplier.supplier_register') }}"><i
+					class="fas fa-plus-square fa-fw"></i> &nbsp;
 				NUEVO
 				PROVEEDOR</a>
 		</li>
@@ -30,7 +31,8 @@
 
 <!-- Content -->
 <div class="container-fluid">
-	<form method="post" action="{{ url_for('supplier.supplier_register') }}" class="form-neon" enctype="multipart/form-data">
+	<form method="post" action="{{ url_for('supplier.supplier_register') }}" class="form-neon"
+		enctype="multipart/form-data">
 		{{ form.csrf_token }}
 		<fieldset>
 			<legend><i class="fas fa-dolly"></i> &nbsp; Información del proveedor</legend>

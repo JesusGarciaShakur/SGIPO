@@ -69,7 +69,8 @@ class Product:
     @staticmethod
     def get_all():
         products = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_productos"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -82,6 +83,7 @@ class Product:
                                 stock_product=row["cantidad en stock"],
                                 image_product=row["imagen producto"])
                 products.append(product)
+        connection.close()
         return products
     
 
@@ -150,7 +152,8 @@ class Brand:
     @staticmethod
     def get_all():
         brands = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_marcas"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -161,6 +164,7 @@ class Brand:
                             id_supplier=row["nombre proveedor"],
                             image_brand=row["imagen marca"])
                 brands.append(brand)
+        connection.close()
         return brands
 
 def count_products():

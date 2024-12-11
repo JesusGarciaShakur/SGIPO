@@ -49,7 +49,8 @@ class Return:
     @staticmethod
     def get_all():
         returns = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM returns_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -59,14 +60,15 @@ class Return:
                                 reason=row["reason"],
                                 date_return=row["date_return"])
                 returns.append(return_)
+        connection.close()
         return returns
     
     @staticmethod
     def get_paginated_returns(page, per_page):
-        offset = (page - 1) * per_page
         returns = []
-
-        with mydb.cursor(dictionary=True) as cursor:
+        offset = (page - 1) * per_page
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             # Obtener el número total de registros
             cursor.execute("SELECT COUNT(*) FROM returns_sgipo")
             total = cursor.fetchone()['COUNT(*)']
@@ -79,6 +81,7 @@ class Return:
                                 reason=row["reason"],
                                 date_return=row["date_return"])
                 returns.append(return_)
+        connection.close()
         return returns, total
     
     @staticmethod
@@ -119,7 +122,8 @@ class Sale:
     @staticmethod
     def get_all():
         sales = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_ventas"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -131,6 +135,7 @@ class Sale:
                                 final_price=row["precio final"],
                                 date_sold=row["fecha venta"])
                 sales.append(sale)
+        connection.close()
         return sales
     
 def count_returns():

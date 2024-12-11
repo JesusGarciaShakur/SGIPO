@@ -51,7 +51,8 @@ class Purchase:
     @staticmethod
     def get_all():
         purchases = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_ordenes"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -62,14 +63,15 @@ class Purchase:
                                 quantity_ordered=row["cantidad ordenar"],
                                 date_ordered=row["fecha de orden"])
                 purchases.append(purchase)
+        connection.close()
         return purchases
     
     @staticmethod
     def get_paginated_purchases(page, per_page):
-        offset = (page - 1) * per_page
         purchases = []
-
-        with mydb.cursor(dictionary=True) as cursor:
+        offset = (page - 1) * per_page
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             # Obtener el número total de registros
             cursor.execute("SELECT COUNT(*) FROM vista_ordenes")
             total = cursor.fetchone()['COUNT(*)']
@@ -83,6 +85,7 @@ class Purchase:
                                 quantity_ordered=row["cantidad ordenar"],
                                 date_ordered=row["fecha de orden"])
                 purchases.append(purchase)
+        connection.close()
         return purchases, total
     
     @staticmethod
@@ -129,7 +132,8 @@ class Product:
     @staticmethod
     def get_all():
         products = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_productos"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -141,6 +145,7 @@ class Product:
                                 price_product=row["precio producto"],
                                 stock_product=row["cantidad en stock"])
                 products.append(product)
+        connection.close()
         return products
     
 class Supplier:
@@ -153,11 +158,12 @@ class Supplier:
 
     @staticmethod
     def get_all():
-        with mydb.cursor(dictionary=True) as cursor:
+        suppliers = []
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM suppliers_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
-            suppliers = []
             for row in result:
                 supplier = Supplier(id_supplier=row["id_supplier"],
                                     name_supplier=row["name_supplier"],
@@ -165,6 +171,7 @@ class Supplier:
                                     rfc_supplier=row["rfc_supplier"],
                                     contact_supplier=row["contact_supplier"])
                 suppliers.append(supplier)
+        connection.close()
         return suppliers
     
 def count_purchases():

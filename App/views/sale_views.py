@@ -42,7 +42,7 @@ def sale_register():
         products = Product.get_all()
         form.id_product.choices = [(product.id_product, product.name_product) for product in products]
         clients = Client.get_all()
-        form.id_client.choices = [(client.id_client, client.name_client) for client in clients]
+        form.id_client.choices = [(client.id_client, f"{client.name_client} {client.lastName_client}") for client in clients]
         if form.validate_on_submit():
             id_client = form.id_client.data
             id_product = form.id_product.data
@@ -64,7 +64,7 @@ def sale_update(id_sale):
         products = Product.get_all()
         form.id_product.choices = [(product.id_product, product.name_product) for product in products]
         clients = Client.get_all()
-        form.id_client.choices = [(client.id_client, client.name_client) for client in clients]
+        form.id_client.choices = [(client.id_client, f"{client.name_client} {client.lastName_client}") for client in clients]
         if form.validate_on_submit():
             sale.id_client = form.id_client.data
             sale.id_product = form.id_product.data

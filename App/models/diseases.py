@@ -25,7 +25,8 @@ class Disease:
     @staticmethod
     def get_all():
         diseases = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM chronic_diseases_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -34,4 +35,5 @@ class Disease:
                                 name_disease=row["name_disease"],
                                 description_disease=row["description_disease"])
                 diseases.append(disease)
+        connection.close()
         return diseases

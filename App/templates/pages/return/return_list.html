@@ -18,7 +18,8 @@
 <div class="container-fluid">
     <ul class="full-box list-unstyled page-nav-tabs">
         <li>
-            <a href="{{ url_for('return.return_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NUEVA ORDEN</a>
+            <a href="{{ url_for('return.return_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp; NUEVA
+                ORDEN</a>
         </li>
         <li>
             <a class="active" href="{{ url_for('return.return_list') }}"><i class="fas fa-users fa-fw"></i> &nbsp; LISTA
@@ -30,8 +31,8 @@
 <!-- Content -->
 <div class="container-fluid">
     <form method="get" action="{{ url_for('return.return_list') }}" class="form-inline justify-content-center">
-        <input type="text" name="search" class="form-control" placeholder="Buscar"
-            style="width: 300px;" value="{{ request.args.get('search', '') }}">
+        <input type="text" name="search" class="form-control" placeholder="Buscar" style="width: 300px;"
+            value="{{ request.args.get('search', '') }}">
         <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
             <i class="fas fa-search"></i>
         </button>
@@ -60,7 +61,8 @@
                                 <i class="far fa-edit"></i> Editar
                             </a>
                             <!-- Botón Eliminar con modal -->
-                            <button type="button" class="btn btn-danger btn-sm btn-delete-user" style="border-radius: 5px;">
+                            <button type="button" class="btn btn-danger btn-sm btn-delete-user"
+                                style="border-radius: 5px;">
                                 <i class="fa fa-trash"></i> Eliminar
                             </button>
                         </div>
@@ -69,8 +71,10 @@
                             <div class="modal-content">
                                 <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
                                 <p>Esta acción no se puede deshacer.</p>
-                                <form action="{{ url_for('return.return_delete', id_return=return_.id_return) }}" method="post">
-                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
+                                <form action="{{ url_for('return.return_delete', id_return=return_.id_return) }}"
+                                    method="post">
+                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí,
+                                        eliminar</button>
                                     <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
                                 </form>
                             </div>
@@ -81,7 +85,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item {% if page == 1 %}disabled{% endif %}">
@@ -94,7 +98,8 @@
             {% for p in range(start_page, end_page + 1) %}
             <li class="page-item {% if p == page %}active{% endif %}">
                 <a class="page-link"
-                    href="{{ url_for('return.return_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
+                    href="{{ url_for('return.return_list', page=p, search=request.args.get('search', '')) }}">{{ p
+                    }}</a>
             </li>
             {% endfor %}
             <li class="page-item {% if page == total_pages %}disabled{% endif %}">
@@ -106,6 +111,6 @@
             </li>
         </ul>
     </nav>
-    
+
 </div>
 {% endblock %}

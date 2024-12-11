@@ -17,10 +17,12 @@
 <div class="container-fluid">
     <ul class="full-box list-unstyled page-nav-tabs">
         <li>
-            <a href="{{ url_for('brand.brand_register') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; NUEVA MARCA</a>
+            <a href="{{ url_for('brand.brand_register') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; NUEVA
+                MARCA</a>
         </li>
         <li>
-            <a class="active" href="{{ url_for('brand.brand_list') }}"><i class="fas fa-list-alt fa-fw"></i> &nbsp; LISTA MARCAS</a>
+            <a class="active" href="{{ url_for('brand.brand_list') }}"><i class="fas fa-list-alt fa-fw"></i> &nbsp;
+                LISTA MARCAS</a>
         </li>
     </ul>
 </div>
@@ -28,8 +30,8 @@
 <!-- Content -->
 <div class="container-fluid">
     <form method="get" action="{{ url_for('brand.brand_list') }}" class="form-inline justify-content-center">
-        <input type="text" name="search" class="form-control" placeholder="Buscar"
-            style="width: 300px;" value="{{ request.args.get('search', '') }}">
+        <input type="text" name="search" class="form-control" placeholder="Buscar" style="width: 300px;"
+            value="{{ request.args.get('search', '') }}">
         <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
             <i class="fas fa-search"></i>
         </button>
@@ -41,8 +43,8 @@
         <div class="col-md-4 col-lg-3">
             <div class="card mb-4 shadow-sm">
                 <!-- Imagen de la marca -->
-                <img class="card-img-top" src="{{ url_for('static', filename='img/brands/' + brand.image_brand) }}" alt="{{ brand.name_brand }}"
-                    style="height: 200px; object-fit: cover;">
+                <img class="card-img-top" src="{{ url_for('static', filename='img/brands/' + brand.image_brand) }}"
+                    alt="{{ brand.name_brand }}" style="height: 200px; object-fit: cover;">
                 <div class="card-body">
                     <h5 class="card-title">{{ brand.name_brand }}</h5>
                     <p class="text-muted">Proveedor: {{ brand.id_supplier }}</p>
@@ -61,17 +63,17 @@
             </div>
         </div>
 
-                        <!-- Modal de Confirmación -->
-                        <div class="modal" id="deleteModal{{ brand.id_brand }}">
-                            <div class="modal-content">
-                                <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
-                                <p>Esta acción no se puede deshacer.</p>
-                                <form action="{{ url_for('brand.brand_delete', id_brand=brand.id_brand) }}" method="post">
-                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
-                                    <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
-                                </form>
-                            </div>
-                        </div>
+        <!-- Modal de Confirmación -->
+        <div class="modal" id="deleteModal{{ brand.id_brand }}">
+            <div class="modal-content">
+                <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
+                <p>Esta acción no se puede deshacer.</p>
+                <form action="{{ url_for('brand.brand_delete', id_brand=brand.id_brand) }}" method="post">
+                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
+                    <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
+                </form>
+            </div>
+        </div>
         {% endfor %}
     </div>
 

@@ -17,7 +17,8 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a class="active" href="{{ url_for('brand.brand_register') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp;
+			<a class="active" href="{{ url_for('brand.brand_register') }}"><i class="fas fa-plus-square fa-fw"></i>
+				&nbsp;
 				NUEVA
 				MARCA</a>
 		</li>
@@ -39,7 +40,7 @@
 					<div class="col-12 col-md-12">
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Nombre de la Marca
-                            </label>
+							</label>
 							{{ form.name_brand(class="form-control", required="required", pattern="{1,50}",
 							title="Solo letras y espacios son permitidos") }}
 							{% for error in form.name_brand.errors %}
@@ -56,22 +57,22 @@
 							{% endfor %}
 						</div>
 					</div>
-                    <div class="col-12 col-md-12">
-                        <div class="form-group">
-                            {{ form.id_supplier.label }}
-                            <select class="form-control" name="{{ form.id_supplier.name }}">
-                                <option value="">Seleccionar proveedor de marca...</option>
-                                {% for supplier, name_supplier in form.id_supplier.choices %}
-                                    <option value="{{ supplier }}">{{ name_supplier }}</option>
-                                {% endfor %}
-                            </select>
-                            {% if form.id_supplier.errors %}
-                                {% for error in form.id_supplier.errors %}
-                                    <p>{{ error }}</p>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    </div>
+					<div class="col-12 col-md-12">
+						<div class="form-group">
+							{{ form.id_supplier.label }}
+							<select class="form-control" name="{{ form.id_supplier.name }}">
+								<option value="">Seleccionar proveedor de marca...</option>
+								{% for supplier, name_supplier in form.id_supplier.choices %}
+								<option value="{{ supplier }}">{{ name_supplier }}</option>
+								{% endfor %}
+							</select>
+							{% if form.id_supplier.errors %}
+							{% for error in form.id_supplier.errors %}
+							<p>{{ error }}</p>
+							{% endfor %}
+							{% endif %}
+						</div>
+					</div>
 					<fieldset>
 						<legend><i class="far fa-image"></i> &nbsp; Imagen</legend>
 						<div class="container-fluid">

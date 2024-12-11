@@ -54,7 +54,8 @@ class Repair:
     @staticmethod
     def get_all():
         repairs = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM repairs_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -65,18 +66,20 @@ class Repair:
                                 cost_repair=row["cost_repair"],
                                 date_repair=row["date_repair"])
                 repairs.append(repair)
+        connection.close()
         return repairs
     
     @staticmethod
     def get_paginated_repairs(page, per_page):
+        repairs = []
         offset = (page - 1) * per_page
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             cursor.execute("SELECT COUNT(*) FROM repairs_sgipo")
             total = cursor.fetchone()['COUNT(*)']
             
             cursor.execute("SELECT * FROM repairs_sgipo ORDER BY 'id_repair'DESC LIMIT %s OFFSET %s", (per_page, offset))
             result = cursor.fetchall()
-            repairs = []
             for row in result:
                 repair = Repair(id_repair=row["id_repair"],
                                 objectName_repair=row["objectName_repair"],
@@ -84,6 +87,7 @@ class Repair:
                                 cost_repair=row["cost_repair"],
                                 date_repair=row["date_repair"])
                 repairs.append(repair)
+        connection.close()
         return repairs, total
     
     @staticmethod

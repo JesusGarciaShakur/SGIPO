@@ -15,8 +15,8 @@
 
 <!-- Content -->
 <div class="container-fluid">
-    <form method="post" action="{{ url_for('purchase.purchase_update', id_purchase=purchase.id_purchase) }}" class="form-neon"
-        enctype="multipart/form-data">
+    <form method="post" action="{{ url_for('purchase.purchase_update', id_purchase=purchase.id_purchase) }}"
+        class="form-neon" enctype="multipart/form-data">
         {{ form.csrf_token }}
         <fieldset>
             <legend><i class="fas fa-info"></i> &nbsp; Información de Solicitud de Servicio</legend>
@@ -28,13 +28,14 @@
                             <select class="form-control" name="{{ form.id_supplier.name }}">
                                 <option value="">Seleccionar proveedor...</option>
                                 {% for id_supplier, name_supplier in form.id_supplier.choices %}
-                                    <option value="{{ id_supplier }} "{% if form.id_supplier.data == id_supplier %}selected{% endif %}>{{ name_supplier }}</option>
+                                <option value="{{ id_supplier }} " {% if form.id_supplier.data==id_supplier %}selected{%
+                                    endif %}>{{ name_supplier }}</option>
                                 {% endfor %}
                             </select>
                             {% if form.id_supplier.errors %}
-                                {% for error in form.id_supplier.errors %}
-                                    <p>{{ error }}</p>
-                                {% endfor %}
+                            {% for error in form.id_supplier.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
                             {% endif %}
                         </div>
                     </div>
@@ -44,13 +45,14 @@
                             <select class="form-control" name="{{ form.id_product.name }}">
                                 <option value="">Seleccionar producto...</option>
                                 {% for id_product, name_product in form.id_product.choices %}
-                                    <option value="{{ id_product }} "{% if form.id_product.data == id_product %}selected{% endif %}>{{ name_product }}</option>
+                                <option value="{{ id_product }} " {% if form.id_product.data==id_product %}selected{%
+                                    endif %}>{{ name_product }}</option>
                                 {% endfor %}
                             </select>
                             {% if form.id_product.errors %}
-                                {% for error in form.id_product.errors %}
-                                    <p>{{ error }}</p>
-                                {% endfor %}
+                            {% for error in form.id_product.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
                             {% endif %}
                         </div>
                     </div>
@@ -63,16 +65,16 @@
                             {% endfor %}
                         </div>
                     </div>
-					<div class="col-12 col-md-6">
-						<div class="form-group">
-							<label for="AdminName" class="bmd-label-floating">Cantidad de piezas solicitadas</label>
-							{{ form.quantity_ordered(class="form-control", required="required", pattern="\d{1,5}",
-							title="Solo letras y espacios son permitidos") }}
-							{% for error in form.quantity_ordered.errors %}
-							<div class="text-danger">{{ error }}</div>
-							{% endfor %}
-						</div>
-					</div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="AdminName" class="bmd-label-floating">Cantidad de piezas solicitadas</label>
+                            {{ form.quantity_ordered(class="form-control", required="required", pattern="\d{1,5}",
+                            title="Solo letras y espacios son permitidos") }}
+                            {% for error in form.quantity_ordered.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </fieldset>

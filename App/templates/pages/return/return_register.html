@@ -43,13 +43,13 @@
                             <select class="form-control" name="{{ form.id_sale.name }}">
                                 <option value="">Seleccionar Venta...</option>
                                 {% for id_sale, date_sale in form.id_sale.choices %}
-                                    <option value="{{ id_sale }}">{{ date_sale }}</option>
+                                <option value="{{ id_sale }}">{{ date_sale }}</option>
                                 {% endfor %}
                             </select>
                             {% if form.id_sale.errors %}
-                                {% for error in form.id_sale.errors %}
-                                    <p>{{ error }}</p>
-                                {% endfor %}
+                            {% for error in form.id_sale.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
                             {% endif %}
                         </div>
                     </div>

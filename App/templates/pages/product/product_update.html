@@ -15,7 +15,8 @@
 
 <!-- Content -->
 <div class="container-fluid">
-	<form method="post" action="{{ url_for('product.product_update', id_product=product.id_product) }}" class="form-neon" enctype="multipart/form-data">
+	<form method="post" action="{{ url_for('product.product_update', id_product=product.id_product) }}"
+		class="form-neon" enctype="multipart/form-data">
 		{{ form.csrf_token }}
 		<fieldset>
 			<legend><i class="fas fa-info"></i> &nbsp; Información de producto</legend>
@@ -41,20 +42,20 @@
 							{% endfor %}
 						</div>
 					</div>
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="AdminName" class="">Costo del servicio</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">$</span>
-                                </div>
-                                {{ form.price_product(class="form-control", required="required") }}
-                            </div>
-                            {% for error in form.price_product.errors %}
-                            <div class="text-danger">{{ error }}</div>
-                            {% endfor %}
-                        </div>
-                    </div>
+					<div class="col-12 col-md-6">
+						<div class="form-group">
+							<label for="AdminName" class="">Costo del servicio</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">$</span>
+								</div>
+								{{ form.price_product(class="form-control", required="required") }}
+							</div>
+							{% for error in form.price_product.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Cantidad del producto</label>
@@ -64,31 +65,32 @@
 							{% endfor %}
 						</div>
 					</div>
-                    <div class="col-12 col-md-12">
-                        <div class="form-group">
-                            {{ form.id_brand.label }}
-                            <select class="form-control" name="{{ form.id_brand.name }}">
-                                <option value="">Seleccionar marca...</option>
-                                {% for id_brand, name_brand in form.id_brand.choices %}
-                                    <option value="{{ id_brand }}" {% if form.id_brand.data == id_brand %}selected{% endif %}>
-                                        {{ name_brand }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                            {% if form.id_brand.errors %}
-                                {% for error in form.id_brand.errors %}
-                                    <p class="text-danger">{{ error }}</p>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    </div>
+					<div class="col-12 col-md-12">
+						<div class="form-group">
+							{{ form.id_brand.label }}
+							<select class="form-control" name="{{ form.id_brand.name }}">
+								<option value="">Seleccionar marca...</option>
+								{% for id_brand, name_brand in form.id_brand.choices %}
+								<option value="{{ id_brand }}" {% if form.id_brand.data==id_brand %}selected{% endif %}>
+									{{ name_brand }}
+								</option>
+								{% endfor %}
+							</select>
+							{% if form.id_brand.errors %}
+							{% for error in form.id_brand.errors %}
+							<p class="text-danger">{{ error }}</p>
+							{% endfor %}
+							{% endif %}
+						</div>
+					</div>
 					<fieldset>
 						<legend><i class="far fa-image"></i> &nbsp; Imagen</legend>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-12">
 									<div class="form-group">
-										<label for="ProductImg" class="bmd-label-floating">Imagen de Producto</label><br>
+										<label for="ProductImg" class="bmd-label-floating">Imagen de
+											Producto</label><br>
 										{{ form.image_product() }}
 										{% if form.image_product.errors %}
 										{% for error in form.image_product.errors %}

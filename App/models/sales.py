@@ -71,10 +71,10 @@ class Sale:
     
     @staticmethod
     def get_paginated_sales(page, per_page):
-        offset = (page - 1) * per_page
         sales = []
-
-        with mydb.cursor(dictionary=True) as cursor:
+        offset = (page - 1) * per_page
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             # Obtener el número total de registros
             cursor.execute("SELECT COUNT(*) FROM vista_ventas")
             total = cursor.fetchone()['COUNT(*)']
@@ -90,6 +90,7 @@ class Sale:
                             final_price=row["precio final"],
                             date_sold=row["fecha venta"])
                 sales.append(sale)
+        connection.close
         return sales, total
 
     
@@ -185,7 +186,8 @@ class Client:
     @staticmethod
     def get_all():
         clients = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_clientes"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -199,6 +201,7 @@ class Client:
                                 direction_client=row["direccion"],
                                 id_disease=row["nombre padecimiento"])
                 clients.append(client)
+        connection.close()
         return clients
 
 class Product:
@@ -213,7 +216,8 @@ class Product:
     @staticmethod
     def get_all():
         products = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_productos"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -225,6 +229,7 @@ class Product:
                                 price_product=row["precio producto"],
                                 stock_product=row["cantidad en stock"])
                 products.append(product)
+        connection.close()
         return products
     
 def count_sales():

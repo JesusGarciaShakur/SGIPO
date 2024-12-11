@@ -18,10 +18,12 @@
 <div class="container-fluid">
     <ul class="full-box list-unstyled page-nav-tabs">
         <li>
-            <a href="{{ url_for('service.service_register') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; NUEVO SERVICIO</a>
+            <a href="{{ url_for('service.service_register') }}"><i class="fas fa-plus-square fa-fw"></i> &nbsp; NUEVO
+                SERVICIO</a>
         </li>
         <li>
-            <a class="active" href="{{ url_for('service.service_list') }}"><i class="fas fa-stream fa-fw"></i> &nbsp; LISTA
+            <a class="active" href="{{ url_for('service.service_list') }}"><i class="fas fa-stream fa-fw"></i> &nbsp;
+                LISTA
                 SERVICIOS</a>
         </li>
     </ul>
@@ -30,8 +32,8 @@
 <!-- Content -->
 <div class="container-fluid">
     <form method="get" action="{{ url_for('service.service_list') }}" class="form-inline justify-content-center">
-        <input type="text" name="search" class="form-control" placeholder="Buscar"
-            style="width: 300px;" value="{{ request.args.get('search', '') }}">
+        <input type="text" name="search" class="form-control" placeholder="Buscar" style="width: 300px;"
+            value="{{ request.args.get('search', '') }}">
         <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
             <i class="fas fa-search"></i>
         </button>
@@ -58,7 +60,8 @@
                                 <i class="far fa-edit"></i> Editar
                             </a>
                             <!-- Botón Eliminar con modal -->
-                            <button type="button" class="btn btn-danger btn-sm btn-delete-user" style="border-radius: 5px;">
+                            <button type="button" class="btn btn-danger btn-sm btn-delete-user"
+                                style="border-radius: 5px;">
                                 <i class="fa fa-trash"></i> Eliminar
                             </button>
                         </div>
@@ -67,8 +70,10 @@
                             <div class="modal-content">
                                 <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
                                 <p>Esta acción no se puede deshacer.</p>
-                                <form action="{{ url_for('service.service_delete', id_service=service.id_service) }}" method="post">
-                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
+                                <form action="{{ url_for('service.service_delete', id_service=service.id_service) }}"
+                                    method="post">
+                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí,
+                                        eliminar</button>
                                     <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
                                 </form>
                             </div>
@@ -79,7 +84,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item {% if page == 1 %}disabled{% endif %}">
@@ -92,7 +97,8 @@
             {% for p in range(start_page, end_page + 1) %}
             <li class="page-item {% if p == page %}active{% endif %}">
                 <a class="page-link"
-                    href="{{ url_for('service.service_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
+                    href="{{ url_for('service.service_list', page=p, search=request.args.get('search', '')) }}">{{ p
+                    }}</a>
             </li>
             {% endfor %}
             <li class="page-item {% if page == total_pages %}disabled{% endif %}">
@@ -104,6 +110,6 @@
             </li>
         </ul>
     </nav>
-    
+
 </div>
 {% endblock %}

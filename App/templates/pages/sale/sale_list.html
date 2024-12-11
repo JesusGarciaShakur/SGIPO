@@ -21,7 +21,8 @@
             <a href="{{ url_for('sale.sale_register') }}"><i class="fas fa-cart-plus fa-fw"></i> &nbsp; NUEVA VENTA</a>
         </li>
         <li>
-            <a class="active" href="{{ url_for('sale.sale_list') }}"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp; LISTA
+            <a class="active" href="{{ url_for('sale.sale_list') }}"><i class="fas fa-shopping-cart fa-fw"></i> &nbsp;
+                LISTA
                 VENTAS</a>
         </li>
     </ul>
@@ -30,8 +31,8 @@
 <!-- Content -->
 <div class="container-fluid">
     <form method="get" action="{{ url_for('sale.sale_list') }}" class="form-inline justify-content-center">
-        <input type="text" name="search" class="form-control" placeholder="Buscar"
-            style="width: 300px;" value="{{ request.args.get('search', '') }}">
+        <input type="text" name="search" class="form-control" placeholder="Buscar" style="width: 300px;"
+            value="{{ request.args.get('search', '') }}">
         <button type="submit" class="page-link" style="padding: 15px; display: flex; align-items: center;">
             <i class="fas fa-search"></i>
         </button>
@@ -66,7 +67,8 @@
                                 <i class="far fa-edit"></i> Editar
                             </a>
                             <!-- Botón Eliminar con modal -->
-                            <button type="button" class="btn btn-danger btn-sm btn-delete-user" style="border-radius: 5px;">
+                            <button type="button" class="btn btn-danger btn-sm btn-delete-user"
+                                style="border-radius: 5px;">
                                 <i class="fa fa-trash"></i> Eliminar
                             </button>
                         </div>
@@ -76,7 +78,8 @@
                                 <h3>¿Estás seguro que quieres eliminar a este usuario?</h3>
                                 <p>Esta acción no se puede deshacer.</p>
                                 <form action="{{ url_for('sale.sale_delete', id_sale=sale.id_sale) }}" method="post">
-                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí, eliminar</button>
+                                    <button type="submit" class="btn btn-confirm btn-confirm-delete">Sí,
+                                        eliminar</button>
                                     <button type="button" class="btn btn-cancel btn-cancel-delete">No, cancelar</button>
                                 </form>
                             </div>
@@ -87,32 +90,37 @@
             </tbody>
         </table>
     </div>
-    
+
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <!-- Botón de anterior -->
             <li class="page-item {% if page == 1 %}disabled{% endif %}">
-                <a class="page-link" href="{{ url_for('sale.sale_list', page=page-1, search=request.args.get('search', '')) }}" aria-label="Anterior">
+                <a class="page-link"
+                    href="{{ url_for('sale.sale_list', page=page-1, search=request.args.get('search', '')) }}"
+                    aria-label="Anterior">
                     Anterior
                 </a>
             </li>
-            
+
             <!-- Páginas dinámicas -->
             {% for p in range(start_page, end_page + 1) %}
             <li class="page-item {% if p == page %}active{% endif %}">
-                <a class="page-link" href="{{ url_for('sale.sale_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
+                <a class="page-link"
+                    href="{{ url_for('sale.sale_list', page=p, search=request.args.get('search', '')) }}">{{ p }}</a>
             </li>
             {% endfor %}
-            
+
             <!-- Botón de siguiente -->
             <li class="page-item {% if page == total_pages %}disabled{% endif %}">
-                <a class="page-link" href="{{ url_for('sale.sale_list', page=page+1, search=request.args.get('search', '')) }}" aria-label="Siguiente">
+                <a class="page-link"
+                    href="{{ url_for('sale.sale_list', page=page+1, search=request.args.get('search', '')) }}"
+                    aria-label="Siguiente">
                     Siguiente
                 </a>
             </li>
         </ul>
     </nav>
-    
-    
+
+
 </div>
 {% endblock %}

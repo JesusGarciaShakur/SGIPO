@@ -28,15 +28,15 @@
                             <select class="form-control" name="{{ form.id_sale.name }}">
                                 <option value="">Seleccionar venta...</option>
                                 {% for id_sale, name_client in form.id_sale.choices %}
-                                    <option value="{{ id_sale }}" {% if form.id_sale.data == id_sale %}selected{% endif %}>
-                                        {{ name_client }}
-                                    </option>
+                                <option value="{{ id_sale }}" {% if form.id_sale.data==id_sale %}selected{% endif %}>
+                                    {{ name_client }}
+                                </option>
                                 {% endfor %}
                             </select>
                             {% if form.id_sale.errors %}
-                                {% for error in form.id_sale.errors %}
-                                    <p class="text-danger">{{ error }}</p>
-                                {% endfor %}
+                            {% for error in form.id_sale.errors %}
+                            <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
                             {% endif %}
                         </div>
                     </div>

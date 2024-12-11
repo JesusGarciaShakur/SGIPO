@@ -9,22 +9,22 @@
 		<i class="fab fa-dashcube fa-fw"></i> &nbsp; Panel principal
 	</h3>
 	<p class="text-justify">
-		En este panel, podrás visualizar los módulos de acción disponibles, así como los registros totales. 
+		En este panel, podrás visualizar los módulos de acción disponibles, así como los registros totales.
 		Este espacio te permite gestionar y acceder a las funcionalidades clave de forma sencilla y eficiente.
 	</p>
 </div>
 
 <!-- Content -->
 <div class="full-box tile-container">
-	
-    <a href="{{ url_for('admin.admin_list') }}" class="tile">
-        <div class="tile-tittle">Lista de administradores</div>
-        <div class="tile-icon">
-            <i class="fas fa-users fa-fw"></i>
-            <p>{{ total_users }} Registrados</p>
-        </div>
-    </a>
-		
+
+	<a href="{{ url_for('admin.admin_list') }}" class="tile">
+		<div class="tile-tittle">Lista de administradores</div>
+		<div class="tile-icon">
+			<i class="fas fa-users fa-fw"></i>
+			<p>{{ total_users }} Registrados</p>
+		</div>
+	</a>
+
 	<a href="{{ url_for('product.product_list') }}" class="tile">
 		<div class="tile-tittle">Lista de productos</div>
 		<div class="tile-icon">

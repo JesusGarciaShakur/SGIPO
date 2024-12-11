@@ -17,7 +17,8 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a class="active" href="{{ url_for('client.client_register') }}"><i class="fas fa-user-plus fa-fw"></i> &nbsp;
+			<a class="active" href="{{ url_for('client.client_register') }}"><i class="fas fa-user-plus fa-fw"></i>
+				&nbsp;
 				NUEVO
 				CLIENTE</a>
 		</li>
@@ -30,7 +31,8 @@
 
 <!-- Content -->
 <div class="container-fluid">
-	<form method="post" action="{{ url_for('client.client_register') }}" class="form-neon" enctype="multipart/form-data">
+	<form method="post" action="{{ url_for('client.client_register') }}" class="form-neon"
+		enctype="multipart/form-data">
 		{{ form.csrf_token }}
 		<fieldset>
 			<legend><i class="far fa-address-card"></i> &nbsp; Información personal</legend>
@@ -49,7 +51,8 @@
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Apellido(s)</label>
-							{{ form.lastName_client(class="form-control", required="required", pattern="[a-zA-z ]{1,25}",
+							{{ form.lastName_client(class="form-control", required="required", pattern="[a-zA-z
+							]{1,25}",
 							title="Solo letras y espacios son permitidos") }}
 							{% for error in form.lastName_client.errors %}
 							<div class="text-danger">{{ error }}</div>
@@ -100,8 +103,7 @@
 								<label>
 									<input type="radio" name="{{ form.id_disease.name }}" value="{{ id_disease }}" {% if
 										form.id_disease.data==id_disease %}checked{% endif %}>
-									<i
-										class=""></i>
+									<i class=""></i>
 									&nbsp; {{ name_disease }}
 								</label>
 							</div>

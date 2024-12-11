@@ -81,7 +81,8 @@ class User:
     @staticmethod
     def get_all():
         users = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_usuarios"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -96,14 +97,15 @@ class User:
                     image_user=row["imagen de usuario"]
                 )
                 users.append(user)
+        connection.close()
         return users
 
     @staticmethod
     def get_paginated_users(page, per_page):
-        offset = (page - 1) * per_page
         users = []
-        
-        with mydb.cursor(dictionary=True) as cursor:
+        offset = (page - 1) * per_page
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             cursor.execute("SELECT COUNT(*) FROM vista_usuarios")
             total = cursor.fetchone()['COUNT(*)']
 
@@ -120,6 +122,7 @@ class User:
                     image_user=row["imagen de usuario"]
                 )
                 users.append(user)
+        connection.close()
         return users, total
 
     @staticmethod
@@ -203,7 +206,8 @@ class Type:
     @staticmethod
     def get_all():
         types = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM roles_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -211,6 +215,7 @@ class Type:
             for row in result:
                 type= Type(id_rol=row["id_rol"], name_rol=row["name_rol"])
                 types.append(type)
+        connection.close()
         return types
     
 

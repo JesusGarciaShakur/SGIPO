@@ -16,7 +16,8 @@
 
 <!-- Content -->
 <div class="container-fluid">
-	<form method="post" action="{{ url_for('admin.admin_updateProfile', id_user=user.id_user) }}" class="form-neon" enctype="multipart/form-data">
+	<form method="post" action="{{ url_for('admin.admin_updateProfile', id_user=user.id_user) }}" class="form-neon"
+		enctype="multipart/form-data">
 		{{ form.csrf_token }}
 		<fieldset>
 			<legend><i class="fas fa-user-lock"></i> &nbsp; Claves de Acceso</legend>
@@ -27,42 +28,48 @@
 							<label for="AdminDNI" class="bmd-label-floating">Nombre de usuario</label>
 							{{ form.userName_user(class="form-control", required="required") }}
 							{% if form.userName_user.errors %}
-								{% for error in form.userName_user.errors %}
-									<div class="text-danger">{{ error }}</div>
-								{% endfor %}
+							{% for error in form.userName_user.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
 							{% endif %}
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group position-relative">
 							<label for="Password1" class="bmd-label-floating">Contraseña</label>
-							{{ form.password_user(id="password", type="password", class="form-control pr-5", required="required", pattern="(?=.*\\d)(?=.*[a-zA-Z]).{8,}", title="Las contraseñas deben coincidir") }}
+							{{ form.password_user(id="password", type="password", class="form-control pr-5",
+							required="required", pattern="(?=.*\\d)(?=.*[a-zA-Z]).{8,}", title="Las contraseñas deben
+							coincidir") }}
 							<!-- Botón de ver/ocultar contraseña -->
-							<button type="button" class="btn btn-link p-0 position-absolute" id="togglePassword1" style="right: 10px; top: 50%; transform: translateY(1%);">
+							<button type="button" class="btn btn-link p-0 position-absolute" id="togglePassword1"
+								style="right: 10px; top: 50%; transform: translateY(1%);">
 								<i class="fa fa-eye" id="eye-icon1"></i>
 							</button>
 							{% for error in form.password_user.errors %}
-								<div class="text-danger">{{ error }}</div>
+							<div class="text-danger">{{ error }}</div>
 							{% endfor %}
 						</div>
 					</div>
-					
+
 					<div class="col-12 col-md-6">
 						<div class="form-group position-relative">
 							<label for="Password1" class="bmd-label-floating">Confirmar Contraseña</label>
-							{{ form.password_user_confirm(id="password_confirm", type="password", class="form-control pr-5", required="required", pattern="(?=.*\\d)(?=.*[a-zA-Z]).{8,}", title="Las contraseñas deben coincidir") }}
+							{{ form.password_user_confirm(id="password_confirm", type="password", class="form-control
+							pr-5", required="required", pattern="(?=.*\\d)(?=.*[a-zA-Z]).{8,}", title="Las contraseñas
+							deben coincidir") }}
 							<!-- Botón de ver/ocultar contraseña -->
-							<button type="button" class="btn btn-link p-0 position-absolute" id="togglePassword2" style="right: 10px; top: 50%; transform: translateY(1%);">
+							<button type="button" class="btn btn-link p-0 position-absolute" id="togglePassword2"
+								style="right: 10px; top: 50%; transform: translateY(1%);">
 								<i class="fa fa-eye" id="eye-icon2"></i>
 							</button>
 							{% for error in form.password_user_confirm.errors %}
-								<div class="text-danger">{{ error }}</div>
+							<div class="text-danger">{{ error }}</div>
 							{% endfor %}
 						</div>
 					</div>
-					
+
 				</div>
-			</div>			
+			</div>
 		</fieldset>
 		<p class="text-center" style="margin-top: 40px;">
 			<button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>

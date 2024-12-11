@@ -60,7 +60,8 @@ class Service:
     @staticmethod
     def get_all():
         services = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM services_sgipo"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -69,23 +70,26 @@ class Service:
                                 name_service=row["name_service"],
                                 description_service=row["description_service"])
                 services.append(service)
+        connection.close()
         return services
     
     @staticmethod
     def get_paginated_services(page, per_page):
+            services = []
             offset = (page - 1) * per_page
-            with mydb.cursor(dictionary=True) as cursor:
+            connection = get_connection()
+            with connection.cursor(dictionary=True) as cursor:
                 cursor.execute("SELECT COUNT(*) FROM services_sgipo")
                 total = cursor.fetchone()['COUNT(*)']
                 
                 cursor.execute("SELECT * FROM services_sgipo ORDER BY 'id_service'DESC LIMIT %s OFFSET %s", (per_page, offset))
                 result = cursor.fetchall()
-                services = []
                 for row in result:
                     service = Service(id_service=row["id_service"],
                                     name_service=row["name_service"],
                                     description_service=row["description_service"])
                     services.append(service)
+            connection.close()
             return services, total
     @staticmethod
     def search(query, page, per_page):
@@ -160,7 +164,8 @@ class ServiceRequest:
     
     def get_all():
         service_requests = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_solicitudservicios"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -171,14 +176,15 @@ class ServiceRequest:
                                 date_request=row["fecha de solicitud"],
                                 price_request=row["precio a cobrar"])
                 service_requests.append(service_request)
+        connection.close()
         return service_requests
     
     @staticmethod
     def get_paginated_service_requests(page, per_page):
-        offset = (page - 1) * per_page
         service_requests = []
-
-        with mydb.cursor(dictionary=True) as cursor:
+        offset = (page - 1) * per_page
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             # Obtener el número total de registros
             cursor.execute("SELECT COUNT(*) FROM vista_solicitudservicios")
             total = cursor.fetchone()['COUNT(*)']
@@ -200,7 +206,7 @@ class ServiceRequest:
                     price_request=row["precio a cobrar"]
                 )
                 service_requests.append(service_request)
-
+        connection.close()
         return service_requests, total
 
     
@@ -258,7 +264,8 @@ class Client:
     @staticmethod
     def get_all():
         clients = []
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()
+        with connection.cursor(dictionary=True) as cursor:
             sql = "SELECT * FROM vista_clientes"
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -272,6 +279,7 @@ class Client:
                                 direction_client=row["direccion"],
                                 id_disease=row["nombre padecimiento"])
                 clients.append(client)
+        connection.close()
         return clients
     
 def count_service_requests():
