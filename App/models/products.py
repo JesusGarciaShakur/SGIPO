@@ -38,6 +38,17 @@ class Product:
             mydb.commit()
         return self.id_product
     
+    def to_dict(self):
+        return {
+            'id_product': self.id_product,
+            'name_product': self.name_product,
+            'description_product': self.description_product,
+            'id_brand': self.id_brand,
+            'price_product': self.price_product,
+            'stock_product': self.stock_product,
+            'image_product': self.image_product,
+        }
+
     @staticmethod
     def get(id_product):
         with mydb.cursor(dictionary=True) as cursor:
@@ -72,12 +83,14 @@ class Product:
                                 image_product=row["imagen producto"])
                 products.append(product)
         return products
+    
 
     @staticmethod
     def get_paginated_products(page, per_page):
         products = []
         offset = (page - 1) * per_page
-        with mydb.cursor(dictionary=True) as cursor:
+        connection = get_connection()  # Obtén una conexión fresca
+        with connection.cursor(dictionary=True) as cursor:
             cursor.execute("SELECT COUNT(*) FROM vista_productos")
             total = cursor.fetchone()['COUNT(*)']
             
@@ -92,6 +105,7 @@ class Product:
                                 stock_product=row["cantidad en stock"],
                                 image_product=row["imagen producto"])
                 products.append(product)
+        connection.close()  # Cierra la conexión después de usarla
         return products, total
 
     @staticmethod

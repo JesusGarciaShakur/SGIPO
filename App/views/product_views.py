@@ -30,7 +30,6 @@ def product_list():
                             end_page=end_page)
     else:
         abort(403)
-    #id_product, name_product, description_product, id_brand, price_product, stock_product
 
 @product_views.route('/product_register', methods=['GET', 'POST'])
 def product_register():
