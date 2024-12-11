@@ -30,8 +30,7 @@ def sale_list():
             page=page,
             total_pages=total_pages,
             start_page=start_page,
-            end_page=end_page
-        )
+            end_page=end_page)
     else:
         abort(403)
         

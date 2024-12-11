@@ -1,4 +1,6 @@
 from .db import get_connection
+from datetime import datetime
+import mysql.connector
 
 mydb = get_connection()
 #id_sale,id_client,id_product,,quantity_sold,final_price,date_sold
@@ -95,6 +97,7 @@ class Sale:
     def search(query, page, per_page):
         offset = (page - 1) * per_page
         sales = []
+        search_query = f"%{query}%"
 
         with mydb.cursor(dictionary=True) as cursor:
             # Obtener el número total de registros
@@ -102,7 +105,7 @@ class Sale:
                 WHERE `nombre cliente` LIKE %s OR `nombre producto` LIKE %s
                 OR `articulos vendidos` LIKE %s OR `precio final` LIKE %s
                 OR `fecha venta` LIKE %s
-            """, (query, query, query, query, query))
+            """, (search_query, search_query, search_query, search_query, search_query))
             total = cursor.fetchone()['COUNT(*)']
 
             cursor.execute("""SELECT * FROM vista_ventas
@@ -110,7 +113,7 @@ class Sale:
                 OR `articulos vendidos` LIKE %s OR `precio final` LIKE %s
                 OR `fecha venta` LIKE %s
                 ORDER BY `id de venta` DESC LIMIT %s OFFSET %s
-            """, (query, query, query, query, query, per_page, offset))
+            """, (search_query, search_query, search_query, search_query, search_query, per_page, offset))
             result = cursor.fetchall()
             for row in result:
                 sale = Sale(id_sale=row["id de venta"],
@@ -121,11 +124,7 @@ class Sale:
                                 date_sold=row["fecha venta"])
                 sales.append(sale)
         return sales, total
-    
 
-
-from datetime import datetime
-import mysql.connector
 
 def generate_report(start_date_str, end_date_str):
     try:

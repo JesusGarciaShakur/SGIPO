@@ -83,9 +83,6 @@ def admin_register():
                 user.image_user = save_image(f, 'img/profiles', user.userName_user)
             user.save()
             return redirect(url_for('admin.admin_list'))
-        for field, errors in form.errors.items():
-            for error in errors:
-                print(f"Error en el campo '{field}': {error}")
         return render_template('pages/admin/admin_register.html', form=form)
     else:
         abort(403)

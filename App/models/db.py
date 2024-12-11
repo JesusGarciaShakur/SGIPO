@@ -6,6 +6,6 @@ def get_connection():
         host="localhost",
         user="root",
         password="",
-        database="sgipo"
+        database="sgipo1"
     )
     return mydb
