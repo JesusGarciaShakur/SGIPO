@@ -70,8 +70,10 @@ def sales_report():
         # Datos
         pdf.setFont("Helvetica", 10)
         for sale in sales:
+            # Combinar nombre y apellido cliente
+            client_name = f"{sale['nombre cliente']} {sale['apellido cliente']}"
             pdf.drawString(50, y, str(sale['id de venta']))
-            pdf.drawString(100, y, sale['nombre cliente'])
+            pdf.drawString(100, y, client_name)  # Mostrar nombre completo
             pdf.drawString(200, y, sale['nombre producto'])
             pdf.drawString(300, y, str(sale['articulos vendidos']))
             pdf.drawString(400, y, f"${sale['precio final']:.2f}")

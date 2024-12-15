@@ -142,48 +142,27 @@ class Sale:
         return sales, total
 
 
-def generate_report(start_date_str, end_date_str):
-    try:
-        # Validar y convertir las fechas de string a objeto datetime
-        try:
-            start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
-            end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
-        except ValueError:
-            return {"error": "Invalid date format. Use YYYY-MM-DD."}
-
-        # Verificar que la fecha de inicio no sea mayor a la fecha de fin
-        if start_date > end_date:
-            return {"error": "Start date must be earlier than or equal to end date."}
-
-        # Establecer la conexión con la base de datos
-        conn = get_connection()
-        cursor = conn.cursor(dictionary=True)  # Los resultados serán devueltos como diccionarios
-
-        # Consulta SQL para obtener las ventas dentro del rango de fechas
-        query = '''
-            SELECT * FROM vista_ventas
-            WHERE `fecha venta` >= %s AND `fecha venta` <= %s
-        '''
-        cursor.execute(query, (start_date, end_date))
-        
-        # Recuperar todos los resultados
+def generate_report(start_date, end_date):
+    sales = []
+    with mydb.cursor(dictionary=True) as cursor:
+        sql = """
+            SELECT 
+                `id de venta`,
+                `nombre cliente`,
+                `apellido cliente`,
+                `nombre producto`,
+                `articulos vendidos`,
+                `precio final`,
+                `fecha venta`
+            FROM vista_ventas
+            WHERE `fecha venta` BETWEEN %s AND %s
+            ORDER BY `fecha venta`
+        """
+        cursor.execute(sql, (start_date, end_date))
         sales = cursor.fetchall()
-        return sales
 
-    except mysql.connector.Error as e:
-        # Manejo de errores de la base de datos
-        return {"error": f"Database error: {str(e)}"}
-    
-    except Exception as e:
-        # Manejo de otros errores
-        return {"error": f"Unexpected error: {str(e)}"}
-    
-    finally:
-        # Asegurar que los recursos se cierren correctamente
-        if 'cursor' in locals() and cursor:
-            cursor.close()
-        if 'conn' in locals() and conn:
-            conn.close()
+    # Aquí ya tienes acceso al apellido cliente, puedes agregarlo o manipularlo según sea necesario
+    return sales
 
 
 

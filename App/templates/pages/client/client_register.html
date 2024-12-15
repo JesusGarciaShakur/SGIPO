@@ -41,8 +41,8 @@
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Nombre(s)</label>
-							{{ form.name_client(class="form-control", required="required", pattern="[a-zA-z ]{1,25}",
-							title="Solo letras y espacios son permitidos") }}
+							{{ form.name_client(class="form-control",pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ]{1,50}$",
+							title="Introduce un nombre válido (solo letras, espacios y acentos)") }}
 							{% for error in form.name_client.errors %}
 							<div class="text-danger">{{ error }}</div>
 							{% endfor %}
@@ -51,9 +51,8 @@
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Apellido(s)</label>
-							{{ form.lastName_client(class="form-control", required="required", pattern="[a-zA-z
-							]{1,25}",
-							title="Solo letras y espacios son permitidos") }}
+							{{ form.lastName_client(class="form-control",pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ]{1,50}$",
+							title="Introduce un nombre válido (solo letras, espacios y acentos)") }}
 							{% for error in form.lastName_client.errors %}
 							<div class="text-danger">{{ error }}</div>
 							{% endfor %}
@@ -62,7 +61,7 @@
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Edad</label>
-							{{ form.age_client(class="form-control", required="required", pattern="{1,3})") }}
+							{{ form.age_client(class="form-control", required="required", pattern="^[0-9]{1,3}$") }}
 							{% for error in form.age_client.errors %}
 							<div class="text-danger">{{ error }}</div>
 							{% endfor %}
@@ -71,7 +70,8 @@
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Numero de teléfono</label>
-							{{ form.numberPhone_client(class="form-control", required="required", pattern="{1,10})") }}
+							{{ form.numberPhone_client(class="form-control", required="required",pattern="^[0-9]{10}$",
+							title="Ingrese un numero valido (10 dígitos)") }}
 							{% for error in form.numberPhone_client.errors %}
 							<div class="text-danger">{{ error }}</div>
 							{% endfor %}
@@ -80,7 +80,9 @@
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Correo Electrónico</label>
-							{{ form.email_client(class="form-control", required="required") }}
+							{{ form.email_client(class="form-control", required="required",
+							pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+							title="Introduce un correo electrónico válido (ejemplo@dominio.com)") }}
 							{% for error in form.email_client.errors %}
 							<div class="text-danger">{{ error }}</div>
 							{% endfor %}
@@ -95,22 +97,58 @@
 							{% endfor %}
 						</div>
 					</div>
-					<div class="col-12">
-						<div style="padding: 20px 0 5px 0; color: #004f45;">Padecimiento crónico</div>
-						<div class="form-group">
-							{% for id_disease, name_disease in form.id_disease.choices %}
-							<div class="radio">
-								<label>
-									<input type="radio" name="{{ form.id_disease.name }}" value="{{ id_disease }}" {% if
-										form.id_disease.data==id_disease %}checked{% endif %}>
-									<i class=""></i>
-									&nbsp; {{ name_disease }}
-								</label>
-							</div>
-							{% endfor %}
-						</div>
-					</div>
 		</fieldset>
+		<fieldset>
+			<legend><i class="fas fa-stethoscope"></i> &nbsp; Enfermedades Crónicas</legend>
+			<div class="col-12">
+				<div style="padding: 20px 0 5px 0; color: #004f45;">Padecimiento crónico</div>
+				<div class="form-group">
+					{% for id_disease, name_disease in form.id_disease.choices %}
+					<div class="radio">
+						<label>
+							<input type="radio" name="{{ form.id_disease.name }}" value="{{ id_disease }}" {% if
+								form.id_disease.data==id_disease %}checked{% endif %}
+								onchange="toggleDiseaseFields('{{ id_disease }}')">
+							&nbsp; {{ name_disease }}
+						</label>
+					</div>
+					{% endfor %}
+				</div>
+				{% for error in form.id_disease.errors %}
+				<div class="text-danger">{{ error }}</div>
+				{% endfor %}
+			</div>
+
+			<!-- Campos opcionales -->
+			<div class="col-12 col-md-12">
+				<div class="form-group">
+					<label for="time_disease" class="bmd-label-floating">Tiempo de padecimiento</label>
+					{{ form.time_disease(class="form-control", id="time_disease") }}
+					{% for error in form.time_disease.errors %}
+					<div class="text-danger">{{ error }}</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="col-12 col-md-12">
+				<div class="form-group">
+					<label for="is_controlled">¿Está controlado?</label>
+					{{ form.is_controlled(class="form-control", id="is_controlled") }}
+					{% for error in form.is_controlled.errors %}
+					<div class="text-danger">{{ error }}</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="col-12 col-md-12">
+				<div class="form-group">
+					<label for="prescription_drugs">Medicamentos Recetados</label>
+					{{ form.prescription_drugs(class="form-control", id="prescription_drugs") }}
+					{% for error in form.prescription_drugs.errors %}
+					<div class="text-danger">{{ error }}</div>
+					{% endfor %}
+				</div>
+			</div>
+		</fieldset>
+		<!-- Botones de acción -->
 		<p class="text-center" style="margin-top: 40px;">
 			<button type="reset" class="btn btn-info"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
 			&nbsp; &nbsp;

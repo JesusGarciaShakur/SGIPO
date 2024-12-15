@@ -34,7 +34,7 @@
                             </select>
                             {% if form.id_client.errors %}
                             {% for error in form.id_client.errors %}
-                            <p>{{ error }}</p>
+                            <div class="text-danger">{{ error }}</div>
                             {% endfor %}
                             {% endif %}
                         </div>
@@ -51,7 +51,7 @@
                             </select>
                             {% if form.id_product.errors %}
                             {% for error in form.id_product.errors %}
-                            <p>{{ error }}</p>
+                            <div class="text-danger">{{ error }}</div>
                             {% endfor %}
                             {% endif %}
                         </div>

@@ -1,6 +1,6 @@
 # id_client, name_client, lastName_client, age_client, numberPhone_client, email_client, direction_client, id_disease
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
+from wtforms import BooleanField, StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length
 
 
@@ -12,6 +12,17 @@ class RegisterClientForm(FlaskForm):
     email_client = StringField('Correo Electrónico', validators = [DataRequired(), Length(min=4, max=35)])
     direction_client = StringField('Dirección', validators = [DataRequired(), Length(min=4, max=50)])
     id_disease = SelectField('Padecimiento', coerce=int, choices=[])
+    time_disease = StringField('Tiempo de padecimiento', validators = [Length(min=0, max=35)])
+    is_controlled = SelectField(
+        '¿Está controlado?', 
+        choices=[
+            ('-1', 'No aplica'),
+            ('1', 'Sí'), 
+            ('0', 'No')
+        ],
+        coerce=int
+    )
+    prescription_drugs = StringField('Prescripción de medicamentos', validators = [Length(min=0, max=255)])
     submit = SubmitField('Registrar')
 
 class UpdateClientForm(FlaskForm):
@@ -22,4 +33,15 @@ class UpdateClientForm(FlaskForm):
     email_client = StringField('Correo Electrónico', validators = [DataRequired(), Length(min=4, max=35)])
     direction_client = StringField('Dirección', validators = [DataRequired(), Length(min=4, max=50)])
     id_disease = SelectField('Padecimiento', coerce=int, choices=[])
+    time_disease = StringField('Tiempo de padecimiento', validators = [Length(min=0, max=35)])
+    is_controlled = SelectField(
+        '¿Está controlado?', 
+        choices=[
+            ('-1', 'No aplica'),
+            ('1', 'Sí'), 
+            ('0', 'No')
+        ],
+        coerce=int
+    )
+    prescription_drugs = StringField('Prescripción de medicamentos', validators = [Length(min=0, max=255)])
     submit = SubmitField('Actualizar')

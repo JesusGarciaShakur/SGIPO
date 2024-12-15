@@ -40,7 +40,7 @@
                 {% for sale in sales %}
                 <tr>
                     <td>{{ sale['id de venta'] }}</td>
-                    <td>{{ sale['nombre cliente'] }}</td>
+                    <td>{{ sale['nombre cliente'] }} {{ sale['apellido cliente'] }}</td>
                     <td>{{ sale['nombre producto'] }}</td>
                     <td>{{ sale['articulos vendidos'] }} pza(s)</td>
                     <td>$ {{ sale['precio final'] }}</td>

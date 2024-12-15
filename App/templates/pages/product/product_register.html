@@ -89,7 +89,7 @@
 							</select>
 							{% if form.id_brand.errors %}
 							{% for error in form.id_brand.errors %}
-							<p>{{ error }}</p>
+							<div class="text-danger">{{ error }}</div>
 							{% endfor %}
 							{% endif %}
 						</div>
@@ -105,7 +105,7 @@
 										{{ form.image_product() }}
 										{% if form.image_product.errors %}
 										{% for error in form.image_product.errors %}
-										<p>{{ error }}</p>
+										<div class="text-danger">{{ error }}</div>
 										{% endfor %}
 										{% endif %}
 										<br>

@@ -11,10 +11,12 @@ def login():
         userName_user = form.userName_user.data
         password_user = form.password_user.data
         user = User.get_by_password(userName_user, password_user)
+        
         if not user:
-            flash('Verifica tus Datos')
+            # El formulario es válido, pero el usuario no existe o la contraseña es incorrecta.
+            flash('Nombre de usuario o contraseña incorrectos', 'error')
         else:
-            #id_user, userName_user, password_user, id_rol, name_user, lastName_user, numberPhone_user, image_user
+            # Usuario encontrado, se inicia la sesión.
             session['user'] = {
                 'id_user': user.id_user,
                 'userName_user': user.userName_user,
@@ -27,10 +29,16 @@ def login():
             if user.id_rol == 1:
                 return redirect(url_for('admin.home'))
             else:
-                flash('Nombre de usuario o contraseña incorrectos', 'error')
+                return redirect(url_for('user.home'))  # Cambia esto según tu lógica.
     else:
-        flash('Verifica tus Datos')
+        # Solo flash mensajes de error si hay errores específicos en los campos del formulario.
+        if form.errors:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash(f"Error en el campo {field}: {error}", 'error')
+    
     return render_template('pages/home/login.html', form=form)
+
 
 @home_views.route('/logout/', methods=['GET', 'POST'])
 def logout():

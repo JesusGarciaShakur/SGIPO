@@ -31,22 +31,39 @@ def client_list():
 
 @client_views.route('/client_register', methods=('GET', 'POST'))
 def client_register():
-    # id_client, name_client, lastName_client, age_client, numberPhone_client, email_client, direction_client, id_disease
     if session.get('user') and session.get('user')['type'] == 1:
         form = RegisterClientForm()
         diseases = Disease.get_all()
         form.id_disease.choices = [(disease.id_disease, disease.name_disease) for disease in diseases]
+
         if form.validate_on_submit():
+            # Datos generales
             name_client = form.name_client.data
             lastName_client = form.lastName_client.data
             age_client = form.age_client.data
             numberPhone_client = form.numberPhone_client.data
             email_client = form.email_client.data
             direction_client = form.direction_client.data
-            id_disease = form.id_disease.data    
-            client = Client(name_client=name_client, lastName_client=lastName_client, age_client=age_client, numberPhone_client=numberPhone_client, email_client=email_client, direction_client=direction_client, id_disease=id_disease)
+            id_disease = form.id_disease.data
+            # Campos opcionales
+            time_disease = form.time_disease.data
+            is_controlled = form.is_controlled.data
+            prescription_drugs = form.prescription_drugs.data
+            client = Client(
+                name_client=name_client,
+                lastName_client=lastName_client,
+                age_client=age_client,
+                numberPhone_client=numberPhone_client,
+                email_client=email_client,
+                direction_client=direction_client,
+                id_disease=id_disease,
+                time_disease=time_disease,
+                is_controlled=is_controlled,
+                prescription_drugs=prescription_drugs
+            )
             client.save()
             return redirect(url_for('client.client_list'))
+
         return render_template('pages/client/client_register.html', form=form)
     else:
         abort(403)
@@ -66,6 +83,9 @@ def client_update(id_client):
             client.email_client = form.email_client.data
             client.direction_client = form.direction_client.data
             client.id_disease = form.id_disease.data
+            client.time_disease = form.time_disease.data
+            client.is_controlled = form.is_controlled.data
+            client.prescription_drugs = form.prescription_drugs.data
             client.update()
             return redirect(url_for('client.client_list'))
         form.name_client.data = client.name_client
@@ -75,6 +95,9 @@ def client_update(id_client):
         form.email_client.data = client.email_client
         form.direction_client.data = client.direction_client
         form.id_disease.data = client.id_disease
+        form.time_disease.data = client.time_disease
+        form.is_controlled.data = client.is_controlled
+        form.prescription_drugs.data = client.prescription_drugs
         return render_template('pages/client/client_update.html', form=form, client=client)
     else:
         abort(403)
@@ -104,6 +127,9 @@ def get_clients():
             'email_client': client.email_client,
             'direction_client': client.direction_client,
             'id_disease': client.id_disease,
+            'time_disease': client.time_disease,
+            'is_controlled': client.is_controlled,
+            'prescription_drugs': client.prescription_drugs
         }
         for client in clients
     ]

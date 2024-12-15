@@ -48,6 +48,9 @@
                     <th>Correo electrónico</th>
                     <th>Dirección</th>
                     <th>Padecimiento Crónico</th>
+                    <th>El padecimiento esta controlado</th>
+                    <th>Tiempo con el padecimiento</th>
+                    <th>Medicamentos prescritos</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -61,6 +64,31 @@
                     <td>{{ client.email_client }}</td>
                     <td>{{ client.direction_client }}</td>
                     <td>{{ client.id_disease }}</td>
+                    <td>
+                        {% if client.is_controlled == -1 %}
+                            No aplica
+                        {% elif client.is_controlled == 0 %}
+                            No
+                        {% elif client.is_controlled == 1 %}
+                            Sí
+                        {% else %}
+                            Desconocido
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if client.time_disease is none or client.time_disease == '' %}
+                            No aplica
+                        {% else %}
+                            {{ client.time_disease }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if client.prescription_drugs is none or client.prescription_drugs == '' %}
+                            No aplica
+                        {% else %}
+                            {{ client.prescription_drugs }}
+                        {% endif %}
+                    </td>                                        
                     <td>
                         <div class="btn-group" role="group">
                             <!-- Botón Editar -->

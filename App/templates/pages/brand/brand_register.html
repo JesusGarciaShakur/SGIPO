@@ -41,7 +41,7 @@
 						<div class="form-group">
 							<label for="AdminName" class="bmd-label-floating">Nombre de la Marca
 							</label>
-							{{ form.name_brand(class="form-control", required="required", pattern="{1,50}",
+							{{ form.name_brand(class="form-control", required="required", pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ]{1,50}$",
 							title="Solo letras y espacios son permitidos") }}
 							{% for error in form.name_brand.errors %}
 							<div class="text-danger">{{ error }}</div>
@@ -68,7 +68,7 @@
 							</select>
 							{% if form.id_supplier.errors %}
 							{% for error in form.id_supplier.errors %}
-							<p>{{ error }}</p>
+							<div class="text-danger">{{ error }}</div>
 							{% endfor %}
 							{% endif %}
 						</div>
@@ -83,7 +83,7 @@
 										{{ form.image_brand() }}
 										{% if form.image_brand.errors %}
 										{% for error in form.image_brand.errors %}
-										<p>{{ error }}</p>
+										<div class="text-danger">{{ error }}</div>
 										{% endfor %}
 										{% endif %}
 										<br>
