@@ -23,6 +23,8 @@ class RegisterClientForm(FlaskForm):
         coerce=int
     )
     prescription_drugs = StringField('Prescripción de medicamentos', validators = [Length(min=0, max=255)])
+    od_vision = StringField('Ojo de visión', validators = [DataRequired(), Length(min=1, max=6)])
+    oi_vision = StringField('Ojo de visión', validators = [DataRequired(), Length(min=1, max=6)])
     submit = SubmitField('Registrar')
 
 class UpdateClientForm(FlaskForm):
@@ -44,4 +46,6 @@ class UpdateClientForm(FlaskForm):
         coerce=int
     )
     prescription_drugs = StringField('Prescripción de medicamentos', validators = [Length(min=0, max=255)])
+    od_vision = StringField('Ojo de visión', validators = [DataRequired(), Length(min=1, max=6)])
+    oi_vision = StringField('Ojo de visión', validators = [DataRequired(), Length(min=1, max=6)])
     submit = SubmitField('Actualizar')

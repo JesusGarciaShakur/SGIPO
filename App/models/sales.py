@@ -167,7 +167,7 @@ def generate_report(start_date, end_date):
 
 
 class Client:
-    def __init__(self, id_client='', name_client='', lastName_client='', age_client='', numberPhone_client='', email_client='', direction_client='', id_disease=''):
+    def __init__(self, id_client='', name_client='', lastName_client='', age_client='', numberPhone_client='', email_client='', direction_client='', id_disease='', time_disease='', is_controlled='', prescription_drugs='', oi_vision='', od_vision=''):
         self.id_client = id_client
         self.name_client = name_client
         self.lastName_client = lastName_client
@@ -176,6 +176,11 @@ class Client:
         self.email_client = email_client
         self.direction_client = direction_client
         self.id_disease = id_disease
+        self.time_disease = time_disease
+        self.is_controlled = is_controlled
+        self.prescription_drugs = prescription_drugs
+        self.oi_vision = oi_vision
+        self.od_vision = od_vision
 
     @staticmethod
     def get_all():
@@ -193,7 +198,12 @@ class Client:
                                 numberPhone_client=row["numero de telefono"],
                                 email_client=row["correo electronico"],
                                 direction_client=row["direccion"],
-                                id_disease=row["nombre padecimiento"])
+                                id_disease=row["nombre padecimiento"],
+                                time_disease=row["tiempo"],
+                                is_controlled=row["controlada"],
+                                prescription_drugs=row["medicamentos"],
+                                od_vision=row["ojo derecho"],
+                                oi_vision=row["ojo izquierdo"])
                 clients.append(client)
         connection.close()
         return clients

@@ -14,7 +14,7 @@ from views.sale_views import sale_views
 from views.report_views import report_views
 from views.return_views import return_views
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'My Secret Key'
+app.config['SECRET_KEY'] = '10.128.0.5'
 #Registrar blueprints(views)
 app.register_blueprint(home_views)
 app.register_blueprint(admin_views)
@@ -30,4 +30,4 @@ app.register_blueprint(sale_views)
 app.register_blueprint(return_views)
 app.register_blueprint(report_views)
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)

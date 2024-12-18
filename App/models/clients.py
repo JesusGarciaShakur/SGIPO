@@ -3,7 +3,7 @@ from .db import get_connection
 mydb = get_connection()
 # id_client, name_client, lastName_client, age_client, numberPhone_client, email_client, direction_client, id_disease, time_disease, is_controlled, prescription_drugs
 class Client:
-    def __init__(self, id_client='', name_client='', lastName_client='', age_client='', numberPhone_client='', email_client='', direction_client='', id_disease='', time_disease='', is_controlled='', prescription_drugs=''):
+    def __init__(self, id_client='', name_client='', lastName_client='', age_client='', numberPhone_client='', email_client='', direction_client='', id_disease='', time_disease='', is_controlled='', prescription_drugs='', oi_vision='', od_vision=''):
         self.id_client = id_client
         self.name_client = name_client
         self.lastName_client = lastName_client
@@ -15,18 +15,20 @@ class Client:
         self.time_disease = time_disease
         self.is_controlled = is_controlled
         self.prescription_drugs = prescription_drugs
+        self.oi_vision = oi_vision
+        self.od_vision = od_vision
 
     def save(self):
         with mydb.cursor() as cursor:
-            sql = "INSERT INTO clients_sgipo (name_client, lastName_client, age_client, numberPhone_client, email_client, direction_client, id_disease, time_disease, is_controlled, prescription_drugs) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            values = (self.name_client, self.lastName_client, self.age_client, self.numberPhone_client, self.email_client, self.direction_client, self.id_disease, self.time_disease, self.is_controlled, self.prescription_drugs)
+            sql = "INSERT INTO clients_sgipo (name_client, lastName_client, age_client, numberPhone_client, email_client, direction_client, id_disease, time_disease, is_controlled, prescription_drugs, od_vision, oi_vision) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            values = (self.name_client, self.lastName_client, self.age_client, self.numberPhone_client, self.email_client, self.direction_client, self.id_disease, self.time_disease, self.is_controlled, self.prescription_drugs, self.od_vision, self.oi_vision)
             cursor.execute(sql, values)
         mydb.commit()
 
     def update(self):
         with mydb.cursor() as cursor:
-            sql = "UPDATE clients_sgipo SET name_client=%s, lastName_client=%s, age_client=%s, numberPhone_client=%s, email_client=%s, direction_client=%s, id_disease=%s, time_disease=%s, is_controlled=%s, prescription_drugs=%s WHERE id_client=%s"
-            values = (self.name_client, self.lastName_client, self.age_client, self.numberPhone_client, self.email_client, self.direction_client, self.id_disease, self.time_disease, self.is_controlled, self.prescription_drugs, self.id_client)
+            sql = "UPDATE clients_sgipo SET name_client=%s, lastName_client=%s, age_client=%s, numberPhone_client=%s, email_client=%s, direction_client=%s, id_disease=%s, time_disease=%s, is_controlled=%s, prescription_drugs=%s, od_vision=%s, oi_vision=%s WHERE id_client=%s"
+            values = (self.name_client, self.lastName_client, self.age_client, self.numberPhone_client, self.email_client, self.direction_client, self.id_disease, self.time_disease, self.is_controlled, self.prescription_drugs, self.od_vision, self.oi_vision, self.id_client)
             cursor.execute(sql, values)
             mydb.commit()
         return self.id_client
@@ -55,7 +57,9 @@ class Client:
                                 id_disease=client["id_disease"],
                                 time_disease=client["time_disease"],
                                 is_controlled=client["is_controlled"],
-                                prescription_drugs=client["prescription_drugs"])
+                                prescription_drugs=client["prescription_drugs"],
+                                od_vision=client["od_vision"],
+                                oi_vision=client["oi_vision"])
                 return client
             return None
     
@@ -78,7 +82,9 @@ class Client:
                                 id_disease=row["nombre padecimiento"],
                                 time_disease=row["tiempo"],
                                 is_controlled=row["controlada"],
-                                prescription_drugs=row["medicamentos"])
+                                prescription_drugs=row["medicamentos"],
+                                od_vision=row["ojo derecho"],
+                                oi_vision=row["ojo izquierdo"])
                 clients.append(client)
         connection.close()
         return clients
@@ -105,7 +111,9 @@ class Client:
                                 id_disease=row["nombre padecimiento"],
                                 time_disease=row["tiempo"],
                                 is_controlled=row["controlada"],
-                                prescription_drugs=row["medicamentos"])
+                                prescription_drugs=row["medicamentos"],
+                                od_vision=row["ojo derecho"],
+                                oi_vision=row["ojo izquierdo"])
                 clients.append(client)
         connection.close()
         return clients, total
@@ -125,7 +133,9 @@ class Client:
                 OR `nombre padecimiento` LIKE %s OR `tiempo` LIKE %s
                 OR `controlada` LIKE %s
                 OR `medicamentos` LIKE %s
-            """, (search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query))
+                OR `ojo izquierdo` LIKE %s
+                OR `ojo derecho` LIKE %s
+            """, (search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query))
             total = cursor.fetchone()['COUNT(*)']
 
             cursor.execute("""
@@ -136,8 +146,10 @@ class Client:
                 OR `nombre padecimiento` LIKE %s OR `tiempo` LIKE %s
                 OR `controlada` LIKE %s
                 OR `medicamentos` LIKE %s
+                OR `ojo izquierdo` LIKE %s
+                OR `ojo derecho` LIKE %s
                 ORDER BY `id de cliente` DESC LIMIT %s OFFSET %s
-            """, (search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, per_page, offset))
+            """, (search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, search_query, per_page, offset))
             result = cursor.fetchall()
 
             for row in result:
@@ -151,7 +163,9 @@ class Client:
                                 id_disease=row["nombre padecimiento"],
                                 time_disease=row["tiempo"],
                                 is_controlled=row["controlada"],
-                                prescription_drugs=row["medicamentos"])
+                                prescription_drugs=row["medicamentos"],
+                                od_vision=row["ojo derecho"],
+                                oi_vision=row["ojo izquierdo"])
                 clients.append(client)
         return clients, total
 

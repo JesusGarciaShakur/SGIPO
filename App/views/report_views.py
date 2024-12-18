@@ -133,7 +133,7 @@ def generate_pdf():
         )
         
         # Configurar pdfkit con la ruta de wkhtmltopdf
-        config = pdfkit.configuration(wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
+        config = pdfkit.configuration(wkhtmltopdf='/usr/bin/wkhtmltopdf')
         
         # Convertir el HTML a PDF
         pdf = pdfkit.from_string(rendered, False, configuration=config)

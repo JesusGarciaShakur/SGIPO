@@ -97,6 +97,24 @@
 							{% endfor %}
 						</div>
 					</div>
+					<div class="col-12 col-md-6">
+						<div class="form-group">
+							<label for="AdminName" class="bmd-label-floating">Aumento OI</label>
+							{{ form.oi_vision(class="form-control", required="required") }}
+							{% for error in form.oi_vision.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
+					<div class="col-12 col-md-6">
+						<div class="form-group">
+							<label for="AdminName" class="bmd-label-floating">Aumento OD</label>
+							{{ form.od_vision(class="form-control", required="required") }}
+							{% for error in form.od_vision.errors %}
+							<div class="text-danger">{{ error }}</div>
+							{% endfor %}
+						</div>
+					</div>
 		</fieldset>
 		<fieldset>
 			<legend><i class="fas fa-stethoscope"></i> &nbsp; Enfermedades Crónicas</legend>

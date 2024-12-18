@@ -51,6 +51,8 @@
                     <th>El padecimiento esta controlado</th>
                     <th>Tiempo con el padecimiento</th>
                     <th>Medicamentos prescritos</th>
+                    <th>Aumento OI</th>
+                    <th>Aumento OD</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -88,7 +90,9 @@
                         {% else %}
                             {{ client.prescription_drugs }}
                         {% endif %}
-                    </td>                                        
+                    </td>
+                    <td>{{ client.oi_vision }}</td>                         
+                    <td>{{ client.od_vision }}</td>                         
                     <td>
                         <div class="btn-group" role="group">
                             <!-- Botón Editar -->

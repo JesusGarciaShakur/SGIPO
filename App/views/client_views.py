@@ -49,6 +49,8 @@ def client_register():
             time_disease = form.time_disease.data
             is_controlled = form.is_controlled.data
             prescription_drugs = form.prescription_drugs.data
+            od_vision = form.od_vision.data
+            oi_vision = form.oi_vision.data
             client = Client(
                 name_client=name_client,
                 lastName_client=lastName_client,
@@ -59,7 +61,9 @@ def client_register():
                 id_disease=id_disease,
                 time_disease=time_disease,
                 is_controlled=is_controlled,
-                prescription_drugs=prescription_drugs
+                prescription_drugs=prescription_drugs,
+                od_vision=od_vision,
+                oi_vision=oi_vision
             )
             client.save()
             return redirect(url_for('client.client_list'))
@@ -86,6 +90,8 @@ def client_update(id_client):
             client.time_disease = form.time_disease.data
             client.is_controlled = form.is_controlled.data
             client.prescription_drugs = form.prescription_drugs.data
+            client.od_vision = form.od_vision.data
+            client.oi_vision = form.oi_vision.data
             client.update()
             return redirect(url_for('client.client_list'))
         form.name_client.data = client.name_client
@@ -98,6 +104,8 @@ def client_update(id_client):
         form.time_disease.data = client.time_disease
         form.is_controlled.data = client.is_controlled
         form.prescription_drugs.data = client.prescription_drugs
+        form.od_vision.data = client.od_vision
+        form.oi_vision.data = client.oi_vision
         return render_template('pages/client/client_update.html', form=form, client=client)
     else:
         abort(403)
@@ -129,7 +137,9 @@ def get_clients():
             'id_disease': client.id_disease,
             'time_disease': client.time_disease,
             'is_controlled': client.is_controlled,
-            'prescription_drugs': client.prescription_drugs
+            'prescription_drugs': client.prescription_drugs,
+            'od_vision': client.od_vision,
+            'oi_vision': client.oi_vision
         }
         for client in clients
     ]
